@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/imageView9"
+        android:onClick="click"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -33,6 +34,7 @@
 
     <ImageView
         android:id="@+id/imageView6"
+        android:onClick="click"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -44,7 +46,8 @@
         app:srcCompat="@drawable/icon_category" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/searcherImageView"
+        android:onClick="click"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -58,6 +61,7 @@
 
     <ImageView
         android:id="@+id/photoImageView"
+        android:onClick="click"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginBottom="8dp"
@@ -69,6 +73,7 @@
 
     <ImageView
         android:id="@+id/imageView3"
+        android:onClick="click"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -81,6 +86,7 @@
 
     <ImageView
         android:id="@+id/imageView8"
+        android:onClick="click"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -103,5 +109,18 @@
         app:layout_constraintEnd_toStartOf="@+id/photoImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/budgetImageView" />
+
+    <TextView
+        android:id="@+id/searcherTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/searcherTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/photoImageView"
+        app:layout_constraintTop_toBottomOf="@+id/searcherImageView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,4 +10,7 @@
     <string name="sum">Suma</string>
     <string name="currency">zł</string>
 
+    //searcher
+    <string name="searcherTextView">Szukaj usługi</string>
+
 </resources>
