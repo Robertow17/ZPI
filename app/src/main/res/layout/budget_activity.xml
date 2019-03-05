@@ -70,7 +70,7 @@
                 </com.github.mikephil.charting.charts.PieChart>
 
                 <TextView
-                    android:id="@+id/ExpensesAvarageTextView"
+                    android:id="@+id/ExpensesTextView"
                     android:layout_width="112dp"
                     android:layout_height="26dp"
                     android:layout_marginStart="8dp"

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.zpi.R;
+import com.zpi.budget.activities.EditExpenseActivity;
 import com.zpi.budget.model.Expense;
 
 import java.text.DecimalFormat;
@@ -28,7 +29,7 @@ import java.util.Locale;
 public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapterWithSwipe.SimpleViewHolder> {
 
 
-
+    private static final int EDIT_EXPENSE_ACTIVITY_REQUEST_CODE = 1;
     private Context mContext;
     private List<Expense> mExpenseList;
     String [] categories;
@@ -80,14 +81,7 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
         price.setText(String.valueOf(df.format(item.getPrice()))+" "+currency);
 
         price.setTextColor(mContext.getColor(R.color.red));
-//        if (item.getPrice()<0)
-//        {
-//            price.setTextColor(Color.parseColor("#8e0000"));
-//        }
-//        else
-//        {
-//            price.setTextColor(Color.parseColor("#1b5e20"));
-//        }
+
 
         //SET EXPENSE
 
@@ -184,34 +178,16 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
         viewHolder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-         //       boolean isIncome = isIncome(item.getCategory());
+                Intent editIntent = new Intent(mContext, EditExpenseActivity.class);
 
-//                if (isIncome)
-//                {
-//                    Intent editIntent = new Intent(mContext, EditIncomeActivity.class);
-//
-//                    Expense expense = mExpenseList.get(position);
-//
-//                    int pos = position;
-//
-//                    editIntent.putExtra("expense",expense);
-//                    editIntent.putExtra("categories",categories);
-//                    editIntent.putExtra("position",pos);
-//                    ((Activity) mContext).startActivityForResult(editIntent,EDIT_EXPENSE_ACTIVITY_REQUEST_CODE);
-//                }
-//                else
-//                {
-//                    Intent editIntent = new Intent(mContext, EditExpenseActivity.class);
-//
-//                    Expense expense = mExpenseList.get(position);
-//
-//                    int pos = position;
-//
-//                    editIntent.putExtra("expense",expense);
-//                    editIntent.putExtra("categories",categories);
-//                    editIntent.putExtra("position",pos);
-//                    ((Activity) mContext).startActivityForResult(editIntent,EDIT_EXPENSE_ACTIVITY_REQUEST_CODE);
-//                }
+                    Expense expense = mExpenseList.get(position);
+
+                    int pos = position;
+
+                    editIntent.putExtra("expense",expense);
+                    editIntent.putExtra("categories",categories);
+                    editIntent.putExtra("position",pos);
+                    ((Activity) mContext).startActivityForResult(editIntent,EDIT_EXPENSE_ACTIVITY_REQUEST_CODE);
 
                 Log.d("aktywnosc", "Edit");
                 mItemManger.closeItem(position);
