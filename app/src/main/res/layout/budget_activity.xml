@@ -14,16 +14,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        >
+        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="270dp"
             android:layout_margin="5dp"
             android:focusableInTouchMode="true"
-            card_view:cardCornerRadius="4dp">
+            app:cardCornerRadius="4dp">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -38,8 +36,8 @@
 
                     android:text="@string/expenses_title"
                     android:textSize="30sp"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/ExpensesCardTextView"
@@ -52,8 +50,8 @@
                     android:text="@string/sum"
                     android:textAlignment="textStart"
                     android:textSize="18sp"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
 
                 <com.github.mikephil.charting.charts.PieChart
@@ -62,10 +60,10 @@
                     android:layout_height="266dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintVertical_bias="1.0">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
 
                 </com.github.mikephil.charting.charts.PieChart>
 
@@ -80,8 +78,8 @@
                     android:textAlignment="textStart"
                     android:textColor="#8e0000"
                     android:textSize="18sp"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@+id/ExpensesCardTextView" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ExpensesCardTextView" />
 
 
             </android.support.constraint.ConstraintLayout>
@@ -96,9 +94,8 @@
 
 
 
-
-
     </LinearLayout>
+
 
 
 

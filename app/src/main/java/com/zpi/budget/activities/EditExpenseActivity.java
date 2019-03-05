@@ -121,7 +121,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 
         if (expense.getPrice()<0)
         {
-            priceEditText.setText(df.format(expense.getPrice()*-1));
+            priceEditText.setText(df.format(expense.getPrice()*1));
         }
         else
         {

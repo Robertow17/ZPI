@@ -2,11 +2,13 @@ package com.zpi.budget.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -16,6 +18,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.zpi.MainActivity;
 import com.zpi.R;
 import com.zpi.budget.model.Expense;
 import com.zpi.budget.utils.ExpenseAdapterWithSwipe;
@@ -33,6 +36,8 @@ public class BudgetActivity extends AppCompatActivity {
     List<Expense> expenses;
     ExpenseAdapterWithSwipe expenseAdapterWithSwipe;
     private static final int EDIT_EXPENSE_ACTIVITY_REQUEST_CODE = 1;
+    private static final int ADD_EXPENSE_ACTIVITY_REQUEST_CODE = 2;
+    private static final int DELETE_EXPENSE_ACTIVITY_REQUEST_CODE = 21;
 
     //TO DO: REFACTOR
     String [] categories = {"Moda","Dekoracje","Fotografia","Transport"};
@@ -40,7 +45,7 @@ public class BudgetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.budget_activity);
+        setContentView(R.layout.budget_main_activity);
         recyclerView = findViewById(R.id.recyclerViewOfExpense);
         expenses=setData();
         expenseAdapterWithSwipe = new ExpenseAdapterWithSwipe(this, expenses, categories,null, getResources().getString(R.string.currency));
@@ -48,6 +53,7 @@ public class BudgetActivity extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setCardInfo();
+        addExpense();
     }
 
 
@@ -87,11 +93,22 @@ public class BudgetActivity extends AppCompatActivity {
                 expenses.get(position).setDate((Date) data.getSerializableExtra("newDate"));
                 expenses.get(position).setName((String) data.getSerializableExtra("newName"));
                 expenses.get(position).setCategory((String) data.getSerializableExtra("newCategory"));
-                expenses.get(position).setPrice((Double) data.getSerializableExtra("newPrice") * -1);
+                expenses.get(position).setPrice((Double) data.getSerializableExtra("newPrice") * 1);
                 Log.d("aktywnosc", expenses.get(position).getName());
                 expenseAdapterWithSwipe.notifyDataSetChanged();
                 setCardInfo();
             }
+        }
+
+        if (requestCode == ADD_EXPENSE_ACTIVITY_REQUEST_CODE) {
+            Expense expense = (Expense) data.getSerializableExtra("expense");
+            expenses.add(0, expense);
+            expenseAdapterWithSwipe.notifyItemInserted(0);
+            Log.d("aktywnosc", "dodano expense");
+            setCardInfo();
+        }
+        if (requestCode == DELETE_EXPENSE_ACTIVITY_REQUEST_CODE) {
+            setCardInfo();
         }
     }
 
@@ -191,5 +208,20 @@ public class BudgetActivity extends AppCompatActivity {
             }
             return mFormat.format(value);
         }
+    }
+
+    public void addExpense() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                Intent intent;
+                intent = new Intent(BudgetActivity.this, AddExpenseActivity.class);
+                intent.putExtra("categories", categories);
+                startActivityForResult(intent, ADD_EXPENSE_ACTIVITY_REQUEST_CODE);
+            }
+        });
     }
 }

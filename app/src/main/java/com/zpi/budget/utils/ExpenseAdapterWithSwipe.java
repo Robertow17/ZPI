@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.zpi.R;
+import com.zpi.budget.activities.DeleteExpenseActivity;
 import com.zpi.budget.activities.EditExpenseActivity;
 import com.zpi.budget.model.Expense;
 
@@ -30,6 +31,7 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
 
 
     private static final int EDIT_EXPENSE_ACTIVITY_REQUEST_CODE = 1;
+    private static final int DELETE_EXPENSE_ACTIVITY_REQUEST_CODE = 21;
     private Context mContext;
     private List<Expense> mExpenseList;
     String [] categories;
@@ -199,7 +201,7 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
         viewHolder.Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent deleteIntent = new Intent(mContext, DeleteActivity.class);
+                Intent deleteIntent = new Intent(mContext, DeleteExpenseActivity.class);
                 mItemManger.removeShownLayouts(viewHolder.swipeLayout);
                 mExpenseList.remove(position);
                 notifyItemRemoved(position);
@@ -208,7 +210,7 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
                 Toast.makeText(v.getContext(), "Deleted " + item.getName(), Toast.LENGTH_SHORT).show();
 
              //   deleteIntent.putExtra("expense", item);
-                //((Activity) mContext).startActivityForResult(deleteIntent,DELETE_EXPENSE_ACTIVITY_REQUEST_CODE);
+                ((Activity) mContext).startActivityForResult(deleteIntent,DELETE_EXPENSE_ACTIVITY_REQUEST_CODE);
 
             }
         });
