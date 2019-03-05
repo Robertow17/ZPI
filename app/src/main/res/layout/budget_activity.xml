@@ -1,9 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".budget.BudgetActivity">
+    tools:context=".budget.activities.BudgetActivity"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_margin="5dp"
+            android:focusableInTouchMode="true"
+            card_view:cardCornerRadius="4dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="164dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="@string/expenses_title"
+                    android:textSize="30sp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/ExpensesCardTextView"
+                    android:layout_width="87dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="8dp"
+
+                    android:layout_marginTop="32dp"
+
+                    android:text="@string/sum"
+                    android:textAlignment="textStart"
+                    android:textSize="18sp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="238dp"
+                    android:layout_height="266dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintVertical_bias="1.0">
+
+                </com.github.mikephil.charting.charts.PieChart>
+
+                <TextView
+                    android:id="@+id/ExpensesAvarageTextView"
+                    android:layout_width="112dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+
+                    android:text="-1235.23"
+                    android:textAlignment="textStart"
+                    android:textColor="#8e0000"
+                    android:textSize="18sp"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toBottomOf="@+id/ExpensesCardTextView" />
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewOfExpense"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">zpi</string>
+
+
+    // menu
+    <string name="budget">Spis Wydatków</string>
+
+    //budget
+    <string name="expenses_title">Wydatki</string>
+    <string name="sum">Suma</string>
+    <string name="currency">zł</string>
+
 </resources>
