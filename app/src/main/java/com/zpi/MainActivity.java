@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.zpi.budget.activities.BudgetActivity;
 
-import com.zpi.searcher.SearcherActivity;
+import com.zpi.searcher.activities.SearcherActivity;
 
 public class MainActivity extends AppCompatActivity
 {

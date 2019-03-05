@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".searcher.activities.SearcherActivity"></activity>
         <activity android:name=".budget.activities.DeleteExpenseActivity"></activity>
         <activity android:name=".budget.activities.AddExpenseActivity" />
-        <activity android:name=".budget.activities.EditExpenseActivity" />
-        <activity android:name=".searcher.SearcherActivity" />
         <activity android:name=".budget.activities.BudgetActivity" />
+        <activity android:name=".budget.activities.EditExpenseActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

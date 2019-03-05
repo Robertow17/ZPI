@@ -12,5 +12,19 @@
 
     //searcher
     <string name="searcherTextView">Szukaj usługi</string>
+    <string name="localizationText">Lokalizacja:</string>
+    <string name="hint_loacalization">Podaj lokalizację</string>
+    <string name="hint_localization">Podaj lokalizację</string>
+    <string name="subcategoryText">Podkategoria:</string>
+    <string name="hint_subcategory">Podaj podkategorię</string>
+
+    <string name="wedding_hall">SALE</string>
+    <string name="music">MUZYKA</string>
+    <string name="photography">FOTOGRAFIA</string>
+    <string name="decorations">DEKORACJE</string>
+    <string name="transport">TRANSPORT</string>
+    <string name="fashion">MODA</string>
+    <string name="others">INNE</string>
+
 
 </resources>

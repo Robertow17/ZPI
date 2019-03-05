@@ -1,30 +1,32 @@
-package com.zpi.searcher;
+package com.zpi.searcher.fragments;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zpi.R;
 
+public class FashionFragment extends Fragment
+{
 
-public class WeddingHallFragment extends Fragment{
-
-    public WeddingHallFragment() {
+    public FashionFragment()
+    {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.searcher_wedding_hall_fragment, container, false);
+        return inflater.inflate(R.layout.searcher_fragment_with_subcategory, container, false);
     }
-
 }
