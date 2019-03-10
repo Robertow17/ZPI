@@ -1,10 +1,13 @@
 package com.zpi.searcher.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.zpi.R;
@@ -70,5 +73,13 @@ public class SearcherActivity extends AppCompatActivity
                 tab.setCustomView(customTab);
         }
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
     }
 }

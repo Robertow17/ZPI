@@ -25,6 +25,9 @@
     <string name="transport">TRANSPORT</string>
     <string name="fashion">MODA</string>
     <string name="others">INNE</string>
+    <string name="name">Nazwa</string>
+    <string name="localization">Lokalizacja</string>
+    <string name="description">Opis</string>
 
 
 </resources>

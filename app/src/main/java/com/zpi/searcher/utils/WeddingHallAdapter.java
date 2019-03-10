@@ -3,6 +3,9 @@ package com.zpi.searcher.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Movie;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zpi.R;
+import com.zpi.searcher.activities.WeddingHallDetails;
 import com.zpi.searcher.model.WeddingHall;
 
 import java.util.ArrayList;
@@ -21,6 +26,8 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
 {
     private ArrayList weddingHalls;
     private Context context;
+    private PagerAdapter pagerAdapter;
+    public static final String EXTRA_WEDDING_HALL = "com.zpi.searcher.model.WeddingHall";
 
 
     public WeddingHallAdapter(Context context, ArrayList<WeddingHall> weddingHalls)
@@ -42,11 +49,16 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
     @Override
     public void onBindViewHolder(WeddingHallAdapter.ViewHolder holder, int position)
     {
-        final WeddingHall movie = (WeddingHall) weddingHalls.get(position);
-        holder.name.setText(movie.getName());
+        final WeddingHall hall = (WeddingHall) weddingHalls.get(position);
+        holder.name.setText(hall.getName());
+        holder.localization.setText(hall.getLocalization());
+
+        pagerAdapter = new GalleryViewPagerAdapter(context, hall.getPhotos());
+
+        holder.viewPager.setAdapter(pagerAdapter);
+
 
     }
-
 
 
     @Override
@@ -64,23 +76,40 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
 
     public void moveItem(int oldPosition, int newPosition)
     {
-        WeddingHall movie = (WeddingHall) weddingHalls.get(oldPosition);
+        WeddingHall weddingHall = (WeddingHall) weddingHalls.get(oldPosition);
         weddingHalls.remove(oldPosition);
-        weddingHalls.add(newPosition, movie);
+        weddingHalls.add(newPosition, weddingHall);
         notifyItemMoved(oldPosition, newPosition);
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener
     {
-        public TextView name;
-        private ArrayList movies;
+        public TextView name, localization;
+        public ViewPager viewPager;
+        private ArrayList weddingHalls;
 
-        public ViewHolder(View view, ArrayList<WeddingHall> weddingHalls)
+        public ViewHolder(View view, final ArrayList<WeddingHall> weddingHalls)
         {
             super(view);
-            this.movies = movies;
+            this.weddingHalls = weddingHalls;
             name = view.findViewById(R.id.name);
+            localization = view.findViewById(R.id.localization);
+            viewPager = view.findViewById(R.id.viewpager);
+
+            viewPager.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    Context context = view.getContext();
+                    final WeddingHall weddingHall = (WeddingHall) weddingHalls.get(getAdapterPosition());
+                    Intent intent = new Intent(context, WeddingHallDetails.class);
+                    intent.putExtra(EXTRA_WEDDING_HALL, weddingHall);
+                    context.startActivity(intent);
+                    Toast.makeText(context, "This is my Toast message!",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
 
             view.setOnClickListener(this);
         }
@@ -88,11 +117,18 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
         @Override
         public void onClick(View view)
         {
-           /* Context context = view.getContext();
-            final Movie movie = (Movie) movies.get(getAdapterPosition());
-            Intent intent = new Intent(context, Details.class);
-            intent.putExtra(EXTRA_MOVIE, movie);
-            context.startActivity(intent);*/
+
         }
+/*        @Override
+        public void onClick(View view)
+        {
+            Context context = view.getContext();
+            final WeddingHall weddingHall = (WeddingHall) weddingHalls.get(getAdapterPosition());
+            Intent intent = new Intent(context, WeddingHallDetails.class);
+            intent.putExtra(EXTRA_WEDDING_HALL, weddingHall);
+            context.startActivity(intent);
+            Toast.makeText(context, "This is my Toast message!",
+                    Toast.LENGTH_LONG).show();
+        }*/
     }
 }
