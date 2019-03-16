@@ -2,18 +2,22 @@ package com.zpi.searcher.utils;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Movie;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpi.R;
+import com.zpi.searcher.activities.WeddingHallDetails;
 import com.zpi.searcher.model.WeddingHall;
 
 import java.util.ArrayList;
@@ -21,52 +25,23 @@ import java.util.ArrayList;
 public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.ViewHolder>
 {
     private ArrayList weddingHalls;
-    private static Context context;
+    private Context context;
     private PagerAdapter pagerAdapter;
     public static final String EXTRA_WEDDING_HALL = "com.zpi.searcher.model.WeddingHall";
-    private ArrayList<WeddingHall> weddingHallsCopy;
 
 
     public WeddingHallAdapter(Context context, ArrayList<WeddingHall> weddingHalls)
     {
         this.context = context;
         this.weddingHalls = weddingHalls;
-        this.weddingHallsCopy = new ArrayList<>(weddingHalls);
-
-    }
-
-    public WeddingHallAdapter(Context context, ArrayList<WeddingHall> weddingHalls,
-                              String localization)
-    {
-        this.context = context;
-        this.weddingHalls = weddingHalls;
-
-        if(localization.isEmpty())
-        {
-            this.weddingHalls = weddingHalls;
-        }
-        else
-        {
-            this.weddingHalls = new ArrayList();
-
-            for(WeddingHall hall : weddingHalls)
-            {
-                if(hall.getLocalization().equals(localization))
-                {
-                    (this.weddingHalls).add(hall);
-                }
-            }
-
-        }
-
 
     }
 
     @Override
     public WeddingHallAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View itemView =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.searcher_recyclerview_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.searcher_wedding_hall_item, parent, false);
 
         return new ViewHolder(itemView, weddingHalls);
     }
@@ -78,21 +53,11 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
         holder.name.setText(hall.getName());
         holder.localization.setText(hall.getLocalization());
 
-        pagerAdapter = new ItemViewPagerAdapter(context, hall);
+        pagerAdapter = new GalleryViewPagerAdapter(context, hall.getPhotos());
 
         holder.viewPager.setAdapter(pagerAdapter);
 
-        if(hall.isFavourite())
-        {
-            holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
-        }
 
-        else
-        {
-            holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
-        }
-
-        Log.d("FAV", String.valueOf(hall.isFavourite()));
     }
 
 
@@ -102,57 +67,27 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
         return weddingHalls.size();
     }
 
-
-    public void filterLocalization(String text)
+    public void removeItem(int position)
     {
-        weddingHalls.clear();
-        if(text.isEmpty())
-        {
-            weddingHalls.addAll(weddingHallsCopy);
-        }
-        else
-        {
-            text = text.toLowerCase();
-            for(WeddingHall item : weddingHallsCopy)
-            {
-                if(item.getLocalization().toLowerCase().contains(text) || item.getLocalization().toLowerCase().contains(text))
-                {
-                    weddingHalls.add(item);
-                }
-            }
-        }
-        notifyDataSetChanged();
+        weddingHalls.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, weddingHalls.size());
+    }
+
+    public void moveItem(int oldPosition, int newPosition)
+    {
+        WeddingHall weddingHall = (WeddingHall) weddingHalls.get(oldPosition);
+        weddingHalls.remove(oldPosition);
+        weddingHalls.add(newPosition, weddingHall);
+        notifyItemMoved(oldPosition, newPosition);
     }
 
 
-   /* public void filterSubcategory(String text)
-    {
-        weddingHalls.clear();
-        if(text.isEmpty())
-        {
-            weddingHalls.addAll(weddingHallsCopy);
-        }
-        else
-        {
-            text = text.toLowerCase();
-            for(WeddingHall item : weddingHallsCopy)
-            {
-                if(item.getSubcategory().toLowerCase().contains(text) || item.getSubcategory().toLowerCase().contains(text))
-                {
-                    weddingHalls.add(item);
-                }
-            }
-        }
-        notifyDataSetChanged();
-    }*/
-
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public static class ViewHolder extends RecyclerView.ViewHolder implements AdapterView.OnClickListener
     {
         public TextView name, localization;
         public ViewPager viewPager;
-        private ArrayList<WeddingHall> weddingHalls;
-        private ImageView favouriteIcon;
-
+        private ArrayList weddingHalls;
 
         public ViewHolder(View view, final ArrayList<WeddingHall> weddingHalls)
         {
@@ -161,30 +96,39 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
             name = view.findViewById(R.id.name);
             localization = view.findViewById(R.id.localization);
             viewPager = view.findViewById(R.id.viewpager);
-            favouriteIcon = view.findViewById(R.id.star);
 
-            favouriteIcon.setOnClickListener(new View.OnClickListener()
-            {
+            viewPager.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view)
                 {
-                    WeddingHall hall =  weddingHalls.get(getAdapterPosition());
-                    hall.setFavourite(!hall.isFavourite());
-
-                    if(hall.isFavourite())
-                    {
-                        favouriteIcon.setImageResource(android.R.drawable.star_big_on);
-
-                    }
-
-                    else
-                    {
-                        favouriteIcon.setImageResource(android.R.drawable.star_off);
-                    }
+                    Context context = view.getContext();
+                    final WeddingHall weddingHall = (WeddingHall) weddingHalls.get(getAdapterPosition());
+                    Intent intent = new Intent(context, WeddingHallDetails.class);
+                    intent.putExtra(EXTRA_WEDDING_HALL, weddingHall);
+                    context.startActivity(intent);
+                    Toast.makeText(context, "This is my Toast message!",
+                            Toast.LENGTH_LONG).show();
                 }
             });
 
+            view.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view)
+        {
+
+        }
+/*        @Override
+        public void onClick(View view)
+        {
+            Context context = view.getContext();
+            final WeddingHall weddingHall = (WeddingHall) weddingHalls.get(getAdapterPosition());
+            Intent intent = new Intent(context, WeddingHallDetails.class);
+            intent.putExtra(EXTRA_WEDDING_HALL, weddingHall);
+            context.startActivity(intent);
+            Toast.makeText(context, "This is my Toast message!",
+                    Toast.LENGTH_LONG).show();
+        }*/
     }
 }

@@ -18,8 +18,7 @@ import com.zpi.searcher.fragments.OthersFragment;
 import com.zpi.searcher.fragments.PhotographyFragment;
 import com.zpi.searcher.fragments.TransportFragment;
 import com.zpi.searcher.fragments.WeddingHallFragment;
-import com.zpi.searcher.utils.FragmentViewPagerAdapter;
-import com.zpi.searcher.utils.PageTransformer;
+import com.zpi.searcher.utils.ViewPagerAdapter;
 
 public class SearcherActivity extends AppCompatActivity
 {
@@ -49,7 +48,7 @@ public class SearcherActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager)
     {
-        FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new WeddingHallFragment(), tabArray[0]);
         adapter.addFragment(new MusicFragment(), tabArray[1]);
         adapter.addFragment(new PhotographyFragment(), tabArray[2]);
@@ -58,7 +57,6 @@ public class SearcherActivity extends AppCompatActivity
         adapter.addFragment(new FashionFragment(), tabArray[5]);
         adapter.addFragment(new OthersFragment(), tabArray[6]);
         viewPager.setAdapter(adapter);
-        viewPager.setPageTransformer(true, new PageTransformer());
     }
 
     private void setupTabIcons()

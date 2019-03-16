@@ -14,8 +14,6 @@ public class WeddingHall implements Parcelable
     boolean canSleep, isFavourite;
     private String description;
     private ArrayList<Integer> photos;
-    private String phoneNumber;
-    private String email;
 
     public WeddingHall(String name)
     {
@@ -23,27 +21,22 @@ public class WeddingHall implements Parcelable
     }
 
     public WeddingHall(String name, String localization, int maxNumberOfGuests, boolean canSleep,
-                       boolean isFavourite, String description, ArrayList<Integer> photos,
-                       String phoneNumber, String email)
+                       String description, ArrayList<Integer> photos)
     {
         this.name = name;
         this.localization = localization;
         this.maxNumberOfGuests = maxNumberOfGuests;
         this.canSleep = canSleep;
-        this.isFavourite = isFavourite;
         this.description = description;
         this.photos = photos;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
     }
+
 
     protected WeddingHall(Parcel in)
     {
         name = in.readString();
         localization = in.readString();
         description = in.readString();
-        phoneNumber = in.readString();
-        email = in.readString();
         maxNumberOfGuests = in.readInt();
         photos = (ArrayList<Integer>) in.readSerializable();
         canSleep = in.readByte() != 0;
@@ -56,8 +49,6 @@ public class WeddingHall implements Parcelable
         dest.writeString(name);
         dest.writeString(localization);
         dest.writeString(description);
-        dest.writeString(phoneNumber);
-        dest.writeString(email);
         dest.writeInt(maxNumberOfGuests);
         dest.writeSerializable(photos);
         dest.writeByte((byte) (canSleep ? 1 : 0));
@@ -85,20 +76,6 @@ public class WeddingHall implements Parcelable
         }
     };
 
-    public boolean isCanSleep()
-    {
-        return canSleep;
-    }
-
-    public String getPhoneNumber()
-    {
-        return phoneNumber;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
 
     public boolean isFavourite()
     {
@@ -140,7 +117,7 @@ public class WeddingHall implements Parcelable
         this.maxNumberOfGuests = maxNumberOfGuests;
     }
 
-    public boolean canSleep()
+    public boolean isCanSleep()
     {
         return canSleep;
     }
