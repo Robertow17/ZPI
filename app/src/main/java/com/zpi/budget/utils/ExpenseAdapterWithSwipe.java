@@ -107,26 +107,15 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
 
         // SET IMAGE
 
-        categoryImage.setImageResource(R.drawable.icon_category);
-//        if (item.getCategory().equals("Income"))
-//        {
-//            categoryImage.setImageResource(R.drawable.income);
-//        }
-//        else
-//        {
-//            int index = 0;
-//            for (int i=0;i<categories.length;i++)
-//            {
-//                if (item.getCategory().equals(categories[i]))
-//                {
-//                    index = i;
-//                }
-//            }
-//
-//            categoryImage.setImageResource(categioriesImageId[index]);
-//        }
-
-
+        int index = 0;
+            for (int i=0;i<categories.length;i++)
+            {
+                if (item.getCategory().equals(categories[i]))
+                {
+                    index = i;
+                }
+            }
+        categoryImage.setImageResource(categioriesImageId[index]);
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
 

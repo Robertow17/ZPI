@@ -38,17 +38,16 @@ public class BudgetActivity extends AppCompatActivity {
     private static final int EDIT_EXPENSE_ACTIVITY_REQUEST_CODE = 1;
     private static final int ADD_EXPENSE_ACTIVITY_REQUEST_CODE = 2;
     private static final int DELETE_EXPENSE_ACTIVITY_REQUEST_CODE = 21;
-
-    //TO DO: REFACTOR
-    String [] categories = {"Moda","Dekoracje","Fotografia","Transport"};
-    String[] categoriesColors = {"#a19347","#e04242","#854347","#404040"};
+    String[] categories = {"Sale", "Muzyka", "Fotografia", "Dekoracje", "Transport", "Moda", "Inne"};
+    int[] categioriesImageId = {R.drawable.icon_weddinghalls, R.drawable.icon_music, R.drawable.icon_camera, R.drawable.icon_decoration, R.drawable.icon_transport, R.drawable.icon_fashion, R.drawable.icon_another};
+    String[] categoriesColors = {"#d9ba97","#a186be","#7da7d9","#b7b7b7","#f5989d","#f0dd83","#c4df9b"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_main_activity);
         recyclerView = findViewById(R.id.recyclerViewOfExpense);
         expenses=setData();
-        expenseAdapterWithSwipe = new ExpenseAdapterWithSwipe(this, expenses, categories,null, getResources().getString(R.string.currency));
+        expenseAdapterWithSwipe = new ExpenseAdapterWithSwipe(this, expenses, categories,categioriesImageId, getResources().getString(R.string.currency));
         recyclerView.setAdapter(expenseAdapterWithSwipe);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -58,26 +57,17 @@ public class BudgetActivity extends AppCompatActivity {
 
 
     private List<Expense> setData(){
-        Date date = new Date(2019, 2, 10);
-        Expense expense1_1 = new Expense("suknia ślubna", "Moda", 21.32, date);
-        Expense expense1_2 = new Expense("kwiaty", "Dekoracje", 10.32, date);
-        Expense expense1_3 = new Expense("fryzjer", "Moda", 12.32, date);
-        Expense expense1_4 = new Expense("fotograf", "Fotografia", 101.32, date);
-        Expense expense1_5 = new Expense("kosmetyczka", "Moda", 13.32, date);
-        Expense expense1_6 = new Expense("samochód", "Transport", 10.32, date);
-        Expense expense1_7 = new Expense("buty", "Moda", 10.32, date);
-        Expense expense1_8 = new Expense("welon", "Moda", 10.32, date);
-        Expense expense1_9 = new Expense("buty", "Moda", 1.23, date);
+        Date date = new Date(2019, 3, 10);
         List<Expense> expenses = new ArrayList<>();
-        expenses.add(expense1_1);
-        expenses.add(expense1_2);
-        expenses.add(expense1_3);
-        expenses.add(expense1_4);
-        expenses.add(expense1_5);
-        expenses.add(expense1_6);
-        expenses.add(expense1_7);
-        expenses.add(expense1_8);
-        expenses.add(expense1_9);
+        expenses.add(new Expense("sala weselna", "Sale", 2000.00, date));
+        expenses.add(new Expense("zespół weselny", "Muzyka", 1500.00, date));
+        expenses.add(new Expense("suknia ślubna", "Moda", 800.00, date));
+        expenses.add(new Expense("fotograf", "Fotografia", 850.50, date));
+        expenses.add(new Expense("dekoracje weselne", "Dekoracje", 300.00, date));
+        expenses.add(new Expense("samochód", "Transport", 300.00, date));
+        expenses.add(new Expense("buty", "Moda", 10.32, date));
+        expenses.add(new Expense("welon", "Moda", 10.32, date));
+        expenses.add(new Expense("zaproszenia ślubne", "Inne", 850.23, date));
         return expenses;
     }
 
@@ -215,8 +205,6 @@ public class BudgetActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Intent intent;
                 intent = new Intent(BudgetActivity.this, AddExpenseActivity.class);
                 intent.putExtra("categories", categories);

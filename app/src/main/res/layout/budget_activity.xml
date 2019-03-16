@@ -29,21 +29,23 @@
 
                 <TextView
                     android:id="@+id/nameTextView"
-                    android:layout_width="164dp"
+                    android:layout_width="127dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
 
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/expenses_title"
                     android:textSize="30sp"
+                    app:layout_constraintEnd_toStartOf="@+id/pieChart"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/pieChart" />
 
                 <TextView
                     android:id="@+id/ExpensesCardTextView"
                     android:layout_width="87dp"
                     android:layout_height="26dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
 
                     android:layout_marginTop="32dp"
 
@@ -71,7 +73,7 @@
                     android:id="@+id/ExpensesTextView"
                     android:layout_width="112dp"
                     android:layout_height="26dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
 
                     android:text="-1235.23"
