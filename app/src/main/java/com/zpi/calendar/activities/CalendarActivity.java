@@ -10,14 +10,7 @@ import android.widget.TextView;
 import com.zpi.R;
 import com.zpi.calendar.fragments.CalendarFragment;
 import com.zpi.calendar.fragments.EventsFragment;
-import com.zpi.searcher.fragments.DecorationsFragment;
-import com.zpi.searcher.fragments.FashionFragment;
-import com.zpi.searcher.fragments.MusicFragment;
-import com.zpi.searcher.fragments.OthersFragment;
-import com.zpi.searcher.fragments.PhotographyFragment;
-import com.zpi.searcher.fragments.TransportFragment;
-import com.zpi.searcher.fragments.WeddingHallFragment;
-import com.zpi.searcher.utils.ViewPagerAdapter;
+import com.zpi.searcher.utils.FragmentViewPagerAdapter;
 
 public class CalendarActivity extends AppCompatActivity
     {
@@ -44,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity
 
         private void setupViewPager(ViewPager viewPager)
         {
-            ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
             adapter.addFragment(new CalendarFragment(), tabArray[0]);
             adapter.addFragment(new EventsFragment(), tabArray[1]);
             viewPager.setAdapter(adapter);
