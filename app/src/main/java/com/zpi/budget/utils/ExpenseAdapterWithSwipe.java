@@ -3,7 +3,6 @@ package com.zpi.budget.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -238,7 +237,7 @@ public class ExpenseAdapterWithSwipe extends RecyclerSwipeAdapter<ExpenseAdapter
             category = itemView.findViewById(R.id.categoryTextView);
             categoryImage = itemView.findViewById(R.id.categoryImageView);
             price = itemView.findViewById(R.id.priceTextView);
-            date = itemView.findViewById(R.id.dateTextView);
+            date = itemView.findViewById(R.id.nameTextView);
 
         }
     }

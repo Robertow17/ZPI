@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".searcher.activities.WeddingHallDetails"></activity>
+        <activity android:name=".guests.activities.GuestsListActivity"></activity>
+        <activity android:name=".searcher.activities.WeddingHallDetails" />
         <activity android:name=".searcher.activities.SearcherActivity" />
         <activity android:name=".budget.activities.DeleteExpenseActivity" />
         <activity android:name=".budget.activities.AddExpenseActivity" />

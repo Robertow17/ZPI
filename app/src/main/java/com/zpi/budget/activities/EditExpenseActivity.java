@@ -7,10 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -55,7 +52,7 @@ public class EditExpenseActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        setToolbarFont();
 
-        dateTextView = findViewById(R.id.dateTextView);
+        dateTextView = findViewById(R.id.nameTextView);
         expense = (Expense) getIntent().getSerializableExtra("expense");
 
         //Edit Date

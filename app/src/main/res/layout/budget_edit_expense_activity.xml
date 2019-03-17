@@ -43,7 +43,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="27"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintStart_toEndOf="@+id/guestsListImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
@@ -72,10 +72,10 @@
                 android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
-                app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
             <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/nameTextView"
                 android:layout_width="220dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/guestsListImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -108,7 +108,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/guestsListImage"
                 app:srcCompat="@drawable/icon_category" />
 
             <ImageView

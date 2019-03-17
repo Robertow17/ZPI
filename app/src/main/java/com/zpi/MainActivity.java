@@ -7,16 +7,22 @@ import android.view.View;
 
 import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
+import com.zpi.guests.activities.GuestsListActivity;
+import com.zpi.guests.model.Data;
 import com.zpi.searcher.activities.SearcherActivity;
 
 public class MainActivity extends AppCompatActivity
 {
+    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        data = new Data();
+        data.setGuests();
     }
 
     public void click(View view)
@@ -34,6 +40,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.calendarImageView:
                 intent = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.guestsListImage:
+                intent = new Intent(MainActivity.this, GuestsListActivity.class);
                 startActivity(intent);
                 break;
         }

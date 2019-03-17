@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -64,7 +63,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         categorySpinner.setAdapter(adapter);
         categorySpinner.setSelection(0);
         //DATE
-        dateTextView = findViewById(R.id.dateTextView);
+        dateTextView = findViewById(R.id.nameTextView);
         Calendar cal = Calendar.getInstance();
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);
