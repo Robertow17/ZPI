@@ -35,32 +35,6 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
 
     }
 
-    public WeddingHallAdapter(Context context, ArrayList<WeddingHall> weddingHalls,
-                              String localization)
-    {
-        this.context = context;
-        this.weddingHalls = weddingHalls;
-
-        if(localization.isEmpty())
-        {
-            this.weddingHalls = weddingHalls;
-        }
-        else
-        {
-            this.weddingHalls = new ArrayList();
-
-            for(WeddingHall hall : weddingHalls)
-            {
-                if(hall.getLocalization().equals(localization))
-                {
-                    (this.weddingHalls).add(hall);
-                }
-            }
-
-        }
-
-
-    }
 
     @Override
     public WeddingHallAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -78,7 +52,7 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
         holder.name.setText(hall.getName());
         holder.localization.setText(hall.getLocalization());
 
-        pagerAdapter = new ItemViewPagerAdapter(context, hall);
+        pagerAdapter = new ItemViewPagerAdapter(context, hall, position);
 
         holder.viewPager.setAdapter(pagerAdapter);
 
@@ -92,7 +66,6 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
             holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
         }
 
-        Log.d("FAV", String.valueOf(hall.isFavourite()));
     }
 
 

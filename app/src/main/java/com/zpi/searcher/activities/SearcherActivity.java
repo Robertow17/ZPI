@@ -1,6 +1,7 @@
 package com.zpi.searcher.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -46,6 +47,7 @@ public class SearcherActivity extends AppCompatActivity
 
         setupTabIcons();
     }
+
 
     private void setupViewPager(ViewPager viewPager)
     {

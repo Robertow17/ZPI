@@ -1,24 +1,19 @@
 package com.zpi.searcher.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.SearchEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.support.v7.widget.SearchView;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
-import com.zpi.searcher.model.WeddingHall;
 import com.zpi.searcher.utils.WeddingHallAdapter;
 
 import java.util.ArrayList;
@@ -44,16 +39,14 @@ public class WeddingHallFragment extends Fragment
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public void onResume()
     {
         super.onResume();
         adapter.notifyDataSetChanged();
-        for(WeddingHall hall: Data.getWeddingHalls())
-        {
-            Log.d("FAVO", String.valueOf(hall.isFavourite()));
-        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -130,5 +123,7 @@ public class WeddingHallFragment extends Fragment
         });
 
     }
+
+
 
 }
