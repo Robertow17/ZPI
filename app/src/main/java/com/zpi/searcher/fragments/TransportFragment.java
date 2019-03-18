@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
-import com.zpi.searcher.utils.WeddingHallAdapter;
+import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class TransportFragment extends Fragment
     private SearchView subcategorySearchView;
     private SearchView.SearchAutoComplete searchAutoCompleteLoc;
     private SearchView.SearchAutoComplete searchAutoCompleteSubCat;
-    private WeddingHallAdapter adapter;
+    private ServicesAdapter adapter;
     private static final String[] SUBCATEGORIES = new String[] {"Limuzyna", "Samochody zabytkowe", "Inne pojazdy"};
 
     public TransportFragment()
@@ -71,7 +71,8 @@ public class TransportFragment extends Fragment
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new WeddingHallAdapter(getActivity(), Data.getWeddingHalls());
+        ArrayList<Service> serviceList = new ArrayList<Service>(Data.getWeddingHalls());
+        adapter = new ServicesAdapter(getActivity(),serviceList);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

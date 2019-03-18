@@ -1,14 +1,8 @@
 package com.zpi.searcher.activities;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,15 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpi.R;
-import com.zpi.searcher.fragments.WeddingHallFragment;
 import com.zpi.searcher.model.Data;
 import com.zpi.searcher.model.WeddingHall;
 import com.zpi.searcher.utils.PageTransformer;
 import com.zpi.searcher.utils.ViewPagerAdapter;
-import com.zpi.searcher.utils.WeddingHallAdapter;
+import com.zpi.searcher.utils.ServicesAdapter;
 
 import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
-import static com.zpi.searcher.utils.WeddingHallAdapter.EXTRA_WEDDING_HALL;
 
 public class WeddingHallDetails extends AppCompatActivity
 {
@@ -54,7 +46,7 @@ public class WeddingHallDetails extends AppCompatActivity
 
         findViewsById();
 
-        weddingHall = getIntent().getExtras().getParcelable(WeddingHallAdapter.EXTRA_WEDDING_HALL);
+        weddingHall = getIntent().getExtras().getParcelable(ServicesAdapter.EXTRA_WEDDING_HALL);
         position = getIntent().getExtras().getInt("POZ");
 
         name.setText(weddingHall.getName());

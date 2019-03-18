@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class WeddingHall implements Parcelable
+public class WeddingHall implements Parcelable, Service
 {
 
     private String name;
@@ -164,6 +164,7 @@ public class WeddingHall implements Parcelable
     {
         return name;
     }
+
 
     public void setName(String name)
     {

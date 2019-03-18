@@ -17,7 +17,8 @@ import android.widget.ArrayAdapter;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
-import com.zpi.searcher.utils.WeddingHallAdapter;
+import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class PhotographyFragment extends Fragment
     private RecyclerView recyclerView;
     private SearchView searchView;
     private SearchView.SearchAutoComplete searchAutoComplete;
-    private WeddingHallAdapter adapter;
+    private ServicesAdapter adapter;
 
 
     public PhotographyFragment() {
@@ -65,7 +66,8 @@ public class PhotographyFragment extends Fragment
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new WeddingHallAdapter(getActivity(), Data.getWeddingHalls());
+        ArrayList<Service> serviceList = new ArrayList<Service>(Data.getWeddingHalls());
+        adapter = new ServicesAdapter(getActivity(),serviceList);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

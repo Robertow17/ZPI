@@ -5,50 +5,50 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zpi.R;
+import com.zpi.searcher.model.Service;
 import com.zpi.searcher.model.WeddingHall;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.ViewHolder>
+public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHolder>
 {
-    private ArrayList weddingHalls;
+    private List services;
     private static Context context;
     private PagerAdapter pagerAdapter;
+    private ArrayList<Service> servicesCopy;
     public static final String EXTRA_WEDDING_HALL = "com.zpi.searcher.model.WeddingHall";
-    private ArrayList<WeddingHall> weddingHallsCopy;
 
 
-    public WeddingHallAdapter(Context context, ArrayList<WeddingHall> weddingHalls)
+    public ServicesAdapter(Context context, List<Service> services)
     {
         this.context = context;
-        this.weddingHalls = weddingHalls;
-        this.weddingHallsCopy = new ArrayList<>(weddingHalls);
+        this.services = services;
+        this.servicesCopy = new ArrayList<>();
 
     }
 
 
     @Override
-    public WeddingHallAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public ServicesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemView =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.searcher_recyclerview_item, parent, false);
 
-        return new ViewHolder(itemView, weddingHalls);
+        return new ViewHolder(itemView, services);
     }
 
     @Override
-    public void onBindViewHolder(WeddingHallAdapter.ViewHolder holder, int position)
+    public void onBindViewHolder(ServicesAdapter.ViewHolder holder, int position)
     {
-        final WeddingHall hall = (WeddingHall) weddingHalls.get(position);
+        final Service hall = (Service) services.get(position);
         holder.name.setText(hall.getName());
         holder.localization.setText(hall.getLocalization());
 
@@ -72,25 +72,25 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
     @Override
     public int getItemCount()
     {
-        return weddingHalls.size();
+        return services.size();
     }
 
 
     public void filterLocalization(String text)
     {
-        weddingHalls.clear();
+        services.clear();
         if(text.isEmpty())
         {
-            weddingHalls.addAll(weddingHallsCopy);
+            services.addAll(servicesCopy);
         }
         else
         {
             text = text.toLowerCase();
-            for(WeddingHall item : weddingHallsCopy)
+            for(Service item : servicesCopy)
             {
                 if(item.getLocalization().toLowerCase().contains(text) || item.getLocalization().toLowerCase().contains(text))
                 {
-                    weddingHalls.add(item);
+                    services.add(item);
                 }
             }
         }
@@ -100,19 +100,19 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
 
    /* public void filterSubcategory(String text)
     {
-        weddingHalls.clear();
+        services.clear();
         if(text.isEmpty())
         {
-            weddingHalls.addAll(weddingHallsCopy);
+            services.addAll(servicesCopy);
         }
         else
         {
             text = text.toLowerCase();
-            for(WeddingHall item : weddingHallsCopy)
+            for(WeddingHall item : servicesCopy)
             {
                 if(item.getSubcategory().toLowerCase().contains(text) || item.getSubcategory().toLowerCase().contains(text))
                 {
-                    weddingHalls.add(item);
+                    services.add(item);
                 }
             }
         }
@@ -123,14 +123,14 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
     {
         public TextView name, localization;
         public ViewPager viewPager;
-        private ArrayList<WeddingHall> weddingHalls;
+        private List<Service> services;
         private ImageView favouriteIcon;
 
 
-        public ViewHolder(View view, final ArrayList<WeddingHall> weddingHalls)
+        public ViewHolder(View view, final List<Service> services)
         {
             super(view);
-            this.weddingHalls = weddingHalls;
+            this.services = services;
             name = view.findViewById(R.id.name);
             localization = view.findViewById(R.id.localization);
             viewPager = view.findViewById(R.id.viewpager);
@@ -141,7 +141,7 @@ public class WeddingHallAdapter extends RecyclerView.Adapter<WeddingHallAdapter.
                 @Override
                 public void onClick(View view)
                 {
-                    WeddingHall hall =  weddingHalls.get(getAdapterPosition());
+                    Service hall =  services.get(getAdapterPosition());
                     hall.setFavourite(!hall.isFavourite());
 
                     if(hall.isFavourite())
