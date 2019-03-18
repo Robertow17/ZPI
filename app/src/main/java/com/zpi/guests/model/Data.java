@@ -21,6 +21,10 @@ public class Data {
         guests.add(new Guest("Adam Mickiewicz"));
         guests.add(new Guest("Adam Małysz"));
 
+        for(int i=0; i<90; i++){
+            guests.add(new Guest("Jan Nowak"));
+        }
+
 
         for (int i=0; i<5;i++){
             guests.get(i).setConfirmed(true);

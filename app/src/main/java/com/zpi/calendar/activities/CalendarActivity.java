@@ -29,6 +29,7 @@ public class CalendarActivity extends AppCompatActivity
         EventAdapterWithSwipe eventAdapterWithSwipe;
         ArrayList<WeddingEvent> events;
         Toolbar toolbar;
+        TextView monthHeader;
         ArrayList<WeddingEvent> eventsOfTheMonth;
         TextView eventsInfo;
         String[] months = {"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"};
@@ -52,9 +53,7 @@ public class CalendarActivity extends AppCompatActivity
             recyclerView.setNestedScrollingEnabled(false);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            toolbar = findViewById(R.id.toolbarMonth);
-            toolbar.setTitleTextColor(getResources().getColor(R.color.black));
-            toolbar.setTitleMarginStart(500);
+            monthHeader = findViewById(R.id.monthHeader);
             setMonthHeader(new Date());
 
             compactCalendar = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
@@ -149,7 +148,7 @@ public class CalendarActivity extends AppCompatActivity
            int month = getMonthFromDate(date);
            int year = getYearFromDate(date);
            String header = months[month] + " " + String.valueOf(year);
-           toolbar.setTitle(header);
+           monthHeader.setText(header);
         }
 
         public void notifyNewEvent(){

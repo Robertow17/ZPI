@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,15 +61,14 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
         confirmed.setChecked(item.isConfirmed());
         confirmed.setEnabled(false);
 
-//        confirmed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        confirmed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 //                item.setConfirmed(isChecked);
 //                ((GuestsListActivity) mContext).setConfirmedAmount();
-//
-//                //Problem! swipe layout działa tak że ta metoda jest wywoływana podczas scrollowania
-//
-//            }
-//        });
+
+                //Problem! swipe layout działa tak że ta metoda jest wywoływana podczas scrollowania
+            }
+        });
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
@@ -108,36 +108,42 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
             @Override
             public void onClick(View v) {
                 if(!item.isConfirmed()){
-                    AlertDialog.Builder builder;
-                    builder = new AlertDialog.Builder(mContext);
-                    builder.setMessage("Czy chcesz potwierdzić przybycie gościa?")
-                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    item.setConfirmed(true);
-                                    ((GuestsListActivity) mContext).setConfirmedAmount();
-                                    confirmed.setChecked(true);
-                                }
-                            })
-                            .setNegativeButton("NIE", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {}
-                            })
-                            .show();
+//                    AlertDialog.Builder builder;
+//                    builder = new AlertDialog.Builder(mContext);
+//                    builder.setMessage("Czy chcesz potwierdzić przybycie gościa?")
+//                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    item.setConfirmed(true);
+//                                    ((GuestsListActivity) mContext).setConfirmedAmount();
+//                                    confirmed.setChecked(true);
+//                                }
+//                            })
+//                            .setNegativeButton("NIE", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {}
+//                            })
+//                            .show();
+                    item.setConfirmed(true);
+                    ((GuestsListActivity) mContext).setConfirmedAmount();
+                    confirmed.setChecked(true);
                 }
                 else{
-                    AlertDialog.Builder builder;
-                    builder = new AlertDialog.Builder(mContext);
-                    builder.setMessage("Czy chcesz anulować potwierdzenie przybycia gościa?")
-                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    item.setConfirmed(false);
-                                    ((GuestsListActivity) mContext).setConfirmedAmount();
-                                    confirmed.setChecked(false);
-                                }
-                            })
-                            .setNegativeButton("NIE", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {}
-                            })
-                            .show();
+//                    AlertDialog.Builder builder;
+//                    builder = new AlertDialog.Builder(mContext);
+//                    builder.setMessage("Czy chcesz anulować potwierdzenie przybycia gościa?")
+//                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    item.setConfirmed(false);
+//                                    ((GuestsListActivity) mContext).setConfirmedAmount();
+//                                    confirmed.setChecked(false);
+//                                }
+//                            })
+//                            .setNegativeButton("NIE", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {}
+//                            })
+//                            .show();
+                    item.setConfirmed(false);
+                    ((GuestsListActivity) mContext).setConfirmedAmount();
+                    confirmed.setChecked(false);
                 }
             }
         });

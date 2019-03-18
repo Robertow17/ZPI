@@ -25,25 +25,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarMonth" />
+        app:layout_constraintTop_toBottomOf="@+id/monthHeader" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/eventsOfTheMonth"
         android:layout_width="395dp"
-        android:layout_height="287dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EventsInfoTextView" />
 
     <TextView
         android:id="@+id/EventsInfoTextView"
-        android:layout_width="392dp"
-        android:layout_height="73dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
@@ -51,20 +49,27 @@
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="24sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/compactcalendar_view" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarMonth"
+
+    <TextView
+        android:id="@+id/monthHeader"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="68dp"
+        android:gravity="center"
         android:background="#ffffff"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>
