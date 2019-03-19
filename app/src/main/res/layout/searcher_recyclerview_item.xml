@@ -30,51 +30,65 @@
 
         </android.support.v4.view.ViewPager>
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="285dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="8dp"
 
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:padding="1dp"
-            android:text="@string/name"
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            card_view:layout_constraintBottom_toTopOf="@+id/localization"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.085"
-            card_view:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/localization"
-            android:layout_width="267dp"
-            android:layout_height="23dp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:padding="1dp"
-            android:text="@string/localization"
-            android:textColor="#232323"
-            android:textSize="16sp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="250dp"
+            card_view:cardElevation="0dp"
+            android:layout_height="70dp"
+            card_view:cardBackgroundColor="#80F0F0F0"
+            card_view:cardCornerRadius="6dp"
+            card_view:cardPreventCornerOverlap="false"
             card_view:layout_constraintBottom_toBottomOf="@+id/viewpager"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
-            card_view:layout_constraintStart_toEndOf="@+id/localizationIcon" />
+            card_view:layout_constraintStart_toStartOf="@+id/viewpager">
 
-        <ImageView
-            android:id="@+id/localizationIcon"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="TODO"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:srcCompat="@drawable/localization" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="1dp"
+                    android:text="@string/name"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/localization"
+                    android:layout_width="wrap_content"
+                    android:layout_height="23dp"
+
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:padding="1dp"
+                    android:text="@string/localization"
+                    android:textColor="#232323"
+                    android:textSize="16sp"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/localizationIcon" />
+
+                <ImageView
+                    android:id="@+id/localizationIcon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:contentDescription="TODO"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:srcCompat="@drawable/localization" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
 
         <ImageView
             android:id="@+id/star"
