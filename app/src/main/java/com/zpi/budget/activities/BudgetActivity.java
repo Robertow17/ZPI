@@ -18,7 +18,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.zpi.MainActivity;
 import com.zpi.R;
 import com.zpi.budget.model.Expense;
 import com.zpi.budget.utils.ExpenseAdapterWithSwipe;
@@ -74,10 +73,11 @@ public class BudgetActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("aktywnosc","onActivityResult");
         if (resultCode == EDIT_EXPENSE_ACTIVITY_REQUEST_CODE) {
 
             if (data.getSerializableExtra("action").equals("back")) {
-                //Log.d("aktywnosc","powrot");
+                Log.d("aktywnosc","powrot");
             } else {
                 int position = (int) data.getSerializableExtra("newPosition");
                 expenses.get(position).setDate((Date) data.getSerializableExtra("newDate"));
@@ -89,13 +89,18 @@ public class BudgetActivity extends AppCompatActivity {
                 setCardInfo();
             }
         }
-
         if (requestCode == ADD_EXPENSE_ACTIVITY_REQUEST_CODE) {
-            Expense expense = (Expense) data.getSerializableExtra("expense");
-            expenses.add(0, expense);
-            expenseAdapterWithSwipe.notifyItemInserted(0);
-            Log.d("aktywnosc", "dodano expense");
-            setCardInfo();
+
+            if (data.getSerializableExtra("action").equals("back")) {
+                Log.d("aktywnosc","powrot");
+            } else
+            if(data.getSerializableExtra("action").equals("expense")){
+                Expense expense = (Expense) data.getSerializableExtra("expense");
+                expenses.add(0, expense);
+                expenseAdapterWithSwipe.notifyItemInserted(0);
+                Log.d("aktywnosc", "dodano expense");
+                setCardInfo();
+            }
         }
         if (requestCode == DELETE_EXPENSE_ACTIVITY_REQUEST_CODE) {
             setCardInfo();
