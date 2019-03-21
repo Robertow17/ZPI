@@ -3,11 +3,21 @@ package com.zpi.guests.model;
 public class Guest {
 
     private String name;
+    private String phone;
     private boolean confirmed;
 
-    public Guest(String name) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Guest(String name, String phone) {
         this.name = name;
         this.confirmed = false;
+        this.phone = phone;
     }
 
     public String getName() {

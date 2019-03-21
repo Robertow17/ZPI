@@ -55,8 +55,10 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
         final Guest item = mGuestsList.get(position);
 
         final TextView name=viewHolder.name;
+        final TextView phone = viewHolder.phone;
         final CheckBox confirmed = viewHolder.confirmed;
 
+        phone.setText(item.getPhone());
         name.setText(item.getName());
         confirmed.setChecked(item.isConfirmed());
         confirmed.setEnabled(false);
@@ -155,7 +157,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
 
                 //Alert dialog edit
                 FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
-                EditGuestDialog egd = EditGuestDialog.newInstance(position, name.getText().toString());
+                EditGuestDialog egd = EditGuestDialog.newInstance(position, name.getText().toString(), phone.getText().toString());
                 egd.show(fm,"editDialog");
 
             }
@@ -196,6 +198,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
         public ImageButton Delete;
         public ImageButton Edit;
         TextView name;
+        TextView phone;
         CheckBox confirmed;
 
 
@@ -206,6 +209,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
             Edit =  itemView.findViewById(R.id.Edit);
             name = itemView.findViewById(R.id.nameTextView);
             confirmed = itemView.findViewById(R.id.confirmed);
+            phone = itemView.findViewById(R.id.phoneNumber);
         }
     }
 }

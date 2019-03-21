@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,10 +32,16 @@ public class AddGuestDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         final EditText name = (EditText) v.findViewById(R.id.guest);
-                        data.addGuest(new Guest(name.getText().toString()));
-                        GuestsListActivity a = (GuestsListActivity) getActivity();
-                        a.setGuestsAmount();
-                        Toast.makeText(v.getContext(), "Dodano " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                        final EditText phone = (EditText) v.findViewById(R.id.phoneNumber);
+                        if (!name.getText().toString().equals("")) {
+                            data.addGuest(new Guest(name.getText().toString(), phone.getText().toString()));
+                            GuestsListActivity a = (GuestsListActivity) getActivity();
+                            a.setGuestsAmount();
+                            Toast.makeText(v.getContext(), "Dodano " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(v.getContext(), "Nie wpisano nazwiska gościa. Gość nie został dodany.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .setNegativeButton("Anuluj", new DialogInterface.OnClickListener() {
@@ -42,5 +50,16 @@ public class AddGuestDialog extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Button positive = ((android.support.v7.app.AlertDialog) getDialog()).getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE);
+        positive.setTextColor(Color.BLACK);
+
+
+        Button negative = ((android.support.v7.app.AlertDialog) getDialog()).getButton(android.support.v7.app.AlertDialog.BUTTON_NEGATIVE);
+        negative.setTextColor(Color.BLACK);
     }
 }

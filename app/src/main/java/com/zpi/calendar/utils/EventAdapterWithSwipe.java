@@ -50,7 +50,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
 
         final TextView date = viewHolder.date;
         final TextView title = viewHolder.title;
-        String currentDate = String.format("%02d", item.getDay())+"-"+String.format("%02d", item.getMonth()+1);
+        String currentDate = String.format("%02d", item.getDay())+"."+String.format("%02d", item.getMonth()+1);
         date.setText(currentDate);
         title.setText(item.getTitle());
 

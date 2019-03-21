@@ -72,6 +72,7 @@ public class CalendarActivity extends AppCompatActivity
                     FragmentManager fm = getSupportFragmentManager();
                     AddEventDialog aed = AddEventDialog.newInstance(dateClicked);
                     aed.show(fm, "addDialog");
+
                 }
 
                 @Override

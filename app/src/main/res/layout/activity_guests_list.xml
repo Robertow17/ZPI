@@ -6,74 +6,112 @@
     android:layout_height="match_parent"
     tools:context=".guests.activities.GuestsListActivity">
 
-    <TextView
-        android:id="@+id/GuestListTextView"
-        android:layout_width="260dp"
-        android:layout_height="41dp"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_margin="5dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:text="Lista gości"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:focusableInTouchMode="true"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="427dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/GuestListTextView"
+                android:layout_width="181dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:gravity="center"
+                android:text="Lista gości"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/InvitedTextView"
+                android:layout_width="159dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:gravity="right"
+                android:text="Zaproszonych gości:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/invitedAmount"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ConfirmedTextView"
+                android:layout_width="118dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="Potwierdziło:"
+                android:gravity="right"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ConfirmedAmount" />
+
+            <TextView
+                android:id="@+id/invitedAmount"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="40dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="100"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/ConfirmedAmount"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/dancing_script_bold"
+                android:text="0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/guestsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/guestsList"
-        android:layout_width="386dp"
-        android:layout_height="565dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/InvitedTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GuestListTextView" />
 
-    <TextView
-        android:id="@+id/InvitedTextView"
-        android:layout_width="113dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="Zaproszonych gości:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/ConfirmedTextView"
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Potwierdziło:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ConfirmedAmount" />
-
-    <TextView
-        android:id="@+id/invitedAmount"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/InvitedTextView" />
-
-    <TextView
-        android:id="@+id/ConfirmedAmount"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="0"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

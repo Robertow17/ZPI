@@ -2,11 +2,13 @@ package com.zpi.calendar.utils;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.zpi.R;
@@ -63,6 +65,17 @@ public class ShowEventDialog extends DialogFragment {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        return "Data: "+ String.format("%02d", day)+"-"+String.format("%02d", month+1)+"-"+String.valueOf(year);
+        return "Data: "+ String.format("%02d", day)+"."+String.format("%02d", month+1)+"."+String.valueOf(year);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Button positive = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE);
+        positive.setTextColor(Color.BLACK);
+
+
+        Button negative = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE);
+        negative.setTextColor(Color.BLACK);
     }
 }

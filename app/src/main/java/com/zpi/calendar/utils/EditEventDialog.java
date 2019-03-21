@@ -2,11 +2,13 @@ package com.zpi.calendar.utils;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,12 +52,15 @@ public class EditEventDialog extends DialogFragment {
                 .setPositiveButton("Edytuj", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
-                        data.editEvent(time, evetTitle, title.getText().toString(), description.getText().toString());
-                        CalendarActivity a = (CalendarActivity) getActivity();
-                        a.notifyChanged();
-                        Toast.makeText(v.getContext(), "Edytowano " + title.getText().toString(), Toast.LENGTH_SHORT).show();
-
+                        if(!title.getText().toString().equals("")) {
+                            data.editEvent(time, evetTitle, title.getText().toString(), description.getText().toString());
+                            CalendarActivity a = (CalendarActivity) getActivity();
+                            a.notifyChanged();
+                            Toast.makeText(v.getContext(), "Edytowano " + title.getText().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(v.getContext(),"Nie wpisano tytułu! Wydarzenie nie zostało zmodyfikowane.", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 })
@@ -65,6 +70,17 @@ public class EditEventDialog extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Button positive = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE);
+        positive.setTextColor(Color.BLACK);
+
+
+        Button negative = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE);
+        negative.setTextColor(Color.BLACK);
     }
 }
 

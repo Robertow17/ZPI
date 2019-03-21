@@ -5,4 +5,6 @@
     <color name="colorAccent">#669f57</color>
     <color name="red">#8e0000</color>
     <color name="black">#000000</color>
+
+    <color name="dialogLight">#000</color>
 </resources>
