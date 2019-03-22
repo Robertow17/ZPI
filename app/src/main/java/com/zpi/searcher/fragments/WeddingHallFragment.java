@@ -125,7 +125,4 @@ public class WeddingHallFragment extends Fragment
         });
 
     }
-
-
-
 }

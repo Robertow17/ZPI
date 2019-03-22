@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zpi">
 
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".guests.activities.GuestsListActivity"></activity>
+        <activity android:name=".serviceProvider.activities.AddService"></activity>
+        <activity android:name=".serviceProvider.activities.EditService" />
+        <activity android:name=".serviceProvider.activities.ServiceProviderMainActivity" />
+        <activity android:name=".guests.activities.GuestsListActivity" />
         <activity android:name=".searcher.activities.WeddingHallDetails" />
         <activity android:name=".searcher.activities.SearcherActivity" />
         <activity android:name=".budget.activities.DeleteExpenseActivity" />

@@ -12,8 +12,11 @@ import android.widget.LinearLayout;
 
 import com.zpi.R;
 import com.zpi.searcher.activities.WeddingHallDetails;
+import com.zpi.searcher.fragments.WeddingHallFragment;
 import com.zpi.searcher.model.Service;
 import com.zpi.searcher.model.WeddingHall;
+import com.zpi.serviceProvider.activities.EditService;
+import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 
 import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_WEDDING_HALL;
@@ -25,6 +28,7 @@ public class ItemViewPagerAdapter extends PagerAdapter
     private LayoutInflater mLayoutInflater;
     private Service service;
     private int recyclerViewPosiotion;
+    private boolean isUser;
     public static final String EXTRA_POSITION = "com.zpi.searcher.utils.ItemViewPagerAdapter";
 
 
@@ -33,6 +37,12 @@ public class ItemViewPagerAdapter extends PagerAdapter
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.service = service;
         this.recyclerViewPosiotion = recyclerViewPosiotion;
+        if(context instanceof ServiceProviderMainActivity){
+            isUser=false;
+        }
+        else{
+            isUser=true;
+        }
 
     }
 
@@ -59,10 +69,16 @@ public class ItemViewPagerAdapter extends PagerAdapter
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(mContext, WeddingHallDetails.class);
-                intent.putExtra(EXTRA_WEDDING_HALL, (Parcelable) service);
-                intent.putExtra(EXTRA_POSITION, recyclerViewPosiotion);
-                mContext.startActivity(intent);
+                if(isUser) {
+                    Intent intent = new Intent(mContext, WeddingHallDetails.class);
+                    intent.putExtra(EXTRA_WEDDING_HALL, (Parcelable) service);
+                    intent.putExtra(EXTRA_POSITION, recyclerViewPosiotion);
+                    mContext.startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(mContext, EditService.class);
+                    mContext.startActivity(intent);
+                }
             }
         });
         return itemView;

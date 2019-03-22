@@ -10,6 +10,7 @@ import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.guests.activities.GuestsListActivity;
 import com.zpi.guests.model.Data;
 import com.zpi.searcher.activities.SearcherActivity;
+import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.guestsListImage:
                 intent = new Intent(MainActivity.this, GuestsListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.photoImageView:
+                intent = new Intent(MainActivity.this, ServiceProviderMainActivity.class);
                 startActivity(intent);
                 break;
         }
