@@ -1,11 +1,10 @@
 package com.zpi.searcher.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class WeddingHall implements Parcelable, Service
+public class WeddingHall  extends Service//implements Service, Parcelable
 {
 
     private String name;

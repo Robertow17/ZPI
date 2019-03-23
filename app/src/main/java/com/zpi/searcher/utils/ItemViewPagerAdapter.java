@@ -12,12 +12,9 @@ import android.widget.LinearLayout;
 
 import com.zpi.R;
 import com.zpi.searcher.activities.WeddingHallDetails;
-import com.zpi.searcher.fragments.WeddingHallFragment;
 import com.zpi.searcher.model.Service;
-import com.zpi.searcher.model.WeddingHall;
 import com.zpi.serviceProvider.activities.EditService;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
-
 
 import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_WEDDING_HALL;
 

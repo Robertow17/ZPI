@@ -61,12 +61,12 @@ public class WeddingHallDetails extends AppCompatActivity
 
         if(weddingHall.isFavourite())
         {
-            favouriteStar.setImageResource(R.drawable.baseline_favorite_black_18dp);
+            favouriteStar.setImageResource(android.R.drawable.star_big_on);
         }
 
         else
         {
-            favouriteStar.setImageResource(R.drawable.baseline_favorite_border_black_18dp);
+            favouriteStar.setImageResource(android.R.drawable.star_off);
         }
 
 
@@ -128,13 +128,13 @@ public class WeddingHallDetails extends AppCompatActivity
 
                 if(weddingHall.isFavourite())
                 {
-                    favouriteStar.setImageResource(R.drawable.baseline_favorite_black_18dp);
+                    favouriteStar.setImageResource(android.R.drawable.star_big_on);
 
                 }
 
                 else
                 {
-                    favouriteStar.setImageResource(R.drawable.baseline_favorite_border_black_18dp);
+                    favouriteStar.setImageResource(android.R.drawable.star_off);
                 }
 
 

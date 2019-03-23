@@ -5,19 +5,16 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Service;
-import com.zpi.searcher.model.WeddingHall;
-import android.widget.Filter;
-import android.widget.Filterable;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,15 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         this.servicesCopy = new ArrayList<>(services);
 
     }
+/*
+
+    public ServicesAdapter(Context context, List<com.zpi.searcher.model.Service> services)
+    {
+        this.context = context;
+        this.services = (List<Service>) services;
+        this.servicesCopy = new ArrayList<>((Collection<? extends Service>) services);
+    }
+*/
 
 
     @Override
@@ -68,12 +74,12 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 
         if(service.isFavourite())
         {
-            holder.favouriteIcon.setImageResource(R.drawable.baseline_favorite_black_18dp);
+            holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
         }
 
         else
         {
-            holder.favouriteIcon.setImageResource(R.drawable.baseline_favorite_border_black_18dp);
+            holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
         }
 
     }
@@ -191,13 +197,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 
                     if(hall.isFavourite())
                     {
-                        favouriteIcon.setImageResource(R.drawable.baseline_favorite_black_18dp);
+                        favouriteIcon.setImageResource(android.R.drawable.star_big_on);
 
                     }
 
                     else
                     {
-                        favouriteIcon.setImageResource(R.drawable.baseline_favorite_border_black_18dp);
+                        favouriteIcon.setImageResource(android.R.drawable.star_off);
                     }
                 }
             });

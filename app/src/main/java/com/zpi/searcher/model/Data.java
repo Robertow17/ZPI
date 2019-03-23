@@ -1,9 +1,9 @@
 package com.zpi.searcher.model;
 
 import com.zpi.R;
-import com.zpi.searcher.model.WeddingHall;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data
 {
@@ -19,10 +19,9 @@ public class Data
         }
 
     };
-
-
-    private static final ArrayList<WeddingHall> weddingHalls = new ArrayList<WeddingHall>()
-    {{
+  /*
+    private static final ArrayList<Service> weddingHalls = new ArrayList<Service>();
+   {{
         add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
                 "609781153", "psliwinska@onet.eu"));
         add(new WeddingHall("Zajazd u Bożenki", "Warszawa", 300, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos
@@ -32,16 +31,16 @@ public class Data
         add(new WeddingHall("Laguna", "Kraków", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos, "609781153"
                 , "psliwinska@onet.eu"));
 
-    }};
+    }};*/
 
-    public static ArrayList<String> getLocalizations(ArrayList<WeddingHall> weddingHalls)
+    public static ArrayList<String> getLocalizations(List<Service> services)
     {
         ArrayList<String> localizations = new ArrayList<>();
-        for(WeddingHall hall : weddingHalls)
+        for(Service service : services)
         {
-            if(!localizations.contains(hall.getLocalization()))
+            if(!localizations.contains(service.getLocalization()))
             {
-                localizations.add(hall.getLocalization());
+                localizations.add(service.getLocalization());
             }
         }
 
@@ -49,8 +48,18 @@ public class Data
     }
 
 
-    public static ArrayList<WeddingHall> getWeddingHalls()
+    public static ArrayList<Service> getWeddingHalls()
     {
+        ArrayList<Service> weddingHalls = new ArrayList<>();
+        weddingHalls.add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
+                "609781153", "psliwinska@onet.eu"));
+
+        weddingHalls.add(new WeddingHall("Zajazd u Bożenki", "Warszawa", 300, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos
+                , "609781153", "psliwinska@onet.eu"));
+        weddingHalls. add(new WeddingHall("Dom weselny u Beatki", "Zakopane", 250, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero",
+                photos, "609781153", "psliwinska@onet.eu"));
+        weddingHalls.add(new WeddingHall("Laguna", "Kraków", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos, "609781153"
+                , "psliwinska@onet.eu"));
         return weddingHalls;
     }
 }

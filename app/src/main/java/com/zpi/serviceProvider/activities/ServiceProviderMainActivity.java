@@ -2,7 +2,6 @@ package com.zpi.serviceProvider.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zpi.R;
-import com.zpi.guests.utils.AddGuestDialog;
 import com.zpi.searcher.model.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 import com.zpi.serviceProvider.model.Data;
@@ -49,7 +47,7 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.services);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ServicesAdapter(this,services);
+        adapter = new ServicesAdapter(this, services);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());

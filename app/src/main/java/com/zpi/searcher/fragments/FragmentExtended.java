@@ -1,9 +1,9 @@
 package com.zpi.searcher.fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +22,7 @@ import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
 
-public class TransportFragment extends Fragment
+public class FragmentExtended extends Fragment
 {
     private View rootView;
     private RecyclerView recyclerView;
@@ -31,25 +31,27 @@ public class TransportFragment extends Fragment
     private SearchView.SearchAutoComplete searchAutoCompleteLoc;
     private SearchView.SearchAutoComplete searchAutoCompleteSubCat;
     private ServicesAdapter adapter;
-    private static final String[] SUBCATEGORIES = new String[] {"Limuzyna", "Samochody zabytkowe", "Inne pojazdy"};
 
-    public TransportFragment()
+    public static FragmentExtended newInstance(ArrayList<Service> services, String[] subcategories)
     {
-        // Required empty public constructor
+        FragmentExtended fragment = new FragmentExtended();
+
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("LIST2", services);
+        args.putStringArray("Array", subcategories);
+
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
     }
 
-    /*@Override
-    public void onResume()
-    {
-        super.onResume();
-        rootView.requestFocus();
-    }*/
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -63,7 +65,6 @@ public class TransportFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-
         rootView = inflater.inflate(R.layout.searcher_fragment_with_subcategory, container, false);
 
         setRecyclerView();
@@ -75,11 +76,11 @@ public class TransportFragment extends Fragment
 
     private void setRecyclerView()
     {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewOfOffers);
+        recyclerView = rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<Service> serviceList = new ArrayList<Service>(Data.getWeddingHalls());
-        adapter = new ServicesAdapter(getActivity(),serviceList);
+        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST2");
+        adapter = new ServicesAdapter(getContext(), services);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -111,8 +112,8 @@ public class TransportFragment extends Fragment
                 localizationSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoCompleteLoc.setDropDownBackgroundResource(android.R.color.white);
 
-
-        ArrayList<String> localizations = Data.getLocalizations(Data.getWeddingHalls());
+        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST2");
+        ArrayList<String> localizations = Data.getLocalizations(services);
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, localizations);
         searchAutoCompleteLoc.setAdapter(newsAdapter);
@@ -150,7 +151,7 @@ public class TransportFragment extends Fragment
 
 
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, SUBCATEGORIES);
+                android.R.layout.simple_dropdown_item_1line, getArguments().getStringArray("Array"));
         searchAutoCompleteSubCat.setAdapter(newsAdapter);
 
         searchAutoCompleteSubCat.setOnItemClickListener(new AdapterView.OnItemClickListener()

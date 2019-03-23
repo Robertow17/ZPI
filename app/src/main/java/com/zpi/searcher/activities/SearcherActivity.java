@@ -1,28 +1,21 @@
 package com.zpi.searcher.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-
 import android.widget.TextView;
 
 import com.zpi.R;
-import com.zpi.searcher.fragments.DecorationsFragment;
-import com.zpi.searcher.fragments.FashionFragment;
-import com.zpi.searcher.fragments.MusicFragment;
-import com.zpi.searcher.fragments.OthersFragment;
-import com.zpi.searcher.fragments.PhotographyFragment;
-import com.zpi.searcher.fragments.TransportFragment;
-import com.zpi.searcher.fragments.WeddingHallFragment;
+import com.zpi.searcher.fragments.FragmentBasic;
+import com.zpi.searcher.fragments.FragmentExtended;
+import com.zpi.searcher.model.Data;
 import com.zpi.searcher.utils.FragmentViewPagerAdapter;
 import com.zpi.searcher.utils.PageTransformer;
 
@@ -31,11 +24,16 @@ public class SearcherActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int[] tabIcons = {R.drawable.music};
-  /*  private  final String[] tabArray = {getString(R.string.wedding_hall), getString(R.string.music), getString(R.string.photography), getString(R.string.decorations),
-            getString(R.string.transport), getString(R.string.fashion), getString(R.string.others)};*/
+
 
     private static final String[] tabArray = {"SALE", "MUZYKA", "FOTOGRAFIA", "DEKORACJE",
         "TRANSPORT", "MODA", "INNE"};
+
+    private static final String[] DECORATION_SUBCATEGORIES = new String[] {"Dekoracje weselne", "Florystyka"};
+    private static final String[] FASHION_SUBCATEGORIES = new String[] {"Fryzjer", "Kosmetyczka", "Suknie ślubne", "Garnitury", "Dodatki"};
+    private static final String[] MUSIC_SUBCATEGORIES = new String[] {"Zespół weselny", "DJ"};
+    private static final String[] TRANSPORT_SUBCATEGORIES = new String[] {"Limuzyna", "Samochody zabytkowe", "Inne pojazdy"};
+    private static final String[] OTHERS_SUBCATEGORIES = new String[] {"Jubiler", "Catering", "Cukiernia", "Szkoła tańca"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,13 +56,15 @@ public class SearcherActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager)
     {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new WeddingHallFragment(), tabArray[0]);
-        adapter.addFragment(new MusicFragment(), tabArray[1]);
-        adapter.addFragment(new PhotographyFragment(), tabArray[2]);
-        adapter.addFragment(new DecorationsFragment(), tabArray[3]);
-        adapter.addFragment(new TransportFragment(), tabArray[4]);
-        adapter.addFragment(new FashionFragment(), tabArray[5]);
-        adapter.addFragment(new OthersFragment(), tabArray[6]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getWeddingHalls()), tabArray[0]);
+        adapter.addFragment(FragmentExtended.newInstance( Data.getWeddingHalls(), MUSIC_SUBCATEGORIES), tabArray[1]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getWeddingHalls()), tabArray[2]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), DECORATION_SUBCATEGORIES), tabArray[3]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), TRANSPORT_SUBCATEGORIES), tabArray[4]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), FASHION_SUBCATEGORIES), tabArray[5]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), OTHERS_SUBCATEGORIES), tabArray[6]);
+
+
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new PageTransformer());
     }
