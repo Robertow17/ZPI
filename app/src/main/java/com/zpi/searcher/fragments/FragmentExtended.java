@@ -2,6 +2,7 @@ package com.zpi.searcher.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,10 +18,14 @@ import android.widget.ArrayAdapter;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
-import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.zpi.searcher.activities.SearcherActivity.EXTRA_SERVICES;
+import static com.zpi.searcher.activities.SearcherActivity.EXTRA_SUBCATEORIES;
 
 public class FragmentExtended extends Fragment
 {
@@ -32,13 +37,13 @@ public class FragmentExtended extends Fragment
     private SearchView.SearchAutoComplete searchAutoCompleteSubCat;
     private ServicesAdapter adapter;
 
-    public static FragmentExtended newInstance(ArrayList<Service> services, String[] subcategories)
+    public static FragmentExtended newInstance(List<? extends Service> services, String[] subcategories)
     {
         FragmentExtended fragment = new FragmentExtended();
 
         Bundle args = new Bundle();
-        args.putParcelableArrayList("LIST2", services);
-        args.putStringArray("Array", subcategories);
+        args.putParcelableArrayList(EXTRA_SERVICES, (ArrayList<? extends Parcelable>) services);
+        args.putStringArray(EXTRA_SUBCATEORIES, subcategories);
 
         fragment.setArguments(args);
 
@@ -79,14 +84,58 @@ public class FragmentExtended extends Fragment
         recyclerView = rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST2");
-        adapter = new ServicesAdapter(getContext(), services);
+        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+        adapter = new ServicesAdapter(getContext(), (List<Service>) services);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setLocalization()
+    {
+
+        setLocalizationSearchView();
+        setSearchAutoCompleteLoc();
+
+    }
+
+
+    private void setSubcategories()
+    {
+        subcategorySearchView = rootView.findViewById(R.id.subcategorySearchView);
+
+
+        searchAutoCompleteSubCat =
+                subcategorySearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoCompleteSubCat.setDropDownBackgroundResource(android.R.color.white);
+
+
+        ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, getArguments().getStringArray(EXTRA_SUBCATEORIES));
+        searchAutoCompleteSubCat.setAdapter(newsAdapter);
+
+        searchAutoCompleteSubCat.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id)
+            {
+                String queryString = (String) adapterView.getItemAtPosition(itemIndex);
+                searchAutoCompleteSubCat.setText("" + queryString);
+            }
+        });
+
+        searchAutoCompleteSubCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                searchAutoCompleteSubCat.showDropDown();
+            }
+        });
+
+    }
+
+
+    private void setLocalizationSearchView()
     {
         localizationSearchView = rootView.findViewById(R.id.searchView);
 
@@ -107,12 +156,15 @@ public class FragmentExtended extends Fragment
                 return true;
             }
         });
+    }
 
+    private void setSearchAutoCompleteLoc()
+    {
         searchAutoCompleteLoc =
                 localizationSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoCompleteLoc.setDropDownBackgroundResource(android.R.color.white);
 
-        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST2");
+        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
         ArrayList<String> localizations = Data.getLocalizations(services);
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, localizations);
@@ -135,42 +187,5 @@ public class FragmentExtended extends Fragment
                 searchAutoCompleteLoc.showDropDown();
             }
         });
-
-
-    }
-
-
-    private void setSubcategories()
-    {
-        subcategorySearchView = rootView.findViewById(R.id.subcategorySearchView);
-
-
-        searchAutoCompleteSubCat =
-                subcategorySearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchAutoCompleteSubCat.setDropDownBackgroundResource(android.R.color.white);
-
-
-        ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, getArguments().getStringArray("Array"));
-        searchAutoCompleteSubCat.setAdapter(newsAdapter);
-
-        searchAutoCompleteSubCat.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id)
-            {
-                String queryString = (String) adapterView.getItemAtPosition(itemIndex);
-                searchAutoCompleteSubCat.setText("" + queryString);
-            }
-        });
-
-        searchAutoCompleteSubCat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                searchAutoCompleteSubCat.showDropDown();
-            }
-        });
-
     }
 }

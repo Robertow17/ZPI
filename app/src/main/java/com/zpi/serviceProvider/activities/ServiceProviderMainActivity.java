@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 import com.zpi.serviceProvider.model.Data;
 import com.zpi.serviceProvider.model.ServiceProvider;

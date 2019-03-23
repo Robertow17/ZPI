@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Service;
 
 
 import java.util.ArrayList;

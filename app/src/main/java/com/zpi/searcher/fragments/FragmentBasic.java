@@ -1,6 +1,7 @@
 package com.zpi.searcher.fragments;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,10 +16,13 @@ import android.widget.ArrayAdapter;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
-import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.zpi.searcher.activities.SearcherActivity.EXTRA_SERVICES;
 
 public class FragmentBasic extends Fragment
 {
@@ -30,12 +34,12 @@ public class FragmentBasic extends Fragment
 
 
 
-    public static FragmentBasic newInstance(ArrayList<Service> services)
+    public static FragmentBasic newInstance(List<? extends Service> services)
     {
         FragmentBasic fragment = new FragmentBasic();
 
         Bundle args = new Bundle();
-        args.putParcelableArrayList("LIST", services);
+        args.putParcelableArrayList(EXTRA_SERVICES, (ArrayList<? extends Parcelable>) services);
         fragment.setArguments(args);
 
         return fragment;
@@ -71,15 +75,23 @@ public class FragmentBasic extends Fragment
         getArguments().getParcelableArrayList("LIST");
 
 
-        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST");
+        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
 
-        adapter = new ServicesAdapter(getContext(), services);
+        adapter = new ServicesAdapter(getContext(), (List<Service>) services);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setLocalization()
+    {
+
+        setSearachView();
+        setSearchAutoComplete();
+
+    }
+
+    private void setSearachView()
     {
         searchView = rootView.findViewById(R.id.searchView);
 
@@ -100,12 +112,15 @@ public class FragmentBasic extends Fragment
             }
 
         });
+    }
 
+    private void setSearchAutoComplete()
+    {
         searchAutoComplete =
                 searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete.setDropDownBackgroundResource(android.R.color.white);
 
-        ArrayList<Service> services = getArguments().getParcelableArrayList("LIST");
+        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
 
         ArrayList<String> localizations = Data.getLocalizations(services);
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
@@ -137,6 +152,5 @@ public class FragmentBasic extends Fragment
                 searchAutoComplete.showDropDown();
             }
         });
-
     }
 }

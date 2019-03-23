@@ -1,6 +1,6 @@
 package com.zpi.serviceProvider.model;
 
-import com.zpi.searcher.model.Service;
+import com.zpi.searcher.utils.Service;
 
 import java.util.ArrayList;
 

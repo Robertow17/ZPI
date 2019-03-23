@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.zpi.R;
 import com.zpi.searcher.activities.WeddingHallDetails;
-import com.zpi.searcher.model.Service;
 import com.zpi.serviceProvider.activities.EditService;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 

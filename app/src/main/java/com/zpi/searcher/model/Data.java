@@ -1,6 +1,7 @@
 package com.zpi.searcher.model;
 
 import com.zpi.R;
+import com.zpi.searcher.utils.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ public class Data
         }
 
     };
-  /*
-    private static final ArrayList<Service> weddingHalls = new ArrayList<Service>();
+
+    private static final List<WeddingHall> weddingHalls = new ArrayList<WeddingHall>()
    {{
         add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
                 "609781153", "psliwinska@onet.eu"));
@@ -31,9 +32,9 @@ public class Data
         add(new WeddingHall("Laguna", "Kraków", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos, "609781153"
                 , "psliwinska@onet.eu"));
 
-    }};*/
+    }};
 
-    public static ArrayList<String> getLocalizations(List<Service> services)
+    public static ArrayList<String> getLocalizations(ArrayList<? extends Service> services)
     {
         ArrayList<String> localizations = new ArrayList<>();
         for(Service service : services)
@@ -48,18 +49,8 @@ public class Data
     }
 
 
-    public static ArrayList<Service> getWeddingHalls()
+    public static List<WeddingHall> getWeddingHalls()
     {
-        ArrayList<Service> weddingHalls = new ArrayList<>();
-        weddingHalls.add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
-                "609781153", "psliwinska@onet.eu"));
-
-        weddingHalls.add(new WeddingHall("Zajazd u Bożenki", "Warszawa", 300, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos
-                , "609781153", "psliwinska@onet.eu"));
-        weddingHalls. add(new WeddingHall("Dom weselny u Beatki", "Zakopane", 250, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero",
-                photos, "609781153", "psliwinska@onet.eu"));
-        weddingHalls.add(new WeddingHall("Laguna", "Kraków", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos, "609781153"
-                , "psliwinska@onet.eu"));
         return weddingHalls;
     }
 }

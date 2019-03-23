@@ -24,6 +24,8 @@ public class SearcherActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private static final int[] tabIcons = {R.drawable.music};
+    public static  final String EXTRA_SERVICES = "services";
+    public static  final String EXTRA_SUBCATEORIES = "subcategories";
 
 
     private static final String[] tabArray = {"SALE", "MUZYKA", "FOTOGRAFIA", "DEKORACJE",
