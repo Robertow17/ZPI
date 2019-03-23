@@ -16,7 +16,8 @@
         <activity android:name=".serviceProvider.activities.ServiceProviderMainActivity" />
         <activity android:name=".guests.activities.GuestsListActivity" />
         <activity android:name=".searcher.activities.WeddingHallDetails" />
-        <activity android:name=".searcher.activities.SearcherActivity" />
+        <activity android:name=".searcher.activities.SearcherActivity"
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".budget.activities.DeleteExpenseActivity" />
         <activity android:name=".budget.activities.AddExpenseActivity" />
         <activity android:name=".budget.activities.BudgetActivity" />

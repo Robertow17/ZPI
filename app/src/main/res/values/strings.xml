@@ -28,6 +28,7 @@
     <string name="name">Nazwa</string>
     <string name="localization">Lokalizacja</string>
     <string name="description">Opis</string>
+    <string name="subcategory">Podkategoria</string>
 
 
 </resources>

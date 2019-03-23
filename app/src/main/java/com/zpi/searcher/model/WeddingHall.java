@@ -16,11 +16,9 @@ public class WeddingHall implements Parcelable, Service
     private ArrayList<Integer> photos;
     private String phoneNumber;
     private String email;
+    private String subcategory;
 
-    public WeddingHall(String name)
-    {
-        this.name = name;
-    }
+
 
     public WeddingHall(String name, String localization, int maxNumberOfGuests, boolean canSleep,
                        boolean isFavourite, String description, ArrayList<Integer> photos,
@@ -35,6 +33,7 @@ public class WeddingHall implements Parcelable, Service
         this.photos = photos;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.subcategory = null;
     }
 
     protected WeddingHall(Parcel in)
@@ -43,6 +42,7 @@ public class WeddingHall implements Parcelable, Service
         localization = in.readString();
         description = in.readString();
         phoneNumber = in.readString();
+        subcategory = in.readString();
         email = in.readString();
         maxNumberOfGuests = in.readInt();
         photos = (ArrayList<Integer>) in.readSerializable();
@@ -57,6 +57,7 @@ public class WeddingHall implements Parcelable, Service
         dest.writeString(localization);
         dest.writeString(description);
         dest.writeString(phoneNumber);
+        dest.writeString(subcategory);
         dest.writeString(email);
         dest.writeInt(maxNumberOfGuests);
         dest.writeSerializable(photos);
@@ -172,4 +173,13 @@ public class WeddingHall implements Parcelable, Service
     }
 
 
+    public String getSubcategory()
+    {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory)
+    {
+        this.subcategory = subcategory;
+    }
 }

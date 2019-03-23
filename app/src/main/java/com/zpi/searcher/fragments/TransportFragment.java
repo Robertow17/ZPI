@@ -44,6 +44,13 @@ public class TransportFragment extends Fragment
         super.onCreate(savedInstanceState);
     }
 
+    /*@Override
+    public void onResume()
+    {
+        super.onResume();
+        rootView.requestFocus();
+    }*/
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
@@ -81,6 +88,7 @@ public class TransportFragment extends Fragment
     private void setLocalization()
     {
         localizationSearchView = rootView.findViewById(R.id.searchView);
+
 
         localizationSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
         {

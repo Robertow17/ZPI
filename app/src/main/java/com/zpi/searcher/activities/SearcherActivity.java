@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
 import android.widget.TextView;
 
 import com.zpi.R;
@@ -41,11 +45,13 @@ public class SearcherActivity extends AppCompatActivity
 
         viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+
         setupTabIcons();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
 
@@ -85,5 +91,13 @@ public class SearcherActivity extends AppCompatActivity
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Log.d("aktywnocs","back");
+
     }
 }

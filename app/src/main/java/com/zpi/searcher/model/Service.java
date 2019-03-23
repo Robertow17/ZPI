@@ -9,5 +9,6 @@ public interface Service {
      String  getName();
      void setFavourite(boolean favourite);
      ArrayList<Integer> getPhotos();
+     String getSubcategory();
 
 }

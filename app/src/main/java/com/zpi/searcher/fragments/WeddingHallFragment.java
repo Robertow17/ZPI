@@ -1,13 +1,18 @@
 package com.zpi.searcher.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.support.v7.widget.SearchView;
@@ -41,13 +46,14 @@ public class WeddingHallFragment extends Fragment
     }
 
 
-    @Override
+   /* @Override
     public void onResume()
     {
         super.onResume();
+        rootView.requestFocus();
         adapter.notifyDataSetChanged();
     }
-
+*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,15 +91,16 @@ public class WeddingHallFragment extends Fragment
             public boolean onQueryTextSubmit(String query)
             {
                 adapter.filterLocalization(query);
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText)
             {
                 adapter.filterLocalization(newText);
-                return true;
+                return false;
             }
+
         });
 
         searchAutoComplete =
@@ -111,8 +118,16 @@ public class WeddingHallFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long id)
             {
+                Log.d("aktywnosc","click");
                 String queryString = (String) adapterView.getItemAtPosition(itemIndex);
-                searchAutoComplete.setText("" + queryString);
+                searchAutoComplete.setText(queryString);
+                searchAutoComplete.focusSearch(View.FOCUS_RIGHT);
+                searchAutoComplete.clearFocus();
+
+                //searchView.clearFocus();
+                //searchView.focusSearch(View.FOCUS_RIGHT);
+               // searchView.focusSearch(view,View.FOCUS_RIGHT);
+                //view.requestFocus();
             }
         });
 

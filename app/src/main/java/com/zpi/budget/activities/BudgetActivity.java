@@ -151,12 +151,8 @@ public class BudgetActivity extends AppCompatActivity {
             }
         }
         for (int i = 0; i < xValue.length; i++) {
-            /*if (yValue[i] != 0)*/// {
             pieEntries.add(new PieEntry((float) yValue[i] * 1, xValue[i]));
         }
-        //  Color.parseColor("#2edsa");
-        //   final int[] MY_COLORS = {Color.rgb(192, 0, 0), Color.rgb(255, 0, 0), Color.rgb(255, 192, 0),
-        //         Color.rgb(127, 127, 127), Color.rgb(146, 208, 80), Color.rgb(0, 176, 80), Color.rgb(79, 129, 189)};
 
         int[]colors= new int[categoriesColors.length];
         for (int i=0;i<categoriesColors.length;i++)
