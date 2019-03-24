@@ -13,18 +13,25 @@ import android.widget.TextView;
 
 import com.zpi.R;
 import com.zpi.searcher.model.Data;
+import com.zpi.searcher.model.Decorations;
+import com.zpi.searcher.model.Fashion;
+import com.zpi.searcher.model.Music;
+import com.zpi.searcher.model.Others;
+import com.zpi.searcher.model.Photography;
+import com.zpi.searcher.model.Transport;
 import com.zpi.searcher.model.WeddingHall;
 import com.zpi.searcher.utils.PageTransformer;
+import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ViewPagerAdapter;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
 
-public class WeddingHallDetails extends AppCompatActivity
+public class ServiceDetails extends AppCompatActivity
 {
 
-    private WeddingHall weddingHall;
-    private TextView name, localization, descriptionLabel, description, guestsNumber;
+    private Service service;
+    private TextView name, localization, descriptionLabel, description, guestsNumber, subcategory;
     private ImageView localizationIcon, sleepIcon, favouriteStar;
     private FloatingActionButton callButton, emailButton;
     private ViewPager viewPager;
@@ -34,10 +41,12 @@ public class WeddingHallDetails extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.searcher_activity_wedding_hall_details);
+        setContentView(R.layout.searcher_activity_details);
 
         setLayoutView();
         setListeners();
+
+        setWeddingHalls();
     }
 
 
@@ -46,20 +55,20 @@ public class WeddingHallDetails extends AppCompatActivity
 
         findViewsById();
 
-        weddingHall = getIntent().getExtras().getParcelable(ServicesAdapter.EXTRA_WEDDING_HALL);
-        position = getIntent().getExtras().getInt("POZ");
+        service = getIntent().getExtras().getParcelable(ServicesAdapter.EXTRA_SERVICE);
+        position = getIntent().getExtras().getInt(EXTRA_POSITION);
 
-        name.setText(weddingHall.getName());
-        localization.setText(weddingHall.getLocalization());
-        description.setText(weddingHall.getDescription());
-        guestsNumber.setText(Integer.toString(weddingHall.getMaxNumberOfGuests()));
+        name.setText(service.getName());
+        localization.setText(service.getLocalization());
+        description.setText(service.getDescription());
+        subcategory.setText(service.getSubcategory());
 
-        if(!weddingHall.canSleep())
+        if(null == service.getSubcategory())
         {
-            sleepIcon.setVisibility(View.INVISIBLE);
+            subcategory.setVisibility(View.INVISIBLE);
         }
 
-        if(weddingHall.isFavourite())
+        if(service.isFavourite())
         {
             favouriteStar.setImageResource(android.R.drawable.star_big_on);
         }
@@ -69,10 +78,23 @@ public class WeddingHallDetails extends AppCompatActivity
             favouriteStar.setImageResource(android.R.drawable.star_off);
         }
 
-
-        viewPager.setAdapter(new ViewPagerAdapter(getApplicationContext(), weddingHall.getPhotos()));
+        viewPager.setAdapter(new ViewPagerAdapter(getApplicationContext(), service.getPhotos()));
         viewPager.setPageTransformer(true, new PageTransformer());
 
+    }
+
+    private void setWeddingHalls()
+    {
+        if(service instanceof WeddingHall)
+        {
+            WeddingHall hall = (WeddingHall) service;
+            guestsNumber.setText(Integer.toString(hall.getMaxNumberOfGuests()));
+
+            if(hall.canSleep())
+            {
+                sleepIcon.setImageResource(R.drawable.hotel);
+            }
+        }
     }
 
     private void findViewsById()
@@ -88,6 +110,7 @@ public class WeddingHallDetails extends AppCompatActivity
         sleepIcon = findViewById(R.id.sleepIcon);
         favouriteStar = findViewById(R.id.favouriteStar);
         viewPager = findViewById(R.id.hallPhotosPager);
+        subcategory = findViewById(R.id.subcategory);
     }
 
 
@@ -100,17 +123,18 @@ public class WeddingHallDetails extends AppCompatActivity
             {
 
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:" + weddingHall.getPhoneNumber()));
+                callIntent.setData(Uri.parse("tel:" + service.getPhoneNumber()));
                 startActivity(callIntent);
             }
         });
 
-        emailButton.setOnClickListener(new View.OnClickListener() {
+        emailButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto",weddingHall.getEmail(), null));
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",
+                        service.getEmail(), null));
                 startActivity(Intent.createChooser(intent, "Choose an Email client :"));
 
             }
@@ -122,11 +146,10 @@ public class WeddingHallDetails extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                weddingHall.setFavourite(!weddingHall.isFavourite());
+                service.setFavourite(!service.isFavourite());
 
-                Log.d("ONCLICK", String.valueOf(weddingHall.isFavourite()));
 
-                if(weddingHall.isFavourite())
+                if(service.isFavourite())
                 {
                     favouriteStar.setImageResource(android.R.drawable.star_big_on);
 
@@ -137,9 +160,6 @@ public class WeddingHallDetails extends AppCompatActivity
                     favouriteStar.setImageResource(android.R.drawable.star_off);
                 }
 
-
-                Data.getWeddingHalls().get(getIntent().getExtras().getInt("POZ")).setFavourite(weddingHall.isFavourite());
-
             }
         });
     }
@@ -147,8 +167,38 @@ public class WeddingHallDetails extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        Data.getWeddingHalls().get(position).setFavourite(weddingHall.isFavourite());
-        Log.d(EXTRA_POSITION, String.valueOf(position));
+        if(service instanceof WeddingHall)
+        {
+            Data.getWeddingHalls().get(position).setFavourite(service.isFavourite());
+
+        }
+        if(service instanceof Transport)
+        {
+            Data.getTransports().get(position).setFavourite(service.isFavourite());
+        }
+        if(service instanceof Photography)
+        {
+            Data.getPhotographs().get(position).setFavourite(service.isFavourite());
+        }
+        if(service instanceof Others)
+        {
+            Data.getOthers().get(position).setFavourite(service.isFavourite());
+        }
+        if(service instanceof Music)
+        {
+            Data.getMusicians().get(position).setFavourite(service.isFavourite());
+        }
+        if(service instanceof Fashion)
+        {
+            Data.getFashion().get(position).setFavourite(service.isFavourite());
+        }
+        if(service instanceof Decorations)
+        {
+            Data.getDecorations().get(position).setFavourite(service.isFavourite());
+        }
+
         super.onBackPressed();
     }
+
 }
+

@@ -31,11 +31,11 @@ public class SearcherActivity extends AppCompatActivity
     private static final String[] tabArray = {"SALE", "MUZYKA", "FOTOGRAFIA", "DEKORACJE",
         "TRANSPORT", "MODA", "INNE"};
 
-    private static final String[] DECORATION_SUBCATEGORIES = new String[] {"Dekoracje weselne", "Florystyka"};
+   /* private static final String[] DECORATION_SUBCATEGORIES = new String[] {"Dekoracje weselne", "Florystyka"};
     private static final String[] FASHION_SUBCATEGORIES = new String[] {"Fryzjer", "Kosmetyczka", "Suknie ślubne", "Garnitury", "Dodatki"};
     private static final String[] MUSIC_SUBCATEGORIES = new String[] {"Zespół weselny", "DJ"};
     private static final String[] TRANSPORT_SUBCATEGORIES = new String[] {"Limuzyna", "Samochody zabytkowe", "Inne pojazdy"};
-    private static final String[] OTHERS_SUBCATEGORIES = new String[] {"Jubiler", "Catering", "Cukiernia", "Szkoła tańca"};
+    private static final String[] OTHERS_SUBCATEGORIES = new String[] {"Jubiler", "Catering", "Cukiernia", "Szkoła tańca"};*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,24 +48,28 @@ public class SearcherActivity extends AppCompatActivity
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-
         setupTabIcons();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        setupViewPager(viewPager);
+
+    }
 
     private void setupViewPager(ViewPager viewPager)
     {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(FragmentBasic.newInstance(Data.getWeddingHalls()), tabArray[0]);
-        adapter.addFragment(FragmentExtended.newInstance( Data.getWeddingHalls(), MUSIC_SUBCATEGORIES), tabArray[1]);
-        adapter.addFragment(FragmentBasic.newInstance(Data.getWeddingHalls()), tabArray[2]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), DECORATION_SUBCATEGORIES), tabArray[3]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), TRANSPORT_SUBCATEGORIES), tabArray[4]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), FASHION_SUBCATEGORIES), tabArray[5]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getWeddingHalls(), OTHERS_SUBCATEGORIES), tabArray[6]);
-
+        adapter.addFragment(FragmentExtended.newInstance( Data.getMusicians()), tabArray[1]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getPhotographs()), tabArray[2]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getDecorations()), tabArray[3]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[4]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getFashion()), tabArray[5]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getOthers()), tabArray[6]);
 
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new PageTransformer());

@@ -5,15 +5,13 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.zpi.R;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     private static Context context;
     private PagerAdapter pagerAdapter;
     private List<Service> servicesCopy;
-    public static final String EXTRA_WEDDING_HALL = "com.zpi.searcher.model.WeddingHall";
+    public static final String EXTRA_SERVICE = "com.zpi.searcher.service";
 
 
     public ServicesAdapter(Context context, List<Service> services)
@@ -33,16 +31,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         this.services = services;
         this.servicesCopy = new ArrayList<>(services);
 
-    }
-/*
+        Log.d("MOJE", String.valueOf(services.size()));
 
-    public ServicesAdapter(Context context, List<com.zpi.searcher.model.Service> services)
-    {
-        this.context = context;
-        this.services = (List<Service>) services;
-        this.servicesCopy = new ArrayList<>((Collection<? extends Service>) services);
     }
-*/
 
 
     @Override
@@ -60,9 +51,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         final Service service = (Service) services.get(position);
         holder.name.setText(service.getName());
         holder.localization.setText(service.getLocalization());
+        holder.subcategory.setText(service.getSubcategory());
 
         pagerAdapter = new ItemViewPagerAdapter(context, service, position);
-
         holder.viewPager.setAdapter(pagerAdapter);
 
 
@@ -191,10 +182,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                 @Override
                 public void onClick(View view)
                 {
-                    Service hall =  services.get(getAdapterPosition());
-                    hall.setFavourite(!hall.isFavourite());
+                    Service service =  services.get(getAdapterPosition());
+                    service.setFavourite(!service.isFavourite());
 
-                    if(hall.isFavourite())
+                    if(service.isFavourite())
                     {
                         favouriteIcon.setImageResource(android.R.drawable.star_big_on);
 

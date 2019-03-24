@@ -50,7 +50,6 @@ public class FragmentBasic extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-
     }
 
 
@@ -61,21 +60,20 @@ public class FragmentBasic extends Fragment
 
         rootView = inflater.inflate(R.layout.searcher_fragment, container, false);
 
-        setRecyclerView();
-        setLocalization();
+        List<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+        List<String> localizations = Data.getLocalizations(services);
+
+        setRecyclerView(services);
+        setLocalization(localizations);
 
         return rootView;
     }
 
 
-    private void setRecyclerView()
+    private void setRecyclerView(List<? extends Service> services)
     {
         recyclerView =  rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        getArguments().getParcelableArrayList("LIST");
-
-
-        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
 
         adapter = new ServicesAdapter(getContext(), (List<Service>) services);
         recyclerView.setAdapter(adapter);
@@ -83,15 +81,15 @@ public class FragmentBasic extends Fragment
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void setLocalization()
+    private void setLocalization(List<String> localizations)
     {
 
-        setSearachView();
-        setSearchAutoComplete();
+        setSearchView();
+        setSearchAutoComplete(localizations);
 
     }
 
-    private void setSearachView()
+    private void setSearchView()
     {
         searchView = rootView.findViewById(R.id.searchView);
 
@@ -114,15 +112,12 @@ public class FragmentBasic extends Fragment
         });
     }
 
-    private void setSearchAutoComplete()
+    private void setSearchAutoComplete(List<String> localizations)
     {
         searchAutoComplete =
                 searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete.setDropDownBackgroundResource(android.R.color.white);
 
-        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
-
-        ArrayList<String> localizations = Data.getLocalizations(services);
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, localizations);
         searchAutoComplete.setAdapter(newsAdapter);

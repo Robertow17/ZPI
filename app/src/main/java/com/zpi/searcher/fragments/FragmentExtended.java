@@ -37,13 +37,12 @@ public class FragmentExtended extends Fragment
     private SearchView.SearchAutoComplete searchAutoCompleteSubCat;
     private ServicesAdapter adapter;
 
-    public static FragmentExtended newInstance(List<? extends Service> services, String[] subcategories)
+    public static FragmentExtended newInstance(List<? extends Service> services)
     {
         FragmentExtended fragment = new FragmentExtended();
 
         Bundle args = new Bundle();
         args.putParcelableArrayList(EXTRA_SERVICES, (ArrayList<? extends Parcelable>) services);
-        args.putStringArray(EXTRA_SUBCATEORIES, subcategories);
 
         fragment.setArguments(args);
 
@@ -72,35 +71,39 @@ public class FragmentExtended extends Fragment
     {
         rootView = inflater.inflate(R.layout.searcher_fragment_with_subcategory, container, false);
 
-        setRecyclerView();
-        setLocalization();
-        setSubcategories();
+        List<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+        List<String> localizations = Data.getLocalizations(services);
+        List<String> subcategories = Data.getSubcategories(services);
+
+        setRecyclerView(services);
+        setLocalization(localizations);
+        setSubcategories(subcategories);
 
         return rootView;
     }
 
-    private void setRecyclerView()
+    private void setRecyclerView(List<? extends Service> services)
     {
         recyclerView = rootView.findViewById(R.id.recyclerViewOfOffers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+
         adapter = new ServicesAdapter(getContext(), (List<Service>) services);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void setLocalization()
+    private void setLocalization(List<String> localizations)
     {
 
         setLocalizationSearchView();
-        setSearchAutoCompleteLoc();
+        setSearchAutoCompleteLoc(localizations);
 
     }
 
 
-    private void setSubcategories()
+    private void setSubcategories(List<String> subcategories)
     {
         subcategorySearchView = rootView.findViewById(R.id.subcategorySearchView);
 
@@ -111,7 +114,7 @@ public class FragmentExtended extends Fragment
 
 
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, getArguments().getStringArray(EXTRA_SUBCATEORIES));
+                android.R.layout.simple_dropdown_item_1line, subcategories);
         searchAutoCompleteSubCat.setAdapter(newsAdapter);
 
         searchAutoCompleteSubCat.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -158,14 +161,12 @@ public class FragmentExtended extends Fragment
         });
     }
 
-    private void setSearchAutoCompleteLoc()
+    private void setSearchAutoCompleteLoc(List<String> localizations)
     {
         searchAutoCompleteLoc =
                 localizationSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoCompleteLoc.setDropDownBackgroundResource(android.R.color.white);
 
-        ArrayList<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
-        ArrayList<String> localizations = Data.getLocalizations(services);
         ArrayAdapter<String> newsAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, localizations);
         searchAutoCompleteLoc.setAdapter(newsAdapter);

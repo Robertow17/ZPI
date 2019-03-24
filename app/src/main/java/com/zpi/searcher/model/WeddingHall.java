@@ -7,13 +7,13 @@ import com.zpi.searcher.utils.Service;
 
 import java.util.ArrayList;
 
-public class WeddingHall  implements Service, Parcelable
+public class WeddingHall implements Service, Parcelable
 {
 
     private String name;
     private String localization;
     private int maxNumberOfGuests;
-    boolean canSleep, isFavourite;
+    private boolean canSleep, isFavourite;
     private String description;
     private ArrayList<Integer> photos;
     private String phoneNumber;

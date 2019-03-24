@@ -11,5 +11,7 @@ public interface Service
      void setFavourite(boolean favourite);
      ArrayList<Integer> getPhotos();
      String getSubcategory();
-
+     String getDescription();
+     String getPhoneNumber();
+     String getEmail();
 }

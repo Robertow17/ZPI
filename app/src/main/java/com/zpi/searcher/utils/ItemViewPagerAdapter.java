@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zpi.R;
-import com.zpi.searcher.activities.WeddingHallDetails;
+import com.zpi.searcher.activities.ServiceDetails;
 import com.zpi.serviceProvider.activities.EditService;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
-import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_WEDDING_HALL;
+import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_SERVICE;
 
 public class ItemViewPagerAdapter extends PagerAdapter
 {
@@ -28,18 +29,19 @@ public class ItemViewPagerAdapter extends PagerAdapter
     public static final String EXTRA_POSITION = "com.zpi.searcher.utils.ItemViewPagerAdapter";
 
 
-    public ItemViewPagerAdapter(Context context, Service service, int recyclerViewPosiotion) {
+    public ItemViewPagerAdapter(Context context, Service service, int recyclerViewPosition) {
         this.mContext = context;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.service = service;
-        this.recyclerViewPosiotion = recyclerViewPosiotion;
+        this.recyclerViewPosiotion = recyclerViewPosition;
+
         if(context instanceof ServiceProviderMainActivity){
             isUser=false;
         }
         else{
             isUser=true;
         }
-
+        Log.d("ADAPTER", String.valueOf(service.getPhotos().size()));
     }
 
     @Override
@@ -49,7 +51,7 @@ public class ItemViewPagerAdapter extends PagerAdapter
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ( object);
     }
 
     @Override
@@ -66,8 +68,8 @@ public class ItemViewPagerAdapter extends PagerAdapter
             public void onClick(View view)
             {
                 if(isUser) {
-                    Intent intent = new Intent(mContext, WeddingHallDetails.class);
-                    intent.putExtra(EXTRA_WEDDING_HALL, (Parcelable) service);
+                    Intent intent = new Intent(mContext, ServiceDetails.class);
+                    intent.putExtra(EXTRA_SERVICE, (Parcelable) service);
                     intent.putExtra(EXTRA_POSITION, recyclerViewPosiotion);
                     mContext.startActivity(intent);
                 }
