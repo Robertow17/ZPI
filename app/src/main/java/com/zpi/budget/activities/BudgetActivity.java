@@ -1,8 +1,10 @@
 package com.zpi.budget.activities;
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.zpi.FileManager.FileManager;
 import com.zpi.R;
 import com.zpi.budget.model.Expense;
 import com.zpi.budget.utils.ExpenseAdapterWithSwipe;
@@ -34,6 +37,8 @@ public class BudgetActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Expense> expenses;
     ExpenseAdapterWithSwipe expenseAdapterWithSwipe;
+    FileManager<Expense> fileManager;
+    private static final int MEMORY_ACCESS = 5;
     private static final int EDIT_EXPENSE_ACTIVITY_REQUEST_CODE = 1;
     private static final int ADD_EXPENSE_ACTIVITY_REQUEST_CODE = 2;
     private static final int DELETE_EXPENSE_ACTIVITY_REQUEST_CODE = 21;
@@ -43,15 +48,33 @@ public class BudgetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("aktywnosc","onCreate");
         setContentView(R.layout.budget_main_activity);
         recyclerView = findViewById(R.id.recyclerViewOfExpense);
-        expenses=setData();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(BudgetActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+        } else {
+            ActivityCompat.requestPermissions(BudgetActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MEMORY_ACCESS);
+        }
+        fileManager = new FileManager<>("expenses") ;
+        expenses = fileManager.getFromFile();
+
+//        expenses=setData();
         expenseAdapterWithSwipe = new ExpenseAdapterWithSwipe(this, expenses, categories,categioriesImageId, getResources().getString(R.string.currency));
         recyclerView.setAdapter(expenseAdapterWithSwipe);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         setCardInfo();
         addExpense();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save UI state changes to the savedInstanceState.
+        // This bundle will be passed to onCreate if the process is
+        // killed and restarted.
+        fileManager.saveToFile(expenses);
     }
 
 
@@ -212,5 +235,12 @@ public class BudgetActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_EXPENSE_ACTIVITY_REQUEST_CODE);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d("aktywnosc","onBackPressed");
+        fileManager.saveToFile(expenses);
     }
 }
