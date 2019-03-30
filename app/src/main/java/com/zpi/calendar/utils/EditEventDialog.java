@@ -14,11 +14,8 @@ import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.calendar.activities.CalendarActivity;
-import com.zpi.calendar.model.Data;
-
 
 public class EditEventDialog extends DialogFragment {
-    Data data = new Data();
 
     public EditEventDialog() {}
 
@@ -53,8 +50,8 @@ public class EditEventDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         if(!title.getText().toString().equals("")) {
-                            data.editEvent(time, evetTitle, title.getText().toString(), description.getText().toString());
                             CalendarActivity a = (CalendarActivity) getActivity();
+                            a.editEvent(time, evetTitle, title.getText().toString(), description.getText().toString());
                             a.notifyChanged();
                             Toast.makeText(v.getContext(), "Edytowano " + title.getText().toString(), Toast.LENGTH_SHORT).show();
                         }

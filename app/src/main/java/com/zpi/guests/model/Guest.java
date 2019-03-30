@@ -1,6 +1,8 @@
 package com.zpi.guests.model;
 
-public class Guest {
+import java.io.Serializable;
+
+public class Guest implements Serializable {
 
     private String name;
     private String phone;

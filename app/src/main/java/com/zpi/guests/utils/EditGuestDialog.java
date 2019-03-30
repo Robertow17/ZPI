@@ -14,11 +14,8 @@ import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.guests.activities.GuestsListActivity;
-import com.zpi.guests.model.Data;
-import com.zpi.guests.model.Guest;
 
 public class EditGuestDialog extends DialogFragment {
-    Data data = new Data();
 
     public EditGuestDialog() {}
 
@@ -51,8 +48,8 @@ public class EditGuestDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         if (!name.getText().toString().equals("")) {
-                            data.modifyGuest(pos, name.getText().toString(), phone.getText().toString());
                             GuestsListActivity a = (GuestsListActivity) getActivity();
+                            a.modifyGuest(pos, name.getText().toString(), phone.getText().toString());
                             a.notifyChanged();
                             Toast.makeText(v.getContext(), "Edytowano " + name.getText().toString(), Toast.LENGTH_SHORT).show();
                         }

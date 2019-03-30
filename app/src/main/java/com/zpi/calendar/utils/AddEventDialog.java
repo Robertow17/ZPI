@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.calendar.activities.CalendarActivity;
-import com.zpi.calendar.model.Data;
 import com.zpi.calendar.model.WeddingEvent;
 
 import java.util.Date;
 
 public class AddEventDialog extends DialogFragment {
-    Data data = new Data();
 
     public AddEventDialog() {}
 
@@ -53,8 +51,8 @@ public class AddEventDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
 
                         if(!title.getText().toString().equals("")) {
-                            data.addEvent(new WeddingEvent(new Date(time), title.getText().toString(), description.getText().toString()));
                             CalendarActivity a = (CalendarActivity) getActivity();
+                            a.addEvent(new WeddingEvent(new Date(time), title.getText().toString(), description.getText().toString()));
                             a.notifyNewEvent();
                             Toast.makeText(v.getContext(), "Dodano " + title.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
@@ -77,7 +75,6 @@ public class AddEventDialog extends DialogFragment {
         super.onStart();
         Button positive = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE);
         positive.setTextColor(Color.BLACK);
-
 
         Button negative = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE);
         negative.setTextColor(Color.BLACK);

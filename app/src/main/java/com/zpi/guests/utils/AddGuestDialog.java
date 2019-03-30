@@ -14,11 +14,10 @@ import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.guests.activities.GuestsListActivity;
-import com.zpi.guests.model.Data;
 import com.zpi.guests.model.Guest;
 
 public class AddGuestDialog extends DialogFragment {
-    Data data = new Data();
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -33,8 +32,8 @@ public class AddGuestDialog extends DialogFragment {
                         final EditText name = (EditText) v.findViewById(R.id.guest);
                         final EditText phone = (EditText) v.findViewById(R.id.phoneNumber);
                         if (!name.getText().toString().equals("")) {
-                            data.addGuest(new Guest(name.getText().toString(), phone.getText().toString()));
                             GuestsListActivity a = (GuestsListActivity) getActivity();
+                            a.addGuest(new Guest(name.getText().toString(), phone.getText().toString()));
                             a.setGuestsAmount();
                             Toast.makeText(v.getContext(), "Dodano " + name.getText().toString(), Toast.LENGTH_SHORT).show();
                         }

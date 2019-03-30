@@ -8,22 +8,17 @@ import android.view.View;
 import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.guests.activities.GuestsListActivity;
-import com.zpi.guests.model.Data;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 public class MainActivity extends AppCompatActivity
 {
-    Data data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        data = new Data();
-        data.setGuests();
     }
 
     public void click(View view)

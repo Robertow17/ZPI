@@ -25,7 +25,7 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_provider_main);
+        setContentView(R.layout.service_provider_main_activity);
 
         Data data = new Data();
         serviceProvider= data.getServiceProvider();

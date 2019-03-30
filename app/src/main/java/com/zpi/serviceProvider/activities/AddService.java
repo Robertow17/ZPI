@@ -10,6 +10,6 @@ public class AddService extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_service);
+        setContentView(R.layout.service_provider_add_service_activity);
     }
 }

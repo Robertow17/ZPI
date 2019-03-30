@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/include1"
-        layout="@layout/activity_guests_list" />
+        layout="@layout/guest_list_activity" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"

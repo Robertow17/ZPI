@@ -42,7 +42,7 @@ public class Data {
 
     public void editEvent(long time, String currentTitle, String title, String description){
         for(WeddingEvent e : events){
-            if(e.getEvent().getTimeInMillis()==time){
+            if(e.getTimeInMillis()==time){
                 if(e.getTitle().equals(currentTitle)){
                     e.setTitle(title);
                     e.setDescription(description);

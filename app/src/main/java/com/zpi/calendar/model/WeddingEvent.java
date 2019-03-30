@@ -1,19 +1,24 @@
 package com.zpi.calendar.model;
 
-import android.graphics.Color;
-
-import com.github.sundeepk.compactcalendarview.domain.Event;
-
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class WeddingEvent {
-    Event event;
+public class WeddingEvent implements Serializable {
     String title;
     String description;
     int day;
     int month;
     int year;
+    long timeInMillis;
+
+    public long getTimeInMillis() {
+        return timeInMillis;
+    }
+
+    public void setTimeInMillis(long timeInMillis) {
+        this.timeInMillis = timeInMillis;
+    }
 
     public WeddingEvent(Date date, String title, String descriptionc) {
 
@@ -26,16 +31,11 @@ public class WeddingEvent {
         this.month = cal.get(Calendar.MONTH);
         this.day = cal.get(Calendar.DAY_OF_MONTH);
 
-        event = new Event(Color.RED, date.getTime(), title);
+        timeInMillis = date.getTime();
+
     }
 
-    public Event getEvent() {
-        return event;
-    }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public String getTitle() {
         return title;

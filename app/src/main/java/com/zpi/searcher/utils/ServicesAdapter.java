@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.zpi.R;
+import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     private static Context context;
     private PagerAdapter pagerAdapter;
     private List<Service> servicesCopy;
+    private boolean isUser;
     public static final String EXTRA_SERVICE = "com.zpi.searcher.service";
 
 
@@ -30,6 +32,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         this.context = context;
         this.services = services;
         this.servicesCopy = new ArrayList<>(services);
+
+        if(context instanceof ServiceProviderMainActivity){
+            isUser=false;
+        }
+        else{
+            isUser=true;
+        }
 
         Log.d("MOJE", String.valueOf(services.size()));
 
@@ -62,15 +71,21 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
             holder.subcategory.setVisibility(View.INVISIBLE);
         }
 
-        if(service.isFavourite())
-        {
-            holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
+        if(isUser){
+            if(service.isFavourite())
+            {
+                holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
+            }
+
+            else
+            {
+                holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
+            }
+        }
+        else {
+            holder.favouriteIcon.setVisibility(View.INVISIBLE);
         }
 
-        else
-        {
-            holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
-        }
 
     }
 

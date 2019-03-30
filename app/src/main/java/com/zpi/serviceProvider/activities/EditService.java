@@ -10,6 +10,6 @@ public class EditService extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_service);
+        setContentView(R.layout.service_provider_edit_service_activity);
     }
 }

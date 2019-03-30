@@ -15,7 +15,6 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.zpi.R;
 import com.zpi.calendar.activities.CalendarActivity;
-import com.zpi.calendar.model.Data;
 import com.zpi.calendar.model.WeddingEvent;
 
 import java.util.List;
@@ -24,13 +23,13 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
 
     private Context mContext;
     private List<WeddingEvent> mEventsList;
-    Data data;
+
 
 
     public EventAdapterWithSwipe(Context context, List<WeddingEvent> objects) {
         this.mContext = context;
         this.mEventsList = objects;
-        this.data = new Data();
+
     }
 
     public void setEventsList(List<WeddingEvent> objects) {
@@ -40,7 +39,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
 
     @Override
     public com.zpi.calendar.utils.EventAdapterWithSwipe.SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.events_row_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_events_row_layout, parent, false);
         return new com.zpi.calendar.utils.EventAdapterWithSwipe.SimpleViewHolder(view);
     }
 
@@ -92,7 +91,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
             @Override
             public void onClick(View v) {
                 FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
-                ShowEventDialog egd = ShowEventDialog.newInstance(item.getEvent().getTimeInMillis(), item.getTitle(), item.getDescription());
+                ShowEventDialog egd = ShowEventDialog.newInstance(item.getTimeInMillis(), item.getTitle(), item.getDescription());
                 egd.show(fm, "editDialog");
             }
 //                if (!item.isConfirmed()) {
@@ -137,7 +136,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
             public void onClick(View view) {
 
                 FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
-                EditEventDialog egd = EditEventDialog.newInstance(item.getEvent().getTimeInMillis(), item.getTitle(), item.getDescription());
+                EditEventDialog egd = EditEventDialog.newInstance(item.getTimeInMillis(), item.getTitle(), item.getDescription());
                 egd.show(fm, "editDialog");
 
             }
@@ -149,7 +148,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
 
                 ((CalendarActivity) mContext).notifyRemovedEvent(position);
                 mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                data.removerEvent(mEventsList.get(position));
+                ((CalendarActivity) mContext).removerEvent(mEventsList.get(position));
                 mEventsList.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, mEventsList.size());
