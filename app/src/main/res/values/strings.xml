@@ -29,6 +29,8 @@
     <string name="localization">Lokalizacja</string>
     <string name="description">Opis</string>
     <string name="subcategory">Podkategoria</string>
+    <string name="title_activity_favourites">FavouritesActivity</string>
+    <string name="favourite">Ulubione</string>
 
 
 </resources>

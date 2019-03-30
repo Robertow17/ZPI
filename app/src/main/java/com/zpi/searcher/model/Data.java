@@ -173,6 +173,31 @@ public class Data
 
 
 
+    private static final List<Service> services = new ArrayList<Service>()
+    {{
+        add(new Decorations("Ozdoby ślubne", "Zielona Góra", true, "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
+                " nec odio. Vivamus justo erat", photosDecorations, "609781153", "psliwinska@onet.eu", "Dekoracje weselne"));
+
+        add(new Fashion("Akcesoria ślubne", "Szczecin", true, "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
+                " nec odio. Vivamus justo erat", photosFashion, "609781153", "psliwinska@onet.eu", "Dodatki"));
+        add(new Music("Catering ślubny", "Zielona Góra", true, "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
+                " nec odio. Vivamus justo erat", photosMusic, "609781153", "psliwinska@onet.eu", "DJ"));
+
+        add(new Transport("Limuzyna", "Szczecin", true, "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
+                " nec odio. Vivamus justo erat", photosTransport, "609781153", "psliwinska@onet.eu", "Limuzyna", 4));
+        add(new Transport("Traktor Heniek", "Głogów", true, "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
+                " nec odio. Vivamus justo erat", photosTransport, "609781153", "psliwinska@onet.eu", "Inne pojazdy", 4));
+        add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photosWeddingHall,
+                "609781153", "psliwinska@onet.eu"));
+    }};
+
+
+
     public static List<String> getLocalizations(List<? extends Service> services)
     {
         List<String> localizations = new ArrayList<>();
@@ -237,5 +262,10 @@ public class Data
     public static List<WeddingHall> getWeddingHalls()
     {
         return weddingHalls;
+    }
+
+    public static List<Service> getServices()
+    {
+        return services;
     }
 }

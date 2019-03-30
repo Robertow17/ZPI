@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
+import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.photoImageView:
                 intent = new Intent(MainActivity.this, ServiceProviderMainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.favouritesImageView:
+                intent = new Intent(MainActivity.this, FavouritesActivity.class);
                 startActivity(intent);
                 break;
         }
