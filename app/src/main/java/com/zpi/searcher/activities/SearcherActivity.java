@@ -1,8 +1,15 @@
 package com.zpi.searcher.activities;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,7 +30,9 @@ public class SearcherActivity extends AppCompatActivity
 {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private static final int[] tabIcons = {R.drawable.music};
+    private static final int[] tabIcons = {R.drawable.baseline_restaurant_menu_white_18dp, R.drawable.music,
+            R.drawable.baseline_photo_camera_white_18dp, R.drawable.baseline_card_giftcard_white_18dp,
+            R.drawable.baseline_directions_car_white_18dp, R.drawable.baseline_brush_white_18dp, R.drawable.baseline_more_vert_white_18dp};
     public static  final String EXTRA_SERVICES = "services";
     public static  final String EXTRA_SUBCATEORIES = "subcategories";
 
@@ -45,9 +54,10 @@ public class SearcherActivity extends AppCompatActivity
 
         viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
+        setTabLayoutListener();
         setupTabIcons();
 
     }
@@ -56,8 +66,6 @@ public class SearcherActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        setupViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager)
@@ -83,8 +91,9 @@ public class SearcherActivity extends AppCompatActivity
                     (TextView) LayoutInflater.from(this).inflate(R.layout.searcher_custom_tab,
                             null);
             customTab.setText(tabArray[i]);
-            customTab.setCompoundDrawablesWithIntrinsicBounds(tabIcons[0], 0, 0, 0);
+            customTab.setCompoundDrawablesWithIntrinsicBounds(tabIcons[i], 0, 0, 0);
             TabLayout.Tab tab = tabLayout.getTabAt(i);
+
             if(tab != null)
                 tab.setCustomView(customTab);
         }
@@ -97,6 +106,61 @@ public class SearcherActivity extends AppCompatActivity
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         return true;
+    }
+
+    private void setTabLayoutListener()
+    {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+                int colorFrom = ((ColorDrawable) tabLayout.getBackground()).getColor();
+                Log.d("COLOR", String.valueOf(colorFrom));
+
+                int colorTo = getColorForTab(tab.getPosition());
+
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                colorAnimation.setDuration(250);
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        int color = (int) animator.getAnimatedValue();
+
+                        tabLayout.setBackgroundColor(color);
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getWindow().setStatusBarColor(color);
+                        }
+                    }
+
+                });
+
+                colorAnimation.start();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
+            }
+        });
+    }
+
+    public int getColorForTab(int position) {
+        if (position == 0) return ContextCompat.getColor(this, R.color.colorPrimary);
+        else if (position == 1) return ContextCompat.getColor(this, R.color.lightRed);
+        else if (position == 2) return ContextCompat.getColor(this, R.color.purple);
+        else if (position == 3) return ContextCompat.getColor(this, R.color.teal);
+        else if (position == 4) return ContextCompat.getColor(this, R.color.orange);
+        else if (position == 5) return ContextCompat.getColor(this, R.color.brown);
+        else if (position == 6) return ContextCompat.getColor(this, R.color.blue_grey);
+        else return ContextCompat.getColor(this, R.color.colorPrimary);
     }
 
     @Override

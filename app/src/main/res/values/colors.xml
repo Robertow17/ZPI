@@ -7,4 +7,12 @@
     <color name="black">#000000</color>
 
     <color name="dialogLight">#000</color>
+
+
+    <color name="lightRed">#ef9a9a</color>
+    <color name="purple">#bc6044</color>
+    <color name="teal">#bc1f39</color>
+    <color name="orange">#bc5d79</color>
+    <color name="brown">#d3b8ae</color>
+    <color name="blue_grey">#819ca9</color>
 </resources>
