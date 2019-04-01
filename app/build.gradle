@@ -45,4 +45,5 @@ dependencies {
 
     //calendar
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }

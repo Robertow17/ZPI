@@ -192,7 +192,7 @@ public class Data
         add(new Transport("Traktor Heniek", "Głogów", true, "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis" +
                 " nec odio. Vivamus justo erat", photosTransport, "609781153", "psliwinska@onet.eu", "Inne pojazdy", 4));
-        add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photosWeddingHall,
+        add(new WeddingHall("Zacisze", "Wrocław", 120, true, true, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photosWeddingHall,
                 "609781153", "psliwinska@onet.eu"));
     }};
 

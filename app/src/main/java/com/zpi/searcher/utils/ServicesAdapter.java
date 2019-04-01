@@ -2,8 +2,10 @@ package com.zpi.searcher.utils;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.zpi.R;
+import com.zpi.favourites.FavouritesActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 import java.util.ArrayList;
@@ -33,14 +38,14 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         this.services = services;
         this.servicesCopy = new ArrayList<>(services);
 
-        if(context instanceof ServiceProviderMainActivity){
-            isUser=false;
+        if(context instanceof ServiceProviderMainActivity)
+        {
+            isUser = false;
         }
-        else{
-            isUser=true;
+        else
+        {
+            isUser = true;
         }
-
-        Log.d("MOJE", String.valueOf(services.size()));
 
     }
 
@@ -55,9 +60,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ServicesAdapter.ViewHolder holder, int position)
+    public void onBindViewHolder(final ServicesAdapter.ViewHolder holder, final int position)
     {
-        final Service service = (Service) services.get(position);
+        final Service service = services.get(position);
         holder.name.setText(service.getName());
         holder.localization.setText(service.getLocalization());
         holder.subcategory.setText(service.getSubcategory());
@@ -66,12 +71,13 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         holder.viewPager.setAdapter(pagerAdapter);
 
 
-        if(null == ((Service) services.get(position)).getSubcategory())
+        if(null == (services.get(position)).getSubcategory())
         {
             holder.subcategory.setVisibility(View.INVISIBLE);
         }
 
-        if(isUser){
+        if(isUser)
+        {
             if(service.isFavourite())
             {
                 holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
@@ -82,11 +88,60 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                 holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
             }
         }
-        else {
+        else
+        {
             holder.favouriteIcon.setVisibility(View.INVISIBLE);
         }
 
 
+
+        holder.favouriteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                if(context instanceof FavouritesActivity)
+                {
+                    showConfirmFavouriteServiceAlertDialog(position);
+                }
+                else
+                {
+                    service.setFavourite(!service.isFavourite());
+
+                    if(service.isFavourite())
+                    {
+                        holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
+
+                    }
+
+                    else
+                    {
+                        holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
+                    }
+                }
+
+            }
+        });
+
+    }
+
+    private void showConfirmFavouriteServiceAlertDialog(final int positionToRemove){
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Czy na pewno chcesz usunąć usługę z ulubionych?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "TAK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeAt(positionToRemove);
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NIE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
 
@@ -118,6 +173,15 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public void removeAt(int position)
+    {
+        services.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, services.size());
+    }
+
+
+
 
    /* public void filterSubcategory(String text)
     {
@@ -131,7 +195,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
             text = text.toLowerCase();
             for(WeddingHall item : servicesCopy)
             {
-                if(item.getSubcategory().toLowerCase().contains(text) || item.getSubcategory().toLowerCase().contains(text))
+                if(item.getSubcategory().toLowerCase().contains(text) || item.getSubcategory()
+                .toLowerCase().contains(text))
                 {
                     services.add(item);
                 }
@@ -152,7 +217,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                     List<Service> filteredList = new ArrayList<>();
 
                     for(Service item : services){
-                        if (item.getLocalization().toLowerCase().contains(charString.toLowerCase())) {
+                        if (item.getLocalization().toLowerCase().contains(charString.toLowerCase
+                        ())) {
                             filteredList.add(item);
                         }
                     }
@@ -173,13 +239,12 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         };
     }*/
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
     {
         public TextView name, localization, subcategory;
         public ViewPager viewPager;
         private List<Service> services;
         private ImageView favouriteIcon;
-
 
         public ViewHolder(View view, final List<Service> services)
         {
@@ -190,30 +255,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
             viewPager = view.findViewById(R.id.viewpager);
             favouriteIcon = view.findViewById(R.id.star);
             subcategory = view.findViewById(R.id.subcategory);
-
-
-            favouriteIcon.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    Service service =  services.get(getAdapterPosition());
-                    service.setFavourite(!service.isFavourite());
-
-                    if(service.isFavourite())
-                    {
-                        favouriteIcon.setImageResource(android.R.drawable.star_big_on);
-
-                    }
-
-                    else
-                    {
-                        favouriteIcon.setImageResource(android.R.drawable.star_off);
-                    }
-                }
-            });
-
         }
-
     }
 }

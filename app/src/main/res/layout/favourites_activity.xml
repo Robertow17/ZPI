@@ -52,7 +52,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:fontFamily="casual"
                 android:text="@string/favourite"
                 android:textColor="@color/dialogLight"
                 android:textSize="24sp"
