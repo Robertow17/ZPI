@@ -9,6 +9,7 @@ import java.util.List;
 public class Data
 {
 
+
     private static final ArrayList<Integer> photosWeddingHall = new ArrayList<Integer>()
     {
         {

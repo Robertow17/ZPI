@@ -7,13 +7,11 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.favourites.FavouritesActivity;
@@ -32,10 +30,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     public static final String EXTRA_SERVICE = "com.zpi.searcher.service";
 
 
-    public ServicesAdapter(Context context, List<Service> services)
+    public ServicesAdapter(Context context, List<? extends Service> services)
     {
         this.context = context;
-        this.services = services;
+        this.services = (List<Service>) services;
         this.servicesCopy = new ArrayList<>(services);
 
         if(context instanceof ServiceProviderMainActivity)
