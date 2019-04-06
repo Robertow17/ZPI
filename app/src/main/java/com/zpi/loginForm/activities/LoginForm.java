@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,25 +67,23 @@ public class LoginForm extends AppCompatActivity {
 
     private UserType getUserType() {
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
-        String engagedType = ((Button) findViewById(R.id.engagedUserButton)).getText().toString();
+        String engagedTypeButtonText = getValueFromInput(R.id.engagedUserButton);
 
-        if(radioButtonText.equals(engagedType)) return UserType.Engaged;
+        if(radioButtonText.equals(engagedTypeButtonText)) return UserType.Engaged;
         else return UserType.ServiceProvider;
     }
 
     private Sex getUserSex() {
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
-        String female = ((Button) findViewById(R.id.femaleButton)).getText().toString();
+        String femaleButtonText = getValueFromInput(R.id.femaleButton);
 
-        if(radioButtonText.equals(female)) return Sex.Female;
+        if(radioButtonText.equals(femaleButtonText)) return Sex.Female;
         else return Sex.Male;
     }
 
     private String getValueFromRadioButtonGroup(int id) {
         RadioGroup radioGroup = findViewById(id);
-        RadioButton chosenRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-        String chosenRadioButtonText = chosenRadioButton.getText().toString();
 
-        return chosenRadioButtonText;
+        return getValueFromInput(radioGroup.getCheckedRadioButtonId());
     }
 }
