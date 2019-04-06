@@ -1,5 +1,6 @@
 package com.zpi.loginForm.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpi.FileManager.FileManager;
+import com.zpi.MainActivity;
 import com.zpi.R;
 import com.zpi.loginForm.models.Sex;
 import com.zpi.loginForm.models.UserModel;
@@ -33,9 +35,8 @@ public class LoginForm extends AppCompatActivity {
             List<UserModel> currentUsers = fileManager.getFromFile();
             boolean canUserBeSignIn = areCredentialsValid(currentUsers, getEmail(), getPassword());
 
-            if(canUserBeSignIn) displaySuccessfulSignInToast();
+            if(canUserBeSignIn) goToMainPage();
             else displayUnsuccessfulSignInToast();
-
         });
     }
 
@@ -53,8 +54,9 @@ public class LoginForm extends AppCompatActivity {
         return input.getText().toString();
     }
 
-    private void displaySuccessfulSignInToast() {
-        makeToast("Pomyślnie zalogoowano!");
+    private void goToMainPage() {
+        Intent intent = new Intent(LoginForm.this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void displayUnsuccessfulSignInToast() {
