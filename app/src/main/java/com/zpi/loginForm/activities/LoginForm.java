@@ -21,36 +21,6 @@ public class LoginForm extends AppCompatActivity {
         setSignUpButtonListener();
     }
 
-    private String getPassword() {
-        TextView passwordInput = findViewById(R.id.passwordText);
-        String password = passwordInput.getText().toString();
-
-        return password;
-    }
-
-    private String getEmail() {
-        TextView emailInput = findViewById(R.id.emailText);
-        String email = emailInput.getText().toString();
-
-        return email;
-    }
-
-    private String getUserType() {
-         return getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
-    }
-
-    private String getUserSex() {
-        return getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
-    }
-
-    private String getValueFromRadioButtonGroup(int id) {
-        RadioGroup radioGroup = findViewById(id);
-        RadioButton chosenRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-        String chosenRadioButtonText = chosenRadioButton.getText().toString();
-
-        return chosenRadioButtonText;
-    }
-
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +36,19 @@ public class LoginForm extends AppCompatActivity {
         });
     }
 
+    private String getPassword() {
+        return getValueFromInput(R.id.passwordText);
+    }
+
+    private String getEmail() {
+        return getValueFromInput(R.id.emailText);
+    }
+
+    private String getValueFromInput(int inputId) {
+        TextView input = findViewById(inputId);
+        return input.getText().toString();
+    }
+
     private void setSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -79,5 +62,22 @@ public class LoginForm extends AppCompatActivity {
                 toast.show();
             }
         });
+    }
+
+    private String getUserType() {
+        return getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
+    }
+
+    private String getUserSex() {
+        return getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
+    }
+
+    // TODO: refactor to use enums
+    private String getValueFromRadioButtonGroup(int id) {
+        RadioGroup radioGroup = findViewById(id);
+        RadioButton chosenRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+        String chosenRadioButtonText = chosenRadioButton.getText().toString();
+
+        return chosenRadioButtonText;
     }
 }
