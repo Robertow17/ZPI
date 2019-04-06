@@ -8,11 +8,18 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zpi.FileManager.FileManager;
 import com.zpi.R;
 import com.zpi.loginForm.models.Sex;
+import com.zpi.loginForm.models.UserModel;
 import com.zpi.loginForm.models.UserType;
 
+import java.util.List;
+
 public class LoginForm extends AppCompatActivity {
+    FileManager<UserModel> fileManager = new FileManager<>("users");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -20,6 +27,21 @@ public class LoginForm extends AppCompatActivity {
         setContentView(R.layout.login_form);
         setSignInButtonListener();
         setSignUpButtonListener();
+    }
+
+    private void registerUser(String email, String password, Sex sex, UserType userType) {
+        List<UserModel> users = fileManager.getFromFile();
+        users.add(new UserModel(email, password, sex, userType));
+
+        fileManager.saveToFile(users);
+        List<UserModel> test = fileManager.getFromFile();
+
+    }
+
+    private boolean doesUserExsist(String email, String password) {
+        List<UserModel> users = fileManager.getFromFile();
+
+        return false;
     }
 
     private void setSignInButtonListener() {
@@ -55,12 +77,22 @@ public class LoginForm extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserType userType = getUserType();
-                Sex sex = getUserSex();
-                String message = "User type: " + userType + "\nUser sex: " + sex;
+                boolean canUserBeSignedUp = true;
+                String signUpMessage = "Registration failed!";
 
-                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-                toast.show();
+                if(canUserBeSignedUp) {
+                    registerUser(getEmail(), getPassword(), getUserSex(), getUserType());
+
+                    signUpMessage = "Registration succeeded!";
+
+                    List<UserModel> users = fileManager.getFromFile();
+
+//                    Toast toast = Toast.makeText(getApplicationContext(), users.toString(), Toast.LENGTH_SHORT);
+//                    toast.show();
+                }
+
+//                Toast toast = Toast.makeText(getApplicationContext(), signUpMessage, Toast.LENGTH_SHORT);
+//                toast.show();
             }
         });
     }
