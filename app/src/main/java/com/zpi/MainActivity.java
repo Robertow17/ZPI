@@ -9,6 +9,7 @@ import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
+import com.zpi.loginForm.activities.LoginForm;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, FavouritesActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.imageView6:
+                intent = new Intent(MainActivity.this, LoginForm.class);
+                startActivity(intent);
         }
     }
 }

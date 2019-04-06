@@ -29,6 +29,7 @@
         <activity android:name=".budget.activities.BudgetActivity" />
         <activity android:name=".budget.activities.EditExpenseActivity" />
         <activity android:name=".calendar.activities.CalendarActivity" />
+        <activity android:name=".loginForm.activities.LoginForm" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
