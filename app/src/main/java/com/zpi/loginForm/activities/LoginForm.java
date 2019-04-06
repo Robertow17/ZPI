@@ -8,18 +8,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zpi.FileManager.FileManager;
 import com.zpi.MainActivity;
 import com.zpi.R;
 import com.zpi.loginForm.models.Sex;
 import com.zpi.loginForm.models.UserModel;
 import com.zpi.loginForm.models.UserType;
-
-import java.util.List;
+import com.zpi.loginForm.infrastructure.UserManager;
 
 public class LoginForm extends AppCompatActivity {
-    FileManager<UserModel> fileManager = new FileManager<>("users");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +27,7 @@ public class LoginForm extends AppCompatActivity {
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(view -> {
-            List<UserModel> currentUsers = fileManager.getFromFile();
-            boolean canUserBeSignIn = areCredentialsValid(currentUsers, getEmail(), getPassword());
+            boolean canUserBeSignIn = UserManager.areCredentialsValid(getEmail(), getPassword());
 
             if(canUserBeSignIn) goToMainPage();
             else displayUnsuccessfulSignInToast();
@@ -63,36 +58,22 @@ public class LoginForm extends AppCompatActivity {
     }
 
     private void makeToast(String message) {
-        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
     }
 
     private void setSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(view -> {
-            List<UserModel> currentUsers = fileManager.getFromFile();
-            boolean canUserBeSignedUp = !doesUserExist(currentUsers, getEmail());
+            boolean canUserBeSignedUp = !UserManager.doesUserExist(getEmail());
 
             if(canUserBeSignedUp) {
                 UserModel newUser = new UserModel(getEmail(), getPassword(), getUserSex(), getUserType());
-                registerUser(currentUsers, newUser);
+                UserManager.registerUser(newUser);
                 displaySuccessfulSignUpToast();
             }
             else displayUnsuccessfulSignUpToast();
         });
-    }
-
-    private boolean doesUserExist(List<UserModel> users, String email) {
-        return users.parallelStream().anyMatch(user -> user.getEmail().equals(email));
-    }
-
-    private boolean areCredentialsValid(List<UserModel> users, String email, String password) {
-        return users.parallelStream().anyMatch(user -> user.getEmail().equals(email) && user.getPassword().equals(password));
-    }
-
-    private void registerUser(List<UserModel> currentUsers, UserModel newUser) {
-        currentUsers.add(newUser);
-        fileManager.saveToFile(currentUsers);
     }
 
     private void displaySuccessfulSignUpToast() {
