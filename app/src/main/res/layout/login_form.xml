@@ -24,12 +24,12 @@
             android:textColor="@color/black" />
 
         <RadioButton
-            android:id="@+id/usualUserButton"
+            android:id="@+id/engagedUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Zwykły użytkownik?" />
+            android:text="Narzeczeństwo" />
 
         <RadioButton
             android:id="@+id/serviceProviderButton"

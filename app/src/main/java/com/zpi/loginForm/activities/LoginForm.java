@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zpi.R;
+import com.zpi.loginForm.models.Sex;
+import com.zpi.loginForm.models.UserType;
 
 public class LoginForm extends AppCompatActivity {
     @Override
@@ -54,9 +56,9 @@ public class LoginForm extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userType = getUserType();
-                String userSex = getUserSex();
-                String message = "User type: " + userType + "\nUser sex: " + userSex;
+                UserType userType = getUserType();
+                Sex sex = getUserSex();
+                String message = "User type: " + userType + "\nUser sex: " + sex;
 
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
@@ -64,15 +66,22 @@ public class LoginForm extends AppCompatActivity {
         });
     }
 
-    private String getUserType() {
-        return getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
+    private UserType getUserType() {
+        String radioButtonText = getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
+        String engagedType = ((Button) findViewById(R.id.engagedUserButton)).getText().toString();
+
+        if(radioButtonText.equals(engagedType)) return UserType.Engaged;
+        else return UserType.ServiceProvider;
     }
 
-    private String getUserSex() {
-        return getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
+    private Sex getUserSex() {
+        String radioButtonText = getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
+        String female = ((Button) findViewById(R.id.femaleButton)).getText().toString();
+
+        if(radioButtonText.equals(female)) return Sex.Female;
+        else return Sex.Male;
     }
 
-    // TODO: refactor to use enums
     private String getValueFromRadioButtonGroup(int id) {
         RadioGroup radioGroup = findViewById(id);
         RadioButton chosenRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
