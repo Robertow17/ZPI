@@ -27,9 +27,9 @@ public class LoginForm extends AppCompatActivity {
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(view -> {
-            boolean canUserBeSignIn = UserManager.areCredentialsValid(getEmail(), getPassword());
+            boolean canUserBeSignedIn = UserManager.areCredentialsValid(getEmail(), getPassword());
 
-            if(canUserBeSignIn) goToMainPage();
+            if(canUserBeSignedIn) goToMainPage();
             else displayUnsuccessfulSignInToast();
         });
     }
@@ -44,7 +44,6 @@ public class LoginForm extends AppCompatActivity {
 
     private String getValueFromInput(int inputId) {
         TextView input = findViewById(inputId);
-
         return input.getText().toString();
     }
 
@@ -102,7 +101,6 @@ public class LoginForm extends AppCompatActivity {
 
     private String getValueFromRadioButtonGroup(int id) {
         RadioGroup radioGroup = findViewById(id);
-
         return getValueFromInput(radioGroup.getCheckedRadioButtonId());
     }
 }
