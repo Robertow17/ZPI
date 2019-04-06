@@ -26,13 +26,20 @@ public class LoginForm extends AppCompatActivity {
         return password;
     }
 
+    private String getEmail() {
+        TextView emailInput = findViewById(R.id.emailText);
+        String email = emailInput.getText().toString();
+
+        return email;
+    }
+
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password = getPassword();
-                Toast toast = Toast.makeText(getApplicationContext(), "Password: " + password, Toast.LENGTH_SHORT);
+                String email = getEmail();
+                Toast toast = Toast.makeText(getApplicationContext(), "Email: " + email, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
