@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +35,32 @@ public class LoginForm extends AppCompatActivity {
         return email;
     }
 
+    private String getUserType() {
+         return getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
+    }
+
+    private String getUserSex() {
+        return getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
+    }
+
+    private String getValueFromRadioButtonGroup(int id) {
+        RadioGroup radioGroup = findViewById(id);
+        RadioButton chosenRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+        String chosenRadioButtonText = chosenRadioButton.getText().toString();
+
+        return chosenRadioButtonText;
+    }
+
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = getEmail();
-                Toast toast = Toast.makeText(getApplicationContext(), "Email: " + email, Toast.LENGTH_SHORT);
+                String password = getPassword();
+                String message = "Email: " + email + "\nPassword: " + password;
+
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -50,8 +71,11 @@ public class LoginForm extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password = getPassword();
-                Toast toast = Toast.makeText(getApplicationContext(), "Password: " + password, Toast.LENGTH_SHORT);
+                String userType = getUserType();
+                String userSex = getUserSex();
+                String message = "User type: " + userType + "\nUser sex: " + userSex;
+
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
