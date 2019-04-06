@@ -13,21 +13,16 @@ import com.zpi.loginForm.activities.LoginForm;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
-public class MainActivity extends AppCompatActivity
-{
-
+public class MainActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void click(View view)
-    {
+    public void click(View view) {
         Intent intent;
-        switch(view.getId())
-        {
+        switch(view.getId()) {
             case R.id.budgetImageView:
                 intent = new Intent(MainActivity.this, BudgetActivity.class);
                 startActivity(intent);
@@ -52,9 +47,6 @@ public class MainActivity extends AppCompatActivity
                 intent = new Intent(MainActivity.this, FavouritesActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.imageView6:
-                intent = new Intent(MainActivity.this, LoginForm.class);
-                startActivity(intent);
         }
     }
 }
