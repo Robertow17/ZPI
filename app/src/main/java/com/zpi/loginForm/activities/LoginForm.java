@@ -19,43 +19,23 @@ import java.util.List;
 public class LoginForm extends AppCompatActivity {
     FileManager<UserModel> fileManager = new FileManager<>("users");
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_form);
         setSignInButtonListener();
         setSignUpButtonListener();
     }
 
-    private void registerUser(String email, String password, Sex sex, UserType userType) {
-        List<UserModel> users = fileManager.getFromFile();
-        users.add(new UserModel(email, password, sex, userType));
-
-        fileManager.saveToFile(users);
-        List<UserModel> test = fileManager.getFromFile();
-
-    }
-
-    private boolean doesUserExsist(String email, String password) {
-        List<UserModel> users = fileManager.getFromFile();
-
-        return false;
-    }
-
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = getEmail();
-                String password = getPassword();
-                String message = "Email: " + email + "\nPassword: " + password;
+        signUpButton.setOnClickListener(view -> {
+            List<UserModel> currentUsers = fileManager.getFromFile();
+            boolean canUserBeSignIn = areCredentialsValid(currentUsers, getEmail(), getPassword());
 
-                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-                toast.show();
-            }
+            if(canUserBeSignIn) displaySuccessfulSignInToast();
+            else displayUnsuccessfulSignInToast();
+
         });
     }
 
@@ -69,32 +49,57 @@ public class LoginForm extends AppCompatActivity {
 
     private String getValueFromInput(int inputId) {
         TextView input = findViewById(inputId);
+
         return input.getText().toString();
+    }
+
+    private void displaySuccessfulSignInToast() {
+        makeToast("Pomyślnie zalogoowano!");
+    }
+
+    private void displayUnsuccessfulSignInToast() {
+        makeToast("Nie udało się zalogować!");
+    }
+
+    private void makeToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+        toast.show();
     }
 
     private void setSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signUpButton);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean canUserBeSignedUp = true;
-                String signUpMessage = "Registration failed!";
+        signUpButton.setOnClickListener(view -> {
+            List<UserModel> currentUsers = fileManager.getFromFile();
+            boolean canUserBeSignedUp = !doesUserExist(currentUsers, getEmail());
 
-                if(canUserBeSignedUp) {
-                    registerUser(getEmail(), getPassword(), getUserSex(), getUserType());
-
-                    signUpMessage = "Registration succeeded!";
-
-                    List<UserModel> users = fileManager.getFromFile();
-
-//                    Toast toast = Toast.makeText(getApplicationContext(), users.toString(), Toast.LENGTH_SHORT);
-//                    toast.show();
-                }
-
-//                Toast toast = Toast.makeText(getApplicationContext(), signUpMessage, Toast.LENGTH_SHORT);
-//                toast.show();
+            if(canUserBeSignedUp) {
+                UserModel newUser = new UserModel(getEmail(), getPassword(), getUserSex(), getUserType());
+                registerUser(currentUsers, newUser);
+                displaySuccessfulSignUpToast();
             }
+            else displayUnsuccessfulSignUpToast();
         });
+    }
+
+    private boolean doesUserExist(List<UserModel> users, String email) {
+        return users.parallelStream().anyMatch(user -> user.getEmail().equals(email));
+    }
+
+    private boolean areCredentialsValid(List<UserModel> users, String email, String password) {
+        return users.parallelStream().anyMatch(user -> user.getEmail().equals(email) && user.getPassword().equals(password));
+    }
+
+    private void registerUser(List<UserModel> currentUsers, UserModel newUser) {
+        currentUsers.add(newUser);
+        fileManager.saveToFile(currentUsers);
+    }
+
+    private void displaySuccessfulSignUpToast() {
+        makeToast("Pomyślnie zarejestrowano!");
+    }
+
+    private void displayUnsuccessfulSignUpToast() {
+        makeToast("Nie udało się zarejestrować. Spróbuj później, a jeśli posiadasz konto - zaloguj się!");
     }
 
     private UserType getUserType() {
