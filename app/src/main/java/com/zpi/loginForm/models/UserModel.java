@@ -29,4 +29,3 @@ public class UserModel {
         return userType;
     }
 }
-
