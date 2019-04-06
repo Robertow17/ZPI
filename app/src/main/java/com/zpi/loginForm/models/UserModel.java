@@ -1,6 +1,8 @@
 package com.zpi.loginForm.models;
 
-public class UserModel {
+import java.io.Serializable;
+
+public class UserModel implements Serializable {
     private String email;
     private String password;
     private Sex sex;
