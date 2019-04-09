@@ -16,6 +16,7 @@ public class Service implements Parcelable
     private String phoneNumber;
     private String email;
     private Subcategory subcategory;
+    private Category category;
     private WeddingHallDetails weddingHallDetails;
     private TransportDetails transportDetails;
     private List<Photo> photos;
@@ -26,7 +27,7 @@ public class Service implements Parcelable
 
 
     public Service(String name, String localization, String description,
-                   String phoneNumber, String email, Subcategory subcategory,
+                   String phoneNumber, String email, Subcategory subcategory, Category category,
                    WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
                    List<Photo> photos)
     {
@@ -36,6 +37,7 @@ public class Service implements Parcelable
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.subcategory = subcategory;
+        this.category = category;
         this.weddingHallDetails = weddingHallDetails;
         this.transportDetails = transportDetails;
         this.photos = photos;
@@ -51,6 +53,7 @@ public class Service implements Parcelable
         phoneNumber = in.readString();
         email = in.readString();
         subcategory =  in.readParcelable(Subcategory.class.getClassLoader());
+        category =  in.readParcelable(Category.class.getClassLoader());
         weddingHallDetails = in.readParcelable(WeddingHallDetails.class.getClassLoader());
         transportDetails = in.readParcelable(TransportDetails.class.getClassLoader());
         photos = in.createTypedArrayList(Photo.CREATOR);
@@ -68,6 +71,7 @@ public class Service implements Parcelable
         dest.writeString(phoneNumber);
         dest.writeString(email);
         dest.writeParcelable(this.subcategory, flags);
+        dest.writeParcelable(this.category, flags);
         dest.writeParcelable(this.weddingHallDetails, flags);
         dest.writeParcelable(this.transportDetails, flags);
         dest.writeTypedList(this.photos);
@@ -152,5 +156,8 @@ public class Service implements Parcelable
         return favourites;
     }
 
-
+    public Category getCategory()
+    {
+        return category;
+    }
 }

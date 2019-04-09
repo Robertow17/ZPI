@@ -108,10 +108,10 @@ public class Data
 
 
     private static List<Service> services = new ArrayList<Service>(){{
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(0), null, null,  photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), weddingHallDetails.get(0), null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1),null, null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), null, null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  subcategories.get(0), categories.get(0),null, null,  photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(1),weddingHallDetails.get(0), null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1),categories.get(0),null, null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(2),null, null, photos));
 
     }};
 
@@ -120,7 +120,7 @@ public class Data
         List<Service> transports = new ArrayList<>();
         for(Service service : services)
         {
-            if(service.getSubcategory().getCategory().getName().equals("TRANSPORT"))
+            if(service.getCategory().getName().equals("TRANSPORT"))
             {
                 transports.add(service);
             }
@@ -134,7 +134,7 @@ public class Data
         List<Service> weddingHalls = new ArrayList<>();
         for(Service service : services)
         {
-            if(service.getSubcategory().getCategory().getName().equals("SALE"))
+            if(service.getCategory().getName().equals("SALE"))
             {
                 weddingHalls.add(service);
             }

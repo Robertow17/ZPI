@@ -12,7 +12,7 @@ public class Category implements Parcelable
 
     private String name;
     private List<Subcategory> subcategories;
-
+    private List<Service> services;
  //   private Date createdAt;
  //   private Date updatedAt;
 
@@ -28,6 +28,7 @@ public class Category implements Parcelable
     {
         name = in.readString();
         subcategories = in.createTypedArrayList(Subcategory.CREATOR);
+        services = in.createTypedArrayList(Service.CREATOR);
 
     }
 
@@ -57,6 +58,7 @@ public class Category implements Parcelable
     {
         dest.writeString(name);
         dest.writeTypedList(subcategories);
+        dest.writeTypedList(services);
     }
 
     public String getName()
