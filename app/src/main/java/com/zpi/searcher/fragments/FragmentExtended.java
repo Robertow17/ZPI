@@ -17,15 +17,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Data;
-import com.zpi.searcher.utils.Service;
+import com.zpi.Data;
+import com.zpi.model.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.zpi.searcher.activities.SearcherActivity.EXTRA_SERVICES;
-import static com.zpi.searcher.activities.SearcherActivity.EXTRA_SUBCATEORIES;
 
 public class FragmentExtended extends Fragment
 {
@@ -37,7 +36,7 @@ public class FragmentExtended extends Fragment
     private SearchView.SearchAutoComplete searchAutoCompleteSubCat;
     private ServicesAdapter adapter;
 
-    public static FragmentExtended newInstance(List<? extends Service> services)
+    public static FragmentExtended newInstance(List<Service> services)
     {
         FragmentExtended fragment = new FragmentExtended();
 
@@ -71,7 +70,7 @@ public class FragmentExtended extends Fragment
     {
         rootView = inflater.inflate(R.layout.searcher_fragment_with_subcategory, container, false);
 
-        List<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+        List<Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
         List<String> localizations = Data.getLocalizations(services);
         List<String> subcategories = Data.getSubcategories(services);
 

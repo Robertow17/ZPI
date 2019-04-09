@@ -6,22 +6,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Data;
-import com.zpi.searcher.model.Decorations;
-import com.zpi.searcher.model.Fashion;
-import com.zpi.searcher.model.Music;
-import com.zpi.searcher.model.Others;
-import com.zpi.searcher.model.Photography;
-import com.zpi.searcher.model.Transport;
-import com.zpi.searcher.model.WeddingHall;
+import com.zpi.model.Service;
 import com.zpi.searcher.utils.PageTransformer;
-import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ViewPagerAdapter;
 import com.zpi.searcher.utils.ServicesAdapter;
 
@@ -55,20 +46,25 @@ public class ServiceDetails extends AppCompatActivity
 
         findViewsById();
 
-        service = getIntent().getExtras().getParcelable(ServicesAdapter.EXTRA_SERVICE);
+
+        service = getIntent().getParcelableExtra(ServicesAdapter.EXTRA_SERVICE);
         position = getIntent().getExtras().getInt(EXTRA_POSITION);
 
         name.setText(service.getName());
         localization.setText(service.getLocalization());
         description.setText(service.getDescription());
-        subcategory.setText(service.getSubcategory());
+
 
         if(null == service.getSubcategory())
         {
             subcategory.setVisibility(View.INVISIBLE);
         }
+        else
+        {
+            subcategory.setText(service.getSubcategory().getName());
+        }
 
-        if(service.isFavourite())
+       /* if(service.isFavourite())
         {
             favouriteStar.setImageResource(android.R.drawable.star_big_on);
         }
@@ -76,7 +72,7 @@ public class ServiceDetails extends AppCompatActivity
         else
         {
             favouriteStar.setImageResource(android.R.drawable.star_off);
-        }
+        }*/
 
         viewPager.setAdapter(new ViewPagerAdapter(getApplicationContext(), service.getPhotos()));
         viewPager.setPageTransformer(true, new PageTransformer());
@@ -85,12 +81,12 @@ public class ServiceDetails extends AppCompatActivity
 
     private void setWeddingHalls()
     {
-        if(service instanceof WeddingHall)
+        if(service.getSubcategory().getCategory().equals("SALE"))
         {
-            WeddingHall hall = (WeddingHall) service;
-            guestsNumber.setText(Integer.toString(hall.getMaxNumberOfGuests()));
 
-            if(hall.canSleep())
+            guestsNumber.setText(Integer.toString(service.getWeddingHallDetails().getMaxNumberOfGuests()));
+
+            if(service.getWeddingHallDetails().isCanSleep())
             {
                 sleepIcon.setImageResource(R.drawable.hotel);
             }
@@ -141,7 +137,7 @@ public class ServiceDetails extends AppCompatActivity
         });
 
 
-        favouriteStar.setOnClickListener(new View.OnClickListener()
+      /*  favouriteStar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -161,12 +157,12 @@ public class ServiceDetails extends AppCompatActivity
                 }
 
             }
-        });
+        });*/
     }
 
     @Override
     public void onBackPressed()
-    {
+    {/*
         if(service instanceof WeddingHall)
         {
             Data.getWeddingHalls().get(position).setFavourite(service.isFavourite());
@@ -196,7 +192,7 @@ public class ServiceDetails extends AppCompatActivity
         {
             Data.getDecorations().get(position).setFavourite(service.isFavourite());
         }
-
+*/
         super.onBackPressed();
     }
 

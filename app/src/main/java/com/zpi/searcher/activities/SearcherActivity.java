@@ -3,8 +3,6 @@ package com.zpi.searcher.activities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,14 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.zpi.R;
 import com.zpi.searcher.fragments.FragmentBasic;
 import com.zpi.searcher.fragments.FragmentExtended;
-import com.zpi.searcher.model.Data;
+import com.zpi.Data;
 import com.zpi.searcher.utils.FragmentViewPagerAdapter;
 import com.zpi.searcher.utils.PageTransformer;
 
@@ -71,13 +68,13 @@ public class SearcherActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager)
     {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(FragmentBasic.newInstance(Data.getWeddingHalls()), tabArray[0]);
-        adapter.addFragment(FragmentExtended.newInstance( Data.getMusicians()), tabArray[1]);
-        adapter.addFragment(FragmentBasic.newInstance(Data.getPhotographs()), tabArray[2]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getDecorations()), tabArray[3]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getServices()), tabArray[0]);
+        adapter.addFragment(FragmentExtended.newInstance( Data.getTransports()), tabArray[1]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getServices()), tabArray[2]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[3]);
         adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[4]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getFashion()), tabArray[5]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getOthers()), tabArray[6]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[5]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[6]);
 
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new PageTransformer());

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zpi.R;
 import com.zpi.favourites.FavouritesActivity;
+import com.zpi.model.Service;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 import java.util.ArrayList;
@@ -30,10 +31,10 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     public static final String EXTRA_SERVICE = "com.zpi.searcher.service";
 
 
-    public ServicesAdapter(Context context, List<? extends Service> services)
+    public ServicesAdapter(Context context, List<Service> services)
     {
         this.context = context;
-        this.services = (List<Service>) services;
+        this.services = services;
         this.servicesCopy = new ArrayList<>(services);
 
         if(context instanceof ServiceProviderMainActivity)
@@ -46,7 +47,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         }
 
     }
-
 
     @Override
     public ServicesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -63,7 +63,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
         final Service service = services.get(position);
         holder.name.setText(service.getName());
         holder.localization.setText(service.getLocalization());
-        holder.subcategory.setText(service.getSubcategory());
 
         pagerAdapter = new ItemViewPagerAdapter(context, service, position);
         holder.viewPager.setAdapter(pagerAdapter);
@@ -71,11 +70,17 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 
         if(null == (services.get(position)).getSubcategory())
         {
+
             holder.subcategory.setVisibility(View.INVISIBLE);
         }
+        else
+        {
+            holder.subcategory.setText(service.getSubcategory().getName());
+        }
+
 
         if(isUser)
-        {
+        {/*
             if(service.isFavourite())
             {
                 holder.favouriteIcon.setImageResource(android.R.drawable.star_big_on);
@@ -84,7 +89,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
             else
             {
                 holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
-            }
+            }*/
         }
         else
         {
@@ -102,7 +107,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                 {
                     showConfirmFavouriteServiceAlertDialog(position);
                 }
-                else
+               /* else
                 {
                     service.setFavourite(!service.isFavourite());
 
@@ -116,7 +121,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                     {
                         holder.favouriteIcon.setImageResource(android.R.drawable.star_off);
                     }
-                }
+                }*/
 
             }
         });

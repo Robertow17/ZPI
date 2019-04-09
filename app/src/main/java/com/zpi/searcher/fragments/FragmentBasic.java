@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Data;
-import com.zpi.searcher.utils.Service;
+import com.zpi.Data;
+import com.zpi.model.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class FragmentBasic extends Fragment
 
 
 
-    public static FragmentBasic newInstance(List<? extends Service> services)
+    public static FragmentBasic newInstance(List<Service> services)
     {
         FragmentBasic fragment = new FragmentBasic();
 
@@ -60,7 +60,7 @@ public class FragmentBasic extends Fragment
 
         rootView = inflater.inflate(R.layout.searcher_fragment, container, false);
 
-        List<? extends Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
+        List<Service> services =  getArguments().getParcelableArrayList(EXTRA_SERVICES);
         List<String> localizations = Data.getLocalizations(services);
 
         setRecyclerView(services);

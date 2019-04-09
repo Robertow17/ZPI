@@ -1,7 +1,7 @@
 package com.zpi.serviceProvider.model;
 
 import com.zpi.R;
-import com.zpi.searcher.model.WeddingHall;
+
 
 import java.util.ArrayList;
 
@@ -34,10 +34,10 @@ public class Data {
 
         };
         serviceProvider = new ServiceProvider("zielu@o2.pl", "P@ssw0rd");
-        serviceProvider.addService(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
+  /*      serviceProvider.addService(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
                 "609781153", "psliwinska@onet.eu"));
 
         serviceProvider.addService(new WeddingHall("Zajazd u Bożenki", "Warszawa", 300, false, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos
-                , "609781153", "psliwinska@onet.eu"));
+                , "609781153", "psliwinska@onet.eu"));*/
     }
 }

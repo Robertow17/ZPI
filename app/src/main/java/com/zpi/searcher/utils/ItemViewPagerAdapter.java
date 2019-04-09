@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zpi.R;
+import com.zpi.model.Service;
 import com.zpi.searcher.activities.ServiceDetails;
 import com.zpi.serviceProvider.activities.EditService;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
@@ -41,7 +42,6 @@ public class ItemViewPagerAdapter extends PagerAdapter
         else{
             isUser=true;
         }
-        Log.d("ADAPTER", String.valueOf(service.getPhotos().size()));
     }
 
     @Override
@@ -58,8 +58,8 @@ public class ItemViewPagerAdapter extends PagerAdapter
     public Object instantiateItem(final ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
 
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(service.getPhotos().get(position));
+        ImageView imageView = itemView.findViewById(R.id.imageView);
+        imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
 
         container.addView(itemView);
 
@@ -69,7 +69,7 @@ public class ItemViewPagerAdapter extends PagerAdapter
             {
                 if(isUser) {
                     Intent intent = new Intent(mContext, ServiceDetails.class);
-                    intent.putExtra(EXTRA_SERVICE, (Parcelable) service);
+                    intent.putExtra(EXTRA_SERVICE, service);
                     intent.putExtra(EXTRA_POSITION, recyclerViewPosiotion);
                     mContext.startActivity(intent);
                 }

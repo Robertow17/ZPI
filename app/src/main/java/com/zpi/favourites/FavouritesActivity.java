@@ -1,20 +1,15 @@
 
 package com.zpi.favourites;
 
-import android.graphics.PixelFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Window;
 
 import com.zpi.R;
-import com.zpi.searcher.model.Data;
-import com.zpi.searcher.utils.Service;
+import com.zpi.Data;
 import com.zpi.searcher.utils.ServicesAdapter;
-
-import java.util.List;
 
 public class FavouritesActivity extends AppCompatActivity
 {

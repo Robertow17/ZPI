@@ -12,15 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-
-import com.zpi.searcher.model.WeddingHall;
-import com.zpi.searcher.utils.Service;
 import com.zpi.searcher.utils.ServicesAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,7 +43,7 @@ public class TEST extends AppCompatActivity
         }
     };
 
-    private  List<WeddingHall> test = new ArrayList<WeddingHall>()
+  /*  private  List<WeddingHall> test = new ArrayList<WeddingHall>()
         {{
             add(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photosWeddingHall,
                 "609781153", "psliwinska@onet.eu"));
@@ -58,7 +54,7 @@ public class TEST extends AppCompatActivity
                 , "psliwinska@onet.eu"));
 
 
-    }};
+    }};*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -71,10 +67,13 @@ public class TEST extends AppCompatActivity
         recyclerView =  findViewById(R.id.testRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ServicesAdapter(this, test);
+        adapter = new ServicesAdapter(this, Data.getServices());
         recyclerView.setAdapter(adapter);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        setSearchView();
+        setSearchAutoComplete(Data.getLocalizations(Data.getServices()));
     }
 
 
@@ -100,6 +99,8 @@ public class TEST extends AppCompatActivity
             }
 
         });
+
+
     }
 
     private void setSearchAutoComplete(List<String> localizations)
@@ -142,7 +143,7 @@ public class TEST extends AppCompatActivity
     public void click(View view) {
         Log.d("aktywnosc","click");
 
-        getStrFromServer();
+     //   getStrFromServer();
 
 
     }
@@ -181,6 +182,22 @@ public class TEST extends AppCompatActivity
                     }
                     return null;
                 }
+
+                @Override
+                protected void onPreExecute()
+                {
+                    super.onPreExecute();
+
+                }
+
+
+                @Override
+                protected void onPostExecute(Void aVoid)
+                {
+                    super.onPostExecute(aVoid);
+                }
+
+
             }.execute().get();
         } catch(InterruptedException e)
         {
@@ -189,6 +206,11 @@ public class TEST extends AppCompatActivity
         {
             e.printStackTrace();
         }
+
+
+
     }
+
+
 }
 

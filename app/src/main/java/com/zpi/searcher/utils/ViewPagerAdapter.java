@@ -10,18 +10,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zpi.R;
-import com.zpi.searcher.model.WeddingHall;
-
-import java.util.ArrayList;
+import com.zpi.model.Photo;
+import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter
 {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<Integer> data;
+    private List<Photo> data;
 
-    public ViewPagerAdapter(Context context, ArrayList<Integer> data) {
+    public ViewPagerAdapter(Context context, List<Photo> data) {
         this.mContext = context;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.data = data;
@@ -43,7 +42,7 @@ public class ViewPagerAdapter extends PagerAdapter
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(data.get(position));
+        imageView.setImageResource(Integer.valueOf(data.get(position).getValue()));
 
         container.addView(itemView);
 
