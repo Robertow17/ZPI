@@ -1,7 +1,10 @@
 package com.zpi.loginForm.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -15,13 +18,36 @@ import com.zpi.loginForm.models.UserModel;
 import com.zpi.loginForm.models.UserType;
 import com.zpi.loginForm.infrastructure.UserManager;
 
-public class LoginForm extends AppCompatActivity {
+public class LoginForm extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+    private static final int MEMORY_ACCESS = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_form);
-        setSignInButtonListener();
-        setSignUpButtonListener();
+        getLocalStorageIOPermission();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        boolean isPermissionGranted =
+                requestCode == MEMORY_ACCESS &&
+                        grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+        if (isPermissionGranted) {
+            setSignUpButtonListener();
+            setSignInButtonListener();
+        }
+    }
+
+    private void getLocalStorageIOPermission() {
+        boolean hasPermissionAlreadyBeenGranted = ActivityCompat.shouldShowRequestPermissionRationale(LoginForm.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (!hasPermissionAlreadyBeenGranted) {
+            ActivityCompat.requestPermissions(LoginForm.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MEMORY_ACCESS);
+        }
     }
 
     private void setSignInButtonListener() {
@@ -29,7 +55,7 @@ public class LoginForm extends AppCompatActivity {
         signUpButton.setOnClickListener(view -> {
             boolean canUserBeSignedIn = UserManager.areCredentialsValid(getEmail(), getPassword());
 
-            if(canUserBeSignedIn) goToMainPage();
+            if (canUserBeSignedIn) goToMainPage();
             else displayUnsuccessfulSignInToast();
         });
     }
@@ -66,12 +92,11 @@ public class LoginForm extends AppCompatActivity {
         signUpButton.setOnClickListener(view -> {
             boolean canUserBeSignedUp = !UserManager.doesUserExist(getEmail());
 
-            if(canUserBeSignedUp) {
+            if (canUserBeSignedUp) {
                 UserModel newUser = new UserModel(getEmail(), getPassword(), getUserSex(), getUserType());
                 UserManager.registerUser(newUser);
                 displaySuccessfulSignUpToast();
-            }
-            else displayUnsuccessfulSignUpToast();
+            } else displayUnsuccessfulSignUpToast();
         });
     }
 
@@ -87,7 +112,7 @@ public class LoginForm extends AppCompatActivity {
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
         String engagedTypeButtonText = getValueFromInput(R.id.engagedUserButton);
 
-        if(radioButtonText.equals(engagedTypeButtonText)) return UserType.Engaged;
+        if (radioButtonText.equals(engagedTypeButtonText)) return UserType.Engaged;
         else return UserType.ServiceProvider;
     }
 
@@ -95,7 +120,7 @@ public class LoginForm extends AppCompatActivity {
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
         String femaleButtonText = getValueFromInput(R.id.femaleButton);
 
-        if(radioButtonText.equals(femaleButtonText)) return Sex.Female;
+        if (radioButtonText.equals(femaleButtonText)) return Sex.Female;
         else return Sex.Male;
     }
 
