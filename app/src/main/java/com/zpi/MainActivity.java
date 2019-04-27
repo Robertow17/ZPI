@@ -9,24 +9,20 @@ import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
+import com.zpi.loginForm.activities.LoginForm;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
-public class MainActivity extends AppCompatActivity
-{
-
+public class MainActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void click(View view)
-    {
+    public void click(View view) {
         Intent intent;
-        switch(view.getId())
-        {
+        switch(view.getId()) {
             case R.id.budgetImageView:
                 intent = new Intent(MainActivity.this, BudgetActivity.class);
                 startActivity(intent);
