@@ -16,6 +16,7 @@ import com.zpi.serviceProvider.model.Data;
 import com.zpi.serviceProvider.model.ServiceProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceProviderMainActivity extends AppCompatActivity {
     private ServiceProvider serviceProvider;
@@ -30,6 +31,12 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
         Data data = new Data();
         serviceProvider= data.getServiceProvider();
 
+        Service service = getIntent().getParcelableExtra(ServicesAdapter.EXTRA_SERVICE);
+
+        if(service!=null) {
+            serviceProvider.addService(service);
+        }
+
         setRecyclerView(serviceProvider.getServices());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addServiceButton);
@@ -42,7 +49,7 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
         });
     }
 
-    private void setRecyclerView(ArrayList<Service> services)
+    private void setRecyclerView(List<Service> services)
     {
         recyclerView = (RecyclerView) findViewById(R.id.services);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

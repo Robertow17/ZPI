@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/editService"
+        android:title="Edytuj usługę"
+        android:icon="@drawable/edit"/>
+
+    <item
+        android:id="@+id/removeService"
+        android:title="Usuń usługę"
+        android:icon="@drawable/delete"/>
+
+</menu>
+

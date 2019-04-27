@@ -1,6 +1,7 @@
 package com.zpi.serviceProvider.model;
 
 import com.zpi.R;
+import com.zpi.model.Service;
 
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class Data {
 
         };
         serviceProvider = new ServiceProvider("zielu@o2.pl", "P@ssw0rd");
+        serviceProvider.setServices(com.zpi.Data.getServices());
+
   /*      serviceProvider.addService(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
                 "609781153", "psliwinska@onet.eu"));
 

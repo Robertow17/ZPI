@@ -3,12 +3,13 @@ package com.zpi.serviceProvider.model;
 import com.zpi.model.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceProvider
 {
     private String email;
     private String password;
-    private ArrayList<Service> services;
+    private List<Service> services;
 
     public ServiceProvider(String email, String password) {
         this.email = email;
@@ -32,15 +33,19 @@ public class ServiceProvider
         this.password = password;
     }
 
-    public ArrayList<Service> getServices() {
+    public List<Service> getServices() {
         return services;
     }
 
-    public void setServices(ArrayList<Service> services) {
+    public void setServices(List<Service> services) {
         this.services = services;
     }
 
     public void addService(Service service){
         services.add(service);
+    }
+
+    public void removeService(int position){
+        services.remove(position);
     }
 }

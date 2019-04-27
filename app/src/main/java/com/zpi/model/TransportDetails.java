@@ -57,4 +57,8 @@ public class TransportDetails implements Parcelable
         dest.writeInt(maxSittingPlaces);
         dest.writeParcelable(service, flags);
     }
+
+    public int getMaxSittingPlaces(){
+        return maxSittingPlaces;
+    }
 }

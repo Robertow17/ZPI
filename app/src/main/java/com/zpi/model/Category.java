@@ -20,7 +20,6 @@ public class Category implements Parcelable
     public Category(String name)
     {
         this.name = name;
-
     }
 
 
@@ -69,5 +68,14 @@ public class Category implements Parcelable
     public Category(List<Subcategory> subcategories)
     {
         this.subcategories = subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories)
+    {
+        this.subcategories = subcategories;
+    }
+
+    public List<Subcategory> getSubcategories(){
+        return subcategories;
     }
 }

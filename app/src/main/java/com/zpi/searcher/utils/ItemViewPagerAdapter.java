@@ -2,6 +2,7 @@ package com.zpi.searcher.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -59,7 +60,15 @@ public class ItemViewPagerAdapter extends PagerAdapter
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
 
         ImageView imageView = itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
+        try
+        {
+            imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
+        }
+        catch(NumberFormatException e){
+            Uri image = Uri.parse(service.getPhotos().get(position).getValue());
+            imageView.setImageURI(image);
+        }
+//        imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
 
         container.addView(itemView);
 
@@ -74,8 +83,8 @@ public class ItemViewPagerAdapter extends PagerAdapter
                     mContext.startActivity(intent);
                 }
                 else{
-                    Intent intent = new Intent(mContext, EditService.class);
-                    mContext.startActivity(intent);
+//                    Intent intent = new Intent(mContext, EditService.class);
+//                    mContext.startActivity(intent);
                 }
             }
         });

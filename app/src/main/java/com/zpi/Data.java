@@ -95,6 +95,12 @@ public class Data
 
     }};
 
+    public static List<Subcategory> getSubcategoriesList(){
+        return subcategories;
+    }
+
+
+
     static List<WeddingHallDetails> weddingHallDetails = new ArrayList<WeddingHallDetails>(){{
         add(new WeddingHallDetails(true, 100));
     }};
@@ -108,8 +114,8 @@ public class Data
 
 
     private static List<Service> services = new ArrayList<Service>(){{
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  subcategories.get(0), categories.get(0),null, null,  photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(1),weddingHallDetails.get(0), null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(0),weddingHallDetails.get(0), null,  photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(1),null, null, photos));
        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1),categories.get(0),null, null, photos));
        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(2),null, null, photos));
 
@@ -143,6 +149,13 @@ public class Data
         return weddingHalls;
     }
 
+    public static void setSubcategories(){
+        categories.get(1).setSubcategories(subcategories);
+    }
+
+    public static List<Category> getCategories() {
+        return categories;
+    }
 
     public static List<Service> getServices()
     {
