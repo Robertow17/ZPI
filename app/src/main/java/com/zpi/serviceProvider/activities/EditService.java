@@ -277,13 +277,13 @@ public class EditService extends AppCompatActivity {
 
     private void modifyService(String[] values, String description, boolean accomodation){
         if(values[5].equals("SALE")){
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
         }
         else if(values[5].equals("TRANSPORT")){
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
         }
         else{
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
+            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
         }
     }
 
