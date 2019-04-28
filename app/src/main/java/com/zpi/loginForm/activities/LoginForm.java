@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.zpi.MainActivity;
 import com.zpi.R;
+import com.zpi.loginForm.infrastructure.FormValidator;
 import com.zpi.loginForm.models.Sex;
 import com.zpi.loginForm.models.UserModel;
 import com.zpi.loginForm.models.UserType;
@@ -90,6 +91,8 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
     private void setSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signUpButton);
         signUpButton.setOnClickListener(view -> {
+            if(!areCredentialsValid(getEmail(), getPassword())) return;
+
             boolean canUserBeSignedUp = !UserManager.doesUserExist(getEmail());
 
             if (canUserBeSignedUp) {
@@ -98,6 +101,20 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
                 displaySuccessfulSignUpToast();
             } else displayUnsuccessfulSignUpToast();
         });
+    }
+
+    private boolean areCredentialsValid(String email, String password) {
+        if (!FormValidator.isValidEmail(email)) {
+            makeToast("Podany email jest niepoprawny.");
+            return false;
+        }
+
+        if (!FormValidator.isValidPassword(password)) {
+            makeToast("Hasło nie może być krótsze niż 6 znaków oraz powinno posiadać cyfrę.");
+            return false;
+        }
+
+        return true;
     }
 
     private void displaySuccessfulSignUpToast() {
