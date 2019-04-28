@@ -218,13 +218,13 @@ public class AddService extends AppCompatActivity {
     private Service addNewService(String[] values, String description, boolean accomodation){
         Service newService;
         if(values[5].equals("SALE")){
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
         }
         else if(values[5].equals("TRANSPORT")){
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
         }
         else{
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
         }
         return newService;
     }

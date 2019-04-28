@@ -6,7 +6,7 @@ import com.zpi.model.Category;
 import com.zpi.model.Photo;
 import com.zpi.model.Service;
 import com.zpi.model.Subcategory;
-
+import com.zpi.model.TransportDetails;
 import com.zpi.model.WeddingHallDetails;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class Data
        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(0), subcategories.get(0),null, null,  photos));
        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(1), subcategories.get(1),weddingHallDetails.get(0), null, photos));
        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(0),subcategories.get(1),null, null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(2), subcategories.get(1),null, null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(1), subcategories.get(1),null, null, photos));
 
     }};
 
@@ -177,6 +177,18 @@ public class Data
         }
 
         return localizations;
+    }
+
+    public static void setSubcategories(){
+        categories.get(1).setSubcategories(subcategories);
+    }
+
+    public static List<Category> getCategories() {
+        return categories;
+    }
+
+    public static List<Subcategory> getSubcategoriesList(){
+        return subcategories;
     }
 
 

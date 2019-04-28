@@ -1,30 +1,63 @@
 package com.zpi;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.zpi.ServerConnector.ServerConnector;
+import com.zpi.ServerConnector.ServiceName;
 import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
-import com.zpi.loginForm.activities.LoginForm;
+import com.zpi.model.Category;
+import com.zpi.model.Photo;
+import com.zpi.model.Service;
+import com.zpi.model.Subcategory;
+import com.zpi.model.TransportDetails;
+import com.zpi.model.WeddingHallDetails;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+public class MainActivity extends AppCompatActivity
+{
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    public void click(View view) {
+    public void click(View view) throws IOException {
         Intent intent;
-        switch(view.getId()) {
+        switch(view.getId())
+        {
             case R.id.budgetImageView:
+                Log.d("aktywnosc", "RozmiarWMain:");
                 intent = new Intent(MainActivity.this, BudgetActivity.class);
+                ServerConnector<Photo> serverConnector = new ServerConnector<>(ServiceName.photos);
+             //   List<Service> list =serverConnector.getAll();
+
+              //  Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
+
+
+                Service service = new Service("Opis", "Wrocław", "dsadasda",
+                        "609781153", "psliwinska@onet.eu", new Category("SALE"), null,
+                        null, null,
+                        null);
+
+                Photo photo = new Photo(2, "cos");
+
+                serverConnector.add(photo);
+
                 startActivity(intent);
                 break;
             case R.id.searcherImageView:
