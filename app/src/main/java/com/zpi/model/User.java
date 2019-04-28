@@ -17,10 +17,6 @@ public class User implements Parcelable
     private String password;
     private Gender gender;
     private UserType type;
-    private List<Favourite> favourites;
-
-  //  private Date createdAt;
-  //  private Date updatedAt;
 
     public User(String login, String password, Gender gender, UserType type)
     {
@@ -36,7 +32,7 @@ public class User implements Parcelable
         password = in.readString();
         gender = Gender.values()[in.readInt()];
         type = UserType.values()[in.readInt()];
-        favourites = in.createTypedArrayList(Favourite.CREATOR);
+
     }
 
     public static final Creator<User> CREATOR = new Creator<User>()
@@ -67,6 +63,6 @@ public class User implements Parcelable
         dest.writeString(password);
         dest.writeInt(gender.ordinal());
         dest.writeInt(type.ordinal());
-        dest.writeTypedList(favourites);
+
     }
 }

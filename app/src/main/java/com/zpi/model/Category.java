@@ -4,30 +4,34 @@ package com.zpi.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class Category implements Parcelable
 {
 
     private String name;
     private List<Subcategory> subcategories;
-    private List<Service> services;
- //   private Date createdAt;
- //   private Date updatedAt;
 
+
+    public Category(String name, List<Subcategory> subcategories)
+    {
+        this.name = name;
+        this.subcategories = subcategories;
+
+    }
 
     public Category(String name)
     {
         this.name = name;
-    }
+        this.subcategories = null;
 
+    }
 
     protected Category(Parcel in)
     {
         name = in.readString();
         subcategories = in.createTypedArrayList(Subcategory.CREATOR);
-        services = in.createTypedArrayList(Service.CREATOR);
 
     }
 
@@ -57,7 +61,7 @@ public class Category implements Parcelable
     {
         dest.writeString(name);
         dest.writeTypedList(subcategories);
-        dest.writeTypedList(services);
+
     }
 
     public String getName()
@@ -65,17 +69,5 @@ public class Category implements Parcelable
         return name;
     }
 
-    public Category(List<Subcategory> subcategories)
-    {
-        this.subcategories = subcategories;
-    }
 
-    public void setSubcategories(List<Subcategory> subcategories)
-    {
-        this.subcategories = subcategories;
-    }
-
-    public List<Subcategory> getSubcategories(){
-        return subcategories;
-    }
 }

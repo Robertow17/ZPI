@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Service implements Parcelable
 {
-
     private int id;
     private String name;
     private String localization;
@@ -20,14 +19,11 @@ public class Service implements Parcelable
     private WeddingHallDetails weddingHallDetails;
     private TransportDetails transportDetails;
     private List<Photo> photos;
-    private List<Favourite> favourites;
 
-   // private Date createdAt;
- //   private Date updatedAt;
 
 
     public Service(String name, String localization, String description,
-                   String phoneNumber, String email, Subcategory subcategory, Category category,
+                   String phoneNumber, String email, Category category, Subcategory subcategory,
                    WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
                    List<Photo> photos)
     {
@@ -73,7 +69,6 @@ public class Service implements Parcelable
         weddingHallDetails = in.readParcelable(WeddingHallDetails.class.getClassLoader());
         transportDetails = in.readParcelable(TransportDetails.class.getClassLoader());
         photos = in.createTypedArrayList(Photo.CREATOR);
-        favourites = in.createTypedArrayList(Favourite.CREATOR);
 
     }
 
@@ -88,12 +83,10 @@ public class Service implements Parcelable
         dest.writeString(description);
         dest.writeString(phoneNumber);
         dest.writeString(email);
-        dest.writeParcelable(this.subcategory, flags);
         dest.writeParcelable(this.category, flags);
         dest.writeParcelable(this.weddingHallDetails, flags);
         dest.writeParcelable(this.transportDetails, flags);
         dest.writeTypedList(this.photos);
-        dest.writeTypedList(this.favourites);
     }
 
     public static final Creator<Service> CREATOR = new Creator<Service>()
@@ -115,12 +108,6 @@ public class Service implements Parcelable
     public int describeContents()
     {
         return 0;
-    }
-
-
-    public int getId()
-    {
-        return id;
     }
 
     public String getName()
@@ -148,12 +135,6 @@ public class Service implements Parcelable
         return email;
     }
 
-
-    public Subcategory getSubcategory()
-    {
-        return subcategory;
-    }
-
     public WeddingHallDetails getWeddingHallDetails()
     {
         return weddingHallDetails;
@@ -169,13 +150,24 @@ public class Service implements Parcelable
         return photos;
     }
 
-    public List<Favourite> getFavourites()
-    {
-        return favourites;
-    }
 
     public Category getCategory()
     {
         return category;
+    }
+
+    public Subcategory getSubcategory()
+    {
+        return subcategory;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 }

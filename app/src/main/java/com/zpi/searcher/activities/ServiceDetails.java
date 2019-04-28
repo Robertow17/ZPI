@@ -81,7 +81,7 @@ public class ServiceDetails extends AppCompatActivity
 
     private void setWeddingHalls()
     {
-        if(service.getSubcategory().getCategory().equals("SALE"))
+        if(service.getCategory().equals("SALE"))
         {
 
             guestsNumber.setText(Integer.toString(service.getWeddingHallDetails().getMaxNumberOfGuests()));

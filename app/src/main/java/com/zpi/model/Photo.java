@@ -6,24 +6,20 @@ import android.os.Parcelable;
 
 public class Photo implements Parcelable
 {
-    private int id;
+    private int serviceId;
     private String value;
-    private Service service;
-
-   // private Date createdAt;
-  //  private Date updatedAt;
 
 
-    public Photo(String value)
+    public Photo(int serviceId, String value)
     {
+        this.serviceId = serviceId;
         this.value = value;
     }
 
     protected Photo(Parcel in)
     {
-        id = in.readInt();
+        serviceId = in.readInt();
         value = in.readString();
-        service = in.readParcelable(Service.class.getClassLoader());
     }
 
     public static final Creator<Photo> CREATOR = new Creator<Photo>()
@@ -55,8 +51,7 @@ public class Photo implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(id);
+        dest.writeInt(serviceId);
         dest.writeString(value);
-        dest.writeParcelable(service, flags);
     }
 }

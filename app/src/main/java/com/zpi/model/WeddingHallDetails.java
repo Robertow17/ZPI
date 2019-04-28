@@ -9,12 +9,8 @@ public class WeddingHallDetails implements Parcelable
 {
 
     private int id;
-    private Service service;
     private boolean canSleep;
     private int maxNumberOfGuests;
-
-  //  private Date createdAt;
-   // private Date updatedAt;
 
 
     public WeddingHallDetails(boolean canSleep, int maxNumberOfGuests)
@@ -26,7 +22,6 @@ public class WeddingHallDetails implements Parcelable
     protected WeddingHallDetails(Parcel in)
     {
         id = in.readInt();
-        service = in.readParcelable(Service.class.getClassLoader());
         canSleep = in.readByte() != 0;
         maxNumberOfGuests = in.readInt();
     }
@@ -66,7 +61,6 @@ public class WeddingHallDetails implements Parcelable
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeInt(id);
-        dest.writeParcelable(service, flags);
         dest.writeByte((byte) (canSleep ? 1 : 0));
         dest.writeInt(maxNumberOfGuests);
     }

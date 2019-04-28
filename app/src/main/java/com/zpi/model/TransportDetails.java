@@ -7,25 +7,18 @@ import java.util.Date;
 
 public class TransportDetails implements Parcelable
 {
-
     private int id;
-    private Service service;
     private int maxSittingPlaces;
-
- //   private Date createdAt;
- //   private Date updatedAt;
 
 
     public TransportDetails(int maxSittingPlaces)
     {
-    //    this.service = service;
         this.maxSittingPlaces = maxSittingPlaces;
     }
 
     protected TransportDetails(Parcel in)
     {
         id = in.readInt();
-        service = in.readParcelable(Service.class.getClassLoader());
         maxSittingPlaces = in.readInt();
     }
 
@@ -55,7 +48,6 @@ public class TransportDetails implements Parcelable
     {
         dest.writeInt(id);
         dest.writeInt(maxSittingPlaces);
-        dest.writeParcelable(service, flags);
     }
 
     public int getMaxSittingPlaces(){

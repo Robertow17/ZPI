@@ -9,24 +9,17 @@ public class Subcategory implements Parcelable
 {
 
     private String name;
-    private List<Service> services;
-    private Category category;
-
-  //  private Date createdAt;
-   // private Date updatedAt;
 
 
-    public Subcategory(String name, Category category)
+    public Subcategory(String name)
     {
         this.name = name;
-        this.category = category;
     }
 
     protected Subcategory(Parcel in)
     {
         name = in.readString();
-        services = in.createTypedArrayList(Service.CREATOR);
-        category =  in.readParcelable(Category.class.getClassLoader());
+
     }
 
     public static final Creator<Subcategory> CREATOR = new Creator<Subcategory>()
@@ -64,12 +57,7 @@ public class Subcategory implements Parcelable
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeString(name);
-        dest.writeTypedList(services);
-        dest.writeParcelable(this.category, flags);
     }
 
-    public Category getCategory()
-    {
-        return category;
-    }
+
 }

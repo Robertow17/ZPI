@@ -6,7 +6,7 @@ import com.zpi.model.Category;
 import com.zpi.model.Photo;
 import com.zpi.model.Service;
 import com.zpi.model.Subcategory;
-import com.zpi.model.TransportDetails;
+
 import com.zpi.model.WeddingHallDetails;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class Data
 ////////////////////////////////
     private static List<Category> categories = new ArrayList<Category>(){{
        add(new Category("SALE"));
-       add(new Category("TRANSPORT"));
+       add(new Category("TRANSPORT", subcategories));
        add(new Category("FOTOGRAFIA"));
        add(new Category("MODA"));
        add(new Category("INNE"));
@@ -89,16 +89,11 @@ public class Data
 
 
     private static List<Subcategory> subcategories = new ArrayList<Subcategory>(){{
-        add(new Subcategory("Limuzyna", categories.get(1)));
-        add(new Subcategory("Samochody zabytkowe", categories.get(1)));
-        add(new Subcategory("Inne pojazdy", categories.get(1)));
+        add(new Subcategory("Limuzyna"));
+        add(new Subcategory("Samochody zabytkowe"));
+        add(new Subcategory("Inne pojazdy"));
 
     }};
-
-    public static List<Subcategory> getSubcategoriesList(){
-        return subcategories;
-    }
-
 
 
     static List<WeddingHallDetails> weddingHallDetails = new ArrayList<WeddingHallDetails>(){{
@@ -114,10 +109,10 @@ public class Data
 
 
     private static List<Service> services = new ArrayList<Service>(){{
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(0),weddingHallDetails.get(0), null,  photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(1),null, null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1),categories.get(0),null, null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", subcategories.get(1), categories.get(2),null, null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(0), subcategories.get(0),null, null,  photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(1), subcategories.get(1),weddingHallDetails.get(0), null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(0),subcategories.get(1),null, null, photos));
+       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(2), subcategories.get(1),null, null, photos));
 
     }};
 
@@ -149,13 +144,6 @@ public class Data
         return weddingHalls;
     }
 
-    public static void setSubcategories(){
-        categories.get(1).setSubcategories(subcategories);
-    }
-
-    public static List<Category> getCategories() {
-        return categories;
-    }
 
     public static List<Service> getServices()
     {
