@@ -6,19 +6,19 @@ import android.os.Parcelable;
 
 public class Photo implements Parcelable
 {
-    private int serviceId;
+
     private String value;
 
 
-    public Photo(int serviceId, String value)
+    public Photo(String value)
     {
-        this.serviceId = serviceId;
         this.value = value;
     }
 
+
     protected Photo(Parcel in)
     {
-        serviceId = in.readInt();
+
         value = in.readString();
     }
 
@@ -51,7 +51,7 @@ public class Photo implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(serviceId);
+
         dest.writeString(value);
     }
 }
