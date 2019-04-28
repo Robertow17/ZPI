@@ -92,91 +92,6 @@
             tools:layout_editor_absoluteY="194dp" />
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/userTypeRadioGroup"
-        android:layout_width="183dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notRegisteredTextView">
-
-        <TextView
-            android:id="@+id/userTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Typ konta"
-            android:textColor="@color/black" />
-
-        <RadioButton
-            android:id="@+id/engagedUserButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="Narzeczeństwo" />
-
-        <RadioButton
-            android:id="@+id/serviceProviderButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Usługodawca" />
-
-    </RadioGroup>
-
-
-    <TextView
-        android:id="@+id/notRegisteredTextView"
-        android:layout_width="272dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:text="Nie masz jeszcze konta? Zarejestruj się!"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
-
-    <RadioGroup
-        android:id="@+id/userSexRadioGroup"
-        android:layout_width="183dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTypeRadioGroup">
-
-        <TextView
-            android:id="@+id/sexTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Płeć"
-            android:textColor="@color/black" />
-
-        <RadioButton
-            android:id="@+id/femaleButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="true"
-            android:text="Kobieta" />
-
-        <RadioButton
-            android:id="@+id/maleButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Mężczyzna" />
-
-    </RadioGroup>
-
     <Button
         android:id="@+id/signInButton"
         android:layout_width="wrap_content"
@@ -188,16 +103,108 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Zarejestruj"
+    <TextView
+        android:id="@+id/notRegisteredTextView"
+        android:layout_width="315dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="setGoToSignUpListener"
+        android:text="Nie masz jeszcze konta? Kliknij i zarejestruj się!"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSexRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+
+    <LinearLayout
+        android:id="@+id/signUpForm"
+        android:layout_width="210dp"
+        android:layout_height="248dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notRegisteredTextView">
+
+        <RadioGroup
+            android:id="@+id/userTypeRadioGroup"
+            android:layout_width="183dp"
+            android:layout_height="82dp"
+            tools:layout_editor_absoluteX="114dp"
+            tools:layout_editor_absoluteY="351dp">
+
+            <TextView
+                android:id="@+id/userTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Typ konta"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/engagedUserButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Narzeczeństwo" />
+
+            <RadioButton
+                android:id="@+id/serviceProviderButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Usługodawca" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/userSexRadioGroup"
+            android:layout_width="183dp"
+            android:layout_height="82dp"
+            tools:layout_editor_absoluteX="115dp"
+            tools:layout_editor_absoluteY="453dp">
+
+            <TextView
+                android:id="@+id/sexTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Płeć"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/femaleButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Kobieta" />
+
+            <RadioButton
+                android:id="@+id/maleButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Mężczyzna" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zarejestruj"
+            tools:layout_editor_absoluteX="147dp"
+            tools:layout_editor_absoluteY="559dp" />
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

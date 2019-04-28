@@ -6,7 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +41,8 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
                         grantResults[0] == PackageManager.PERMISSION_GRANTED;
 
         if (isPermissionGranted) {
-            setSignUpButtonListener();
             setSignInButtonListener();
+            setSignUpButtonListener();
         }
     }
 
@@ -86,6 +88,11 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
     private void makeToast(String message) {
         Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void setGoToSignUpListener(View view) {
+        LinearLayout signUpForm = findViewById(R.id.signUpForm);
+        signUpForm.setVisibility(View.VISIBLE);
     }
 
     private void setSignUpButtonListener() {
