@@ -65,16 +65,17 @@ public class SearcherActivity extends AppCompatActivity
         super.onResume();
     }
 
+
     private void setupViewPager(ViewPager viewPager)
     {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(FragmentBasic.newInstance(Data.getServices()), tabArray[0]);
-        adapter.addFragment(FragmentExtended.newInstance( Data.getTransports()), tabArray[1]);
-        adapter.addFragment(FragmentBasic.newInstance(Data.getServices()), tabArray[2]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[3]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[4]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[5]);
-        adapter.addFragment(FragmentExtended.newInstance(Data.getTransports()), tabArray[6]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getServices(tabArray[0])), tabArray[0]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getServices(tabArray[1])), tabArray[1]);
+        adapter.addFragment(FragmentBasic.newInstance(Data.getServices(tabArray[2])), tabArray[2]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getServices(tabArray[3])), tabArray[3]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getServices(tabArray[4])), tabArray[4]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getServices(tabArray[5])), tabArray[5]);
+        adapter.addFragment(FragmentExtended.newInstance(Data.getServices(tabArray[6])), tabArray[6]);
 
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(true, new PageTransformer());
