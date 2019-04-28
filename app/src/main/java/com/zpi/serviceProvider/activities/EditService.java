@@ -30,12 +30,14 @@ import com.zpi.searcher.utils.PageTransformer;
 import com.zpi.searcher.utils.ServicesAdapter;
 import com.zpi.searcher.utils.ViewPagerAdapter;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
+import com.zpi.serviceProvider.model.ServiceProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
 import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_SERVICE;
 
 public class EditService extends AppCompatActivity {
@@ -59,7 +61,11 @@ public class EditService extends AppCompatActivity {
     List<Category> categories;
     List<Subcategory> subcategories;
     Service service;
-    Service createdService;
+    //Service createdService;
+
+    ServiceProvider currentServiceProvider;
+    com.zpi.serviceProvider.model.Data data1;
+    int pos;
 
 
     @Override
@@ -68,6 +74,12 @@ public class EditService extends AppCompatActivity {
         setContentView(R.layout.service_provider_add_service_activity);
 
         service = getIntent().getParcelableExtra(ServicesAdapter.EXTRA_SERVICE);
+        pos = getIntent().getExtras().getInt(EXTRA_POSITION);
+
+        data1 = new com.zpi.serviceProvider.model.Data();
+        currentServiceProvider = data1.getServiceProvider();
+
+
         data = new Data();
         data.setSubcategories();
         categories = data.getCategories();
@@ -99,10 +111,12 @@ public class EditService extends AppCompatActivity {
         addService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result = validateDataAndAddService();
+                String result = validateDataAndModifyService();
                 Toast.makeText(EditService.this, result, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EditService.this, ServiceProviderMainActivity.class);
-                startActivity(intent);
+                if(result.equals("Usługa została pomyślnie zmodyfikowana")){
+                    Intent intent = new Intent(EditService.this, ServiceProviderMainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -200,7 +214,7 @@ public class EditService extends AppCompatActivity {
         return null;
     }
 
-    private String validateDataAndAddService(){
+    private String validateDataAndModifyService(){
         String serviceName = name.getText().toString();
         String serviceLocalization = localization.getText().toString();
         String serviceCategory = category.getSelectedItem().toString();
@@ -256,7 +270,7 @@ public class EditService extends AppCompatActivity {
             }
             if(!wrongData){
                 modifyService(values, serviceDescription, serviceAccomodation);
-                return "Usługa została pomyślnie dodana";
+                return "Usługa została pomyślnie zmodyfikowana";
             }
             else{
                 return result;
@@ -277,13 +291,13 @@ public class EditService extends AppCompatActivity {
 
     private void modifyService(String[] values, String description, boolean accomodation){
         if(values[5].equals("SALE")){
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]),  findValidCategory(values[5]),  new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
         }
         else if(values[5].equals("TRANSPORT")){
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
         }
         else{
-            service = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
         }
     }
 
@@ -293,8 +307,9 @@ public class EditService extends AppCompatActivity {
             accomodation.setVisibility(View.VISIBLE);
             accomodationText.setVisibility(View.VISIBLE);
             maxsizeText.setVisibility(View.VISIBLE);
-            maxsize.setText("");
-            accomodation.setChecked(false);
+            maxsizeText.setText("Maksymalna liczba gości:");
+//            maxsize.setText("");
+//            accomodation.setChecked(false);
         }
         else if(categoryName.equals("TRANSPORT")){
             maxsize.setVisibility(View.VISIBLE);
@@ -302,7 +317,7 @@ public class EditService extends AppCompatActivity {
             accomodationText.setVisibility(View.INVISIBLE);
             maxsizeText.setVisibility(View.VISIBLE);
             maxsizeText.setText("Maksymalna liczba pasażerów:");
-            maxsize.setText("");
+//            maxsize.setText("");
         }
         else {
             maxsize.setVisibility(View.INVISIBLE);
