@@ -73,7 +73,6 @@ public class Service implements Parcelable
     }
 
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
@@ -83,6 +82,7 @@ public class Service implements Parcelable
         dest.writeString(description);
         dest.writeString(phoneNumber);
         dest.writeString(email);
+        dest.writeParcelable(this.subcategory, flags);
         dest.writeParcelable(this.category, flags);
         dest.writeParcelable(this.weddingHallDetails, flags);
         dest.writeParcelable(this.transportDetails, flags);
