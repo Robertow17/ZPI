@@ -43,20 +43,27 @@ public class MainActivity extends AppCompatActivity
             case R.id.budgetImageView:
                 Log.d("aktywnosc", "RozmiarWMain:");
                 intent = new Intent(MainActivity.this, BudgetActivity.class);
-                ServerConnector<Photo> serverConnector = new ServerConnector<>(ServiceName.photos);
-             //   List<Service> list =serverConnector.getAll();
+//                ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
+//                 List<Service> list =serverConnector.getAll();
+//
+//                Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
+//
+//
+//                Service service = new Service("Opis", "WrocławNOWYETYTOWANY", "dsadasda",
+//                        "609781153", "psliwinska@onet.eu", new Category("SALE"), null,
+//                        null, null,
+//                        null);
+//
+//
+//                boolean a = serverConnector.add(service);
+//                Log.d("aktywnosc", "DODAWANIE:" +a);
+//
+//                boolean b = serverConnector.delete(14);
+//                Log.d("aktywnosc", "USUWANIE:" +b);
+//
+//                boolean c = serverConnector.update(18,service);
+//                Log.d("aktywnosc", "MODYFIKOWANIE:" +c);
 
-              //  Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
-
-
-                Service service = new Service("Opis", "Wrocław", "dsadasda",
-                        "609781153", "psliwinska@onet.eu", new Category("SALE"), null,
-                        null, null,
-                        null);
-
-                Photo photo = new Photo(2, "cos");
-
-                serverConnector.add(photo);
 
                 startActivity(intent);
                 break;

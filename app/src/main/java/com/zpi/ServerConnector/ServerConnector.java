@@ -1,7 +1,6 @@
 package com.zpi.ServerConnector;
-import android.os.AsyncTask;
-import android.util.Log;
 
+import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +11,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -42,22 +42,53 @@ public class ServerConnector<T> {
         return result;
     }
 
-    public void add(T object){
+    public boolean add(T object) {
+        boolean result = false;
         try {
             BackgroundTask backgroundTask = new BackgroundTask(Operation.add, object);
-            backgroundTask.execute().get();
+            result = backgroundTask.execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        return result;
+    }
+
+    public boolean update(int id, T newObject) {
+        boolean result = false;
+        try {
+            BackgroundTask backgroundTask = new BackgroundTask(Operation.update, newObject, id);
+            result = backgroundTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean delete(int id) {
+        boolean result = false;
+        try {
+            BackgroundTask backgroundTask = new BackgroundTask(Operation.delete, id);
+            result = backgroundTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
-    private class BackgroundTask extends AsyncTask<Void, Void, Void> {
+    private class BackgroundTask extends AsyncTask<Void, Void, Boolean> {
 
-        Operation operation;
-        T object;
+        private final String DATE_FORMAT = "yyyy-MM-dd";
+        private final String REQUEST_VALUE = "application/json";
+        private Operation operation;
+        private T object;
+        int id;
 
         private BackgroundTask(Operation operation) {
             this.operation = operation;
@@ -66,29 +97,46 @@ public class ServerConnector<T> {
 
         private BackgroundTask(Operation operation, T object) {
             this.operation = operation;
-            this.object=object;
+            this.object = object;
+        }
+
+        private BackgroundTask(Operation operation, int id) {
+            this.operation = operation;
+            this.object = null;
+            this.id = id;
+        }
+
+        private BackgroundTask(Operation operation, T newObject, int id) {
+            this.operation = operation;
+            this.object = newObject;
+            this.id = id;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Boolean doInBackground(Void... voids) {
+            boolean res = false;
             try {
                 if (operation == Operation.all)
                     result = getAllDataFromServer();
                 if (operation == Operation.add)
-                    addToServer(object);
+                    res = addToServer(object);
+                if (operation == Operation.update)
+                    res = updateObjectInServer(id, object);
+                if (operation == Operation.delete)
+                    res = deleteFromServer(id);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return null;
+            return res;
         }
 
         private List<T> getAllDataFromServer() throws IOException {
             URL url = new URL(SERVER_URI + "/" + serviceName + "/" + Operation.all);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(RequestType.GET.toString());
             urlConnection.setConnectTimeout(REQUEST_TIME);
-            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Accept",REQUEST_VALUE);
             if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new RuntimeException(String.valueOf(urlConnection.getResponseCode()));
             }
@@ -109,40 +157,83 @@ public class ServerConnector<T> {
 
             return list;
         }
-        private void addToServer(T object) throws IOException {
+
+        private boolean addToServer(T object) throws IOException {
             String jsonNotification =
-                    new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(object);
-            Log.d("aktywnosc", jsonNotification);
+                    new GsonBuilder().setDateFormat(DATE_FORMAT).create().toJson(object);
             URL url = new URL(SERVER_URI + "/" + serviceName + "/" + Operation.add);
 
-            Log.d("URL",  url.toString());
-
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            try
-            {
+            urlConnection.setConnectTimeout(REQUEST_TIME);
+            try {
+
                 urlConnection.setDoOutput(true);
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestMethod(RequestType.POST.toString());
+                urlConnection.setRequestProperty("Content-Type", REQUEST_VALUE);
                 urlConnection.setConnectTimeout(REQUEST_TIME);
                 DataOutputStream dos =
                         new DataOutputStream(urlConnection.getOutputStream());
-                dos.write(jsonNotification.getBytes("UTF8"), 0,
-                        jsonNotification.getBytes("UTF8").length);
+                dos.write(jsonNotification.getBytes(StandardCharsets.UTF_8), 0,
+                        jsonNotification.getBytes(StandardCharsets.UTF_8).length);
 
 
                 urlConnection.connect();
 
-              /*  if(urlConnection.getResponseCode() != 201)
-                {
-                    throw new RuntimeException("BLAD" + urlConnection.getResponseCode());
-                }*/
-            } finally
-            {
+                if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+                    throw new RuntimeException("ERROR" + urlConnection.getResponseCode());
+                }
+            } finally {
                 urlConnection.disconnect();
             }
 
-
-
+            return urlConnection.getDoOutput();
         }
+
+        private boolean deleteFromServer(int id) throws IOException {
+            URL url = new URL(SERVER_URI + "/" + serviceName + "/" + Operation.delete + "/" + String.valueOf(id));
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+
+            try {
+                httpCon.setDoOutput(true);
+                httpCon.setConnectTimeout(REQUEST_TIME);
+                httpCon.setRequestProperty("X-HTTP-Method-Override", "DELETE");
+                httpCon.setRequestMethod(RequestType.DELETE.toString());
+                httpCon.connect();
+
+                if (httpCon.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+                    return false;
+                }
+            } finally {
+                httpCon.disconnect();
+            }
+            return httpCon.getDoOutput();
+        }
+
+        private boolean updateObjectInServer(int id, T newObject) throws IOException {
+
+            URL url = new URL(SERVER_URI + "/" + serviceName + "/" + Operation.update + "/" + String.valueOf(id));
+            String jsonNotification =
+                    new GsonBuilder().setDateFormat(DATE_FORMAT).create().toJson(newObject);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+
+            urlConnection.setRequestMethod(RequestType.PUT.toString());
+            urlConnection.setRequestProperty("Content-Type", REQUEST_VALUE);
+            urlConnection.setConnectTimeout(REQUEST_TIME);
+
+
+            DataOutputStream dos =
+                    new DataOutputStream(urlConnection.getOutputStream());
+            dos.write(jsonNotification.getBytes(StandardCharsets.UTF_8), 0,
+                    jsonNotification.getBytes(StandardCharsets.UTF_8).length);
+            urlConnection.connect();
+
+            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
+                return false;
+            }
+            return urlConnection.getDoOutput();
+        }
+
+
     }
 }
