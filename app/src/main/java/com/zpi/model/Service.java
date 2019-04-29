@@ -39,21 +39,21 @@ public class Service implements Parcelable
         this.photos = photos;
     }
 
-//    public void editService(String name, String localization, String description,
-//                            String phoneNumber, String email, Subcategory subcategory, Category category,
-//                            WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
-//                            List<Photo> photos){
-//        this.name = name;
-//        this.localization = localization;
-//        this.description = description;
-//        this.phoneNumber = phoneNumber;
-//        this.email = email;
-//        this.subcategory = subcategory;
-//        this.category = category;
-//        this.weddingHallDetails = weddingHallDetails;
-//        this.transportDetails = transportDetails;
-//        this.photos = photos;
-//    }
+    public void editService(String name, String localization, String description,
+                            String phoneNumber, String email, Subcategory subcategory, Category category,
+                            WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
+                            List<Photo> photos){
+        this.name = name;
+        this.localization = localization;
+        this.description = description;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.subcategory = subcategory;
+        this.category = category;
+        this.weddingHallDetails = weddingHallDetails;
+        this.transportDetails = transportDetails;
+        this.photos = photos;
+    }
 
 
     protected Service(Parcel in)
@@ -73,7 +73,6 @@ public class Service implements Parcelable
     }
 
 
-
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
@@ -83,6 +82,7 @@ public class Service implements Parcelable
         dest.writeString(description);
         dest.writeString(phoneNumber);
         dest.writeString(email);
+        dest.writeParcelable(this.subcategory, flags);
         dest.writeParcelable(this.category, flags);
         dest.writeParcelable(this.weddingHallDetails, flags);
         dest.writeParcelable(this.transportDetails, flags);

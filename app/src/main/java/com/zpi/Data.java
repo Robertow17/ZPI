@@ -76,45 +76,198 @@ public class Data
     };
 
 ////////////////////////////////
-    private static List<Category> categories = new ArrayList<Category>(){{
-       add(new Category("SALE"));
-       add(new Category("TRANSPORT", subcategories));
-       add(new Category("FOTOGRAFIA"));
-       add(new Category("MODA"));
-       add(new Category("INNE"));
-       add(new Category("MUZYKA"));
-       add(new Category("DEKORACJE"));
-
-    }};
 
 
-    private static List<Subcategory> subcategories = new ArrayList<Subcategory>(){{
+    private static List<Subcategory> subcategoriesTansport = new ArrayList<Subcategory>(){{
         add(new Subcategory("Limuzyna"));
         add(new Subcategory("Samochody zabytkowe"));
         add(new Subcategory("Inne pojazdy"));
 
     }};
 
+    private static List<Subcategory> subcategoriesMusic = new ArrayList<Subcategory>(){{
+        add(new Subcategory("Zespół weselny"));
+        add(new Subcategory("DJ"));
 
-    static List<WeddingHallDetails> weddingHallDetails = new ArrayList<WeddingHallDetails>(){{
+
+    }};
+
+    private static List<Subcategory> subcategoriesDecorations = new ArrayList<Subcategory>(){{
+        add(new Subcategory("Dekoracje weselne"));
+        add(new Subcategory("Florystyka"));
+
+    }};
+
+    private static List<Subcategory> subcategoriesFashion = new ArrayList<Subcategory>(){{
+        add(new Subcategory("Fryzjer"));
+        add(new Subcategory("Kosmetyczka"));
+        add(new Subcategory("Suknie ślubne"));
+        add(new Subcategory("Garnitury"));
+        add(new Subcategory("Dodatki"));
+    }};
+
+    private static List<Subcategory> subcategoriesOthers = new ArrayList<Subcategory>(){{
+        add(new Subcategory("Jubiler"));
+        add(new Subcategory("Catering"));
+        add(new Subcategory("Cukiernia"));
+        add(new Subcategory("Szkoła tańca"));
+    }};
+
+    private static List<Category> categories = new ArrayList<Category>(){{
+        add(new Category("SALE"));
+        add(new Category("TRANSPORT", subcategoriesTansport));
+        add(new Category("FOTOGRAFIA"));
+        add(new Category("MODA", subcategoriesFashion));
+        add(new Category("INNE", subcategoriesOthers));
+        add(new Category("MUZYKA", subcategoriesMusic));
+        add(new Category("DEKORACJE", subcategoriesDecorations));
+
+    }};
+
+    private static final  List<WeddingHallDetails> weddingHallDetails = new ArrayList<WeddingHallDetails>(){{
         add(new WeddingHallDetails(true, 100));
     }};
 
-
-    static List<Photo> photos = new ArrayList<Photo>(){{
-        add(new Photo(String.valueOf(R.drawable.kosmetyka)));
-        add(new Photo(String.valueOf(R.drawable.dj)));
-        add(new Photo(String.valueOf(R.drawable.zespol)));
+    private static final  List<TransportDetails> transportDetails = new ArrayList<TransportDetails>(){{
+        add(new TransportDetails(5));
     }};
 
+    //wedding halls
+    private static final  List<Photo> photos1 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
+    }};
+
+    private static final  List<Photo> photos2 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.img3)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img1)));
+    }};
+    private static final  List<Photo> photos3 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
+    }};
+
+    private static final  List<Photo> photos4 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
+    }};
+
+    //music
+    private static final  List<Photo> photos5 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.zespol)));
+
+    }};
+
+    private static final  List<Photo> photos6 = new ArrayList<Photo>(){{
+    add(new Photo(String.valueOf(R.drawable.dj)));
+
+    }};
+
+    //photography
+    private static final  List<Photo> photos7 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.fotograf)));
+        add(new Photo(String.valueOf(R.drawable.fotograf2)));
+
+    }};
+    private static final  List<Photo> photos8 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.fotograf2)));
+        add(new Photo(String.valueOf(R.drawable.fotograf)));
+
+    }};
+
+    //decorations
+    private static final  List<Photo> photos9 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.kwiaty)));
+        add(new Photo(String.valueOf(R.drawable.dekoracje)));
+
+    }};
+
+    private static final  List<Photo> photos10 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.kwiaty)));
+
+    }};
+
+    //transport
+    private static final  List<Photo> photos11 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.auto)));
+        add(new Photo(String.valueOf(R.drawable.auto2)));
+
+    }};
+    private static final  List<Photo> photos12 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.auto2)));
+        add(new Photo(String.valueOf(R.drawable.auto)));
+
+    }};
+
+    //others
+    private static final  List<Photo> photos15 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.cukiernia)));
+
+
+    }};
+    private static final  List<Photo> photos16 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.cukiernia2)));
+        add(new Photo(String.valueOf(R.drawable.cukiernia)));
+
+    }};
+
+    //fashion
+    private static final  List<Photo> photos13 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.kosmetyka)));
+
+
+    }};
+    private static final  List<Photo> photos14 = new ArrayList<Photo>(){{
+        add(new Photo(String.valueOf(R.drawable.fryzjer)));
+
+
+    }};
 
     private static List<Service> services = new ArrayList<Service>(){{
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(0), subcategories.get(0),null, null,  photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(1), subcategories.get(1),weddingHallDetails.get(0), null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(0),subcategories.get(1),null, null, photos));
-       add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu", categories.get(1), subcategories.get(1),null, null, photos));
+
+
+        //wedding halls
+        add(new Service("Zacisze", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(0), null, weddingHallDetails.get(0), null,  photos1));
+        add(new Service("Pod sosnami", "Lublin", "Opis", "515259863", "psliwinska@onet.eu", categories.get(0), null,weddingHallDetails.get(0), null, photos2));
+        add(new Service("U babuni", "Gdynia", "Opis", "678425145", "psliwinska@onet.eu", categories.get(0),null,weddingHallDetails.get(0), null, photos3));
+        add(new Service("Dzika Hańcza", "Mikołajów", "Opis", "691752863", "psliwinska@onet.eu", categories.get(0), null,weddingHallDetails.get(0), null, photos4));
+        //music
+        add(new Service("DJ Fokus", "Warszawa", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(5), categories.get(5).getSubcategories().get(1),null, null,  photos6));
+        add(new Service("Zaspół Akcent", "Sosnowiec", "Opis", "515259863", "psliwinska@onet.eu", categories.get(5),  categories.get(5).getSubcategories().get(0),null, null, photos5));
+        //photography
+        add(new Service("Fotografia weselna", "Białystok", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(2), null,null, null,  photos7));
+        add(new Service("Zdjecia okolicznościowe", "Kraków", "Opis", "515259863", "psliwinska@onet.eu", categories.get(2),  null,null, null, photos8));
+        add(new Service("Fotograf od zaraz", "Warszawa", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(2), null,null, null,  photos7));
+
+        //decorations
+        add(new Service("Kwiaty weselne", "Wrocław", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(6), categories.get(6).getSubcategories().get(1),null, null,  photos9));
+        add(new Service("Dekoracje okolicznościowe", "Sosnowiec", "Opis", "515259863", "psliwinska@onet.eu", categories.get(6),  categories.get(6).getSubcategories().get(0),null, null, photos10));
+        add(new Service("Florystyka", "Lubin", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(6), categories.get(6).getSubcategories().get(1),null, null,  photos9));
+
+        //transport
+        add(new Service("Limuzyna", "Smolec", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(1), categories.get(1).getSubcategories().get(0),null, transportDetails.get(0),  photos12));
+        add(new Service("Samochód na wesele", "Oława", "Opis", "515259863", "psliwinska@onet.eu", categories.get(1),  categories.get(1).getSubcategories().get(1),null, transportDetails.get(0), photos11));
+        add(new Service("Warszawa", "Gdynia", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(1), categories.get(1).getSubcategories().get(1),null, transportDetails.get(0),  photos12));
+
+        //fashion
+        add(new Service("Fryzjer", "Zakopane", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(3), categories.get(3).getSubcategories().get(0),null, null,  photos14));
+        add(new Service("Kosmetyczka Beatka", "Jarosławiec", "Opis", "515259863", "psliwinska@onet.eu", categories.get(3),  categories.get(3).getSubcategories().get(1),null, null, photos13));
+
+        //others
+        add(new Service("Cukiernia okolicznościowa", "Warszawa", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(4), categories.get(4).getSubcategories().get(2),null, null,  photos15));
+        add(new Service("Catering", "Sosnowiec", "Opis", "515259863", "psliwinska@onet.eu", categories.get(4),  categories.get(4).getSubcategories().get(1),null, null, photos16));
+        add(new Service("Jubiler", "Kempno", "Opis", "609781153", "psliwinska@onet.eu",  categories.get(4), categories.get(4).getSubcategories().get(0),null, null,  photos13));
+
+
 
     }};
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static List<Service> getTransports()
     {
@@ -145,10 +298,28 @@ public class Data
     }
 
 
+    public static List<Service> getServices(String categoryName)
+    {
+        List<Service> serviceList = new ArrayList<>();
+        for(Service service : services)
+        {
+            if(service.getCategory().getName().equals(categoryName))
+            {
+                serviceList.add(service);
+            }
+        }
+
+        return serviceList;
+    }
+
+
+
+
     public static List<Service> getServices()
     {
         return services;
     }
+
 
 
   public static List<String> getLocalizations(List<Service> services)
@@ -180,7 +351,7 @@ public class Data
     }
 
     public static void setSubcategories(){
-        categories.get(1).setSubcategories(subcategories);
+        categories.get(1).setSubcategories(subcategoriesTansport);
     }
 
     public static List<Category> getCategories() {
@@ -188,8 +359,9 @@ public class Data
     }
 
     public static List<Subcategory> getSubcategoriesList(){
-        return subcategories;
+        return subcategoriesTansport;
     }
+
 
 
 

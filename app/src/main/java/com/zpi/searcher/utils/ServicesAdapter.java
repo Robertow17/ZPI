@@ -28,6 +28,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
+
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHolder>
 {
     private List<Service> services;
@@ -145,7 +147,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                                 case R.id.editService:
                                     Intent intent = new Intent(context, EditService.class);
                                     intent.putExtra(EXTRA_SERVICE, service);
-                                    //intent.putExtra(EXTRA_POSITION, recyclerViewPosiotion);
+                                    intent.putExtra(EXTRA_POSITION, position);
                                     context.startActivity(intent);
                                     return true;
                                 case R.id.removeService:

@@ -15,6 +15,7 @@ import android.net.Uri;
 import com.zpi.R;
 import com.zpi.model.Photo;
 import com.zpi.serviceProvider.activities.AddService;
+import com.zpi.serviceProvider.activities.EditService;
 
 
 import java.util.List;
@@ -75,6 +76,32 @@ public class ViewPagerAdapter extends PagerAdapter
                                         if(data.size()==0){
                                             ((AddService)mContext).addEmptyPhoto();
                                             ((AddService)mContext).notifyPhoto();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("NIE", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .show();
+                    }
+                }
+                else if (mContext instanceof EditService) {
+                    int rnumber = 0;
+                    try {
+                        rnumber = Integer.parseInt(data.get(position).getValue());
+                    }
+                    catch (NumberFormatException e) { }
+                    if (rnumber != R.drawable.no_photos) {
+                        AlertDialog.Builder builder;
+                        builder = new AlertDialog.Builder(mContext);
+                        builder.setMessage("Czy chcesz usunąć to zdjęcie?")
+                                .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        deletePhoto(position);
+                                        if(data.size()==0){
+                                            ((EditService)mContext).addEmptyPhoto();
+                                            ((EditService)mContext).notifyPhoto();
                                         }
                                     }
                                 })
