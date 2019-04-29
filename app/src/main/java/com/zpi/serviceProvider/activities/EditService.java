@@ -354,7 +354,7 @@ public class EditService extends AppCompatActivity {
             mImageUri = data.getData();
             String uriString = mImageUri.toString();
 
-            if(servicePhotos.size()==1){
+            if(servicePhotos.size()==1 || servicePhotos.size()==2){
                 if(servicePhotos.get(0)==nophotos){
 
                     servicePhotos.remove(0);

@@ -94,8 +94,11 @@ public class AddService extends AppCompatActivity {
             public void onClick(View v) {
                 String result = validateDataAndAddService();
                 Toast.makeText(AddService.this, result, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AddService.this, ServiceProviderMainActivity.class);
-                startActivity(intent);
+                if(result.equals("Usługa została pomyślnie dodana")){
+                    Intent intent = new Intent(AddService.this, ServiceProviderMainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
