@@ -329,7 +329,7 @@ public class EditService extends AppCompatActivity {
 
     public void addEmptyPhoto() {
 
-        nophotos = new Photo(String.valueOf(R.drawable.no_photos));
+        nophotos = new Photo(R.drawable.no_photos);
         servicePhotos.add(nophotos);
 
     }
@@ -361,7 +361,7 @@ public class EditService extends AppCompatActivity {
 
                 }
             }
-            servicePhotos.add(new Photo(uriString));
+            servicePhotos.add(new Photo(Integer.parseInt(uriString)));
             notifyPhoto();
 
 

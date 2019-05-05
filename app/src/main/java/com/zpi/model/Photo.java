@@ -6,20 +6,17 @@ import android.os.Parcelable;
 
 public class Photo implements Parcelable
 {
+    private int id;
 
-    private String value;
 
-
-    public Photo(String value)
+    public Photo(int id)
     {
-        this.value = value;
+        this.id = id;
     }
-
 
     protected Photo(Parcel in)
     {
-
-        value = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<Photo> CREATOR = new Creator<Photo>()
@@ -37,11 +34,6 @@ public class Photo implements Parcelable
         }
     };
 
-    public String getValue()
-    {
-        return value;
-    }
-
     @Override
     public int describeContents()
     {
@@ -50,8 +42,10 @@ public class Photo implements Parcelable
 
     @Override
     public void writeToParcel(Parcel dest, int flags)
-    {
+    {dest.writeInt(id);}
 
-        dest.writeString(value);
+    public int getId()
+    {
+        return id;
     }
 }

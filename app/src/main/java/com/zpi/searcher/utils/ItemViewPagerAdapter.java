@@ -62,10 +62,10 @@ public class ItemViewPagerAdapter extends PagerAdapter
         ImageView imageView = itemView.findViewById(R.id.imageView);
         try
         {
-            imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
+            imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getId()));
         }
         catch(NumberFormatException e){
-            Uri image = Uri.parse(service.getPhotos().get(position).getValue());
+            Uri image = Uri.parse(String.valueOf(service.getPhotos().get(position).getId()));
             imageView.setImageURI(image);
         }
 //        imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getValue()));
