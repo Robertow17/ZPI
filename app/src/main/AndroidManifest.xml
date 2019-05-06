@@ -30,7 +30,9 @@
         <activity android:name=".budget.activities.EditExpenseActivity" />
         <activity android:name=".calendar.activities.CalendarActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".loginForm.activities.LoginForm">
+
+        <activity android:name=".loginForm.activities.LoginForm" />
+        <activity android:name=".FetchingImages" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         switch(view.getId())
         {
             case R.id.budgetImageView:
+<<<<<<< HEAD
 //                Log.d("aktywnosc", "RozmiarWMain:");
 //                intent = new Intent(MainActivity.this, BudgetActivity.class);
                 ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
@@ -54,6 +55,15 @@ public class MainActivity extends AppCompatActivity
                  Service newServ = new Service("Zmieniony", s.getLocalization(), s.getDescription(), s.getPhoneNumber(), s.getEmail(), s.getCategory(), s.getSubcategory(), s.getWeddingHallDetails(), null, new ArrayList<>());
 
                  serverConnector.update(s.getId(), newServ);
+=======
+                Log.d("aktywnosc", "RozmiarWMain:");
+                intent = new Intent(MainActivity.this, BudgetActivity.class);
+                ServerConnector<Photo> serverConnector = new ServerConnector<>(ServiceName.photos);
+
+                Photo photo =new Photo(5);
+                 List<Photo> list =serverConnector.add();
+//
+>>>>>>> chore: add async photo loading v0.1
 //                Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
 //
 //
