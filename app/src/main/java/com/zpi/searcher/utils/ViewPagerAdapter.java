@@ -51,10 +51,10 @@ public class ViewPagerAdapter extends PagerAdapter
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         try
         {
-            imageView.setImageResource(data.get(position).getId());
+            imageView.setImageResource(data.get(position).getIdService());
         }
         catch(NumberFormatException e){
-            Uri image = Uri.parse(String.valueOf(data.get(position).getId()));
+            Uri image = Uri.parse(String.valueOf(data.get(position).getIdService()));
             imageView.setImageURI(image);
         }
 
@@ -63,7 +63,7 @@ public class ViewPagerAdapter extends PagerAdapter
                 if (mContext instanceof AddService) {
                     int rnumber = 0;
                             try {
-                                rnumber = data.get(position).getId();
+                                rnumber = data.get(position).getIdService();
                             }
                             catch (NumberFormatException e) { }
                     if (rnumber != R.drawable.no_photos) {
@@ -89,7 +89,7 @@ public class ViewPagerAdapter extends PagerAdapter
                 else if (mContext instanceof EditService) {
                     int rnumber = 0;
                     try {
-                        rnumber = data.get(position).getId();
+                        rnumber = data.get(position).getIdService();
                     }
                     catch (NumberFormatException e) { }
                     if (rnumber != R.drawable.no_photos) {
