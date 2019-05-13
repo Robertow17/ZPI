@@ -11,6 +11,7 @@ import com.zpi.ServerConnector.ServerConnector;
 import com.zpi.ServerConnector.ServiceName;
 import com.zpi.budget.activities.BudgetActivity;
 import com.zpi.calendar.activities.CalendarActivity;
+import com.zpi.checklist.activities.CheckListActivity;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
 import com.zpi.model.Category;
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.favouritesImageView:
                 intent = new Intent(MainActivity.this, FavouritesActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.imageView6:
+                intent = new Intent(MainActivity.this, CheckListActivity.class);
                 startActivity(intent);
                 break;
         }
