@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zpi.R;
-import com.zpi.ServerConnector.ServerConnector;
-import com.zpi.ServerConnector.ServiceName;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.model.Service;
 import com.zpi.serviceProvider.activities.EditService;
@@ -40,7 +38,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     private List<Service> servicesCopy;
     private boolean isUser;
     public static final String EXTRA_SERVICE = "com.zpi.searcher.service";
-    private int serviceID;
 
 
     public ServicesAdapter(Context context, List<Service> services)
@@ -73,7 +70,6 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     public void onBindViewHolder(final ServicesAdapter.ViewHolder holder, final int position)
     {
         final Service service = services.get(position);
-        serviceID = service.getId();
         holder.name.setText(service.getName());
         holder.localization.setText(service.getLocalization());
 
@@ -155,11 +151,9 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
                                     context.startActivity(intent);
                                     return true;
                                 case R.id.removeService:
-//                                    Data data = new Data();
-//                                    data.getServiceProvider().removeService(position);
-//                                    notifyDataSetChanged();
-                                    ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                                    serverConnector.delete(serviceID);
+                                    Data data = new Data();
+                                    data.getServiceProvider().removeService(position);
+                                    notifyDataSetChanged();
                                     return true;
                                 default:
                                     return false;

@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.zpi.Data;
 import com.zpi.R;
-import com.zpi.ServerConnector.ServerConnector;
-import com.zpi.ServerConnector.ServiceName;
 import com.zpi.model.Category;
 import com.zpi.model.Photo;
 import com.zpi.model.Service;
@@ -68,7 +66,6 @@ public class EditService extends AppCompatActivity {
     ServiceProvider currentServiceProvider;
     com.zpi.serviceProvider.model.Data data1;
     int pos;
-    int index;
 
 
     @Override
@@ -78,8 +75,6 @@ public class EditService extends AppCompatActivity {
 
         service = getIntent().getParcelableExtra(ServicesAdapter.EXTRA_SERVICE);
         pos = getIntent().getExtras().getInt(EXTRA_POSITION);
-
-        index = service.getId();
 
         data1 = new com.zpi.serviceProvider.model.Data();
         currentServiceProvider = data1.getServiceProvider();
@@ -274,12 +269,7 @@ public class EditService extends AppCompatActivity {
                 wrongData = true;
             }
             if(!wrongData){
-                //modifyService(values, serviceDescription, serviceAccomodation);
-                Service createdService = addNewService(values, serviceDescription, serviceAccomodation);
-                //com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
-                //data1.getServiceProvider().addService(createdService);
-                ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                serverConnector.update(index,createdService);
+                modifyService(values, serviceDescription, serviceAccomodation);
                 return "Usługa została pomyślnie zmodyfikowana";
             }
             else{
@@ -299,34 +289,17 @@ public class EditService extends AppCompatActivity {
         }
     }
 
-    private Service addNewService(String[] values, String description, boolean accomodation){
-        Service newService;
+    private void modifyService(String[] values, String description, boolean accomodation){
         if(values[5].equals("SALE")){
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, new ArrayList<>());
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]),  findValidCategory(values[5]),  new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
         }
         else if(values[5].equals("TRANSPORT")){
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
         }
         else{
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
+            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
         }
-        return newService;
     }
-
-//    private void modifyService(String[] values, String description, boolean accomodation){
-//        if(values[5].equals("SALE")){
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]),  findValidCategory(values[5]),  new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
-//        }
-//        else if(values[5].equals("TRANSPORT")){
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
-//        }
-//        else{
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
-//        }
-//    }
 
     private void setVisibilityInCaseOfCategory(String categoryName) {
         if(categoryName.equals("SALE")){
@@ -356,8 +329,8 @@ public class EditService extends AppCompatActivity {
 
     public void addEmptyPhoto() {
 
-       // nophotos = new Photo(String.valueOf(R.drawable.no_photos));
-        //servicePhotos.add(nophotos);
+        nophotos = new Photo(String.valueOf(R.drawable.no_photos));
+        servicePhotos.add(nophotos);
 
     }
 
@@ -380,23 +353,15 @@ public class EditService extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
             String uriString = mImageUri.toString();
-            if(servicePhotos.size()==1){
+
+            if(servicePhotos.size()==1 || servicePhotos.size()==2){
                 if(servicePhotos.get(0)==nophotos){
 
                     servicePhotos.remove(0);
 
                 }
             }
-
-            //servicePhotos.add(new Photo(uriString));
-            if(servicePhotos.size()==2){
-                if(servicePhotos.get(0)==nophotos){
-
-                    servicePhotos.remove(0);
-
-                }
-            }
-
+            servicePhotos.add(new Photo(uriString));
             notifyPhoto();
 
 

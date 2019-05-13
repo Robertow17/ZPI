@@ -13,8 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".checklist.activities.CheckListActivity"></activity>
-        <activity android:name=".TEST"></activity>
+        <activity android:name=".TEST">
+        </activity>
         <activity android:name=".favourites.FavouritesActivity" />
         <activity android:name=".serviceProvider.activities.AddService" />
         <activity android:name=".serviceProvider.activities.EditService" />

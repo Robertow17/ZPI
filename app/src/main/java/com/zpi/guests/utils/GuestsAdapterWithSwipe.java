@@ -65,7 +65,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
 
         confirmed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                item.setDone(isChecked);
+//                item.setConfirmed(isChecked);
 //                ((GuestsListActivity) mContext).setConfirmedAmount();
 
                 //Problem! swipe layout działa tak że ta metoda jest wywoływana podczas scrollowania
@@ -115,7 +115,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
 //                    builder.setMessage("Czy chcesz potwierdzić przybycie gościa?")
 //                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    item.setDone(true);
+//                                    item.setConfirmed(true);
 //                                    ((GuestsListActivity) mContext).setConfirmedAmount();
 //                                    confirmed.setChecked(true);
 //                                }
@@ -134,7 +134,7 @@ public class GuestsAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.guests.
 //                    builder.setMessage("Czy chcesz anulować potwierdzenie przybycia gościa?")
 //                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    item.setDone(false);
+//                                    item.setConfirmed(false);
 //                                    ((GuestsListActivity) mContext).setConfirmedAmount();
 //                                    confirmed.setChecked(false);
 //                                }

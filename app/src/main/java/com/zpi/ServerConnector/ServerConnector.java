@@ -1,8 +1,6 @@
 package com.zpi.ServerConnector;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -22,10 +20,9 @@ import static com.zpi.Constants.SERVER_URI;
 
 public class ServerConnector<T> {
 
-    protected final int REQUEST_TIME = 5000;
-    protected final String REQUEST_VALUE = "application/json";
+    private final int REQUEST_TIME = 5000;
     private List<T> result;
-    protected ServiceName serviceName;
+    private ServiceName serviceName;
 
     public ServerConnector(ServiceName serviceName) {
         this.serviceName = serviceName;
@@ -88,6 +85,7 @@ public class ServerConnector<T> {
     private class BackgroundTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String DATE_FORMAT = "yyyy-MM-dd";
+        private final String REQUEST_VALUE = "application/json";
         private Operation operation;
         private T object;
         int id;
@@ -178,7 +176,6 @@ public class ServerConnector<T> {
                 dos.write(jsonNotification.getBytes(StandardCharsets.UTF_8), 0,
                         jsonNotification.getBytes(StandardCharsets.UTF_8).length);
 
-                Log.d("JSON", jsonNotification);
 
                 urlConnection.connect();
 

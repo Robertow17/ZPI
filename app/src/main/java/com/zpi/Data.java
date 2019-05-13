@@ -144,111 +144,111 @@ public class Data
     //wedding halls
     private static final List<Photo> photos1 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.img1)));
-        add(new Photo((R.drawable.img2)));
-        add(new Photo((R.drawable.img3)));
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
     }};
 
     private static final List<Photo> photos2 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.img3)));
-        add(new Photo((R.drawable.img2)));
-        add(new Photo((R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img1)));
     }};
     private static final List<Photo> photos3 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.img2)));
-        add(new Photo((R.drawable.img1)));
-        add(new Photo((R.drawable.img3)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
     }};
 
     private static final List<Photo> photos4 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.img1));
-        add(new Photo(R.drawable.img2));
-        add(new Photo(R.drawable.img3));
+        add(new Photo(String.valueOf(R.drawable.img1)));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.img3)));
     }};
 
     //music
     private static final List<Photo> photos5 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.zespol));
+        add(new Photo(String.valueOf(R.drawable.zespol)));
 
     }};
 
     private static final List<Photo> photos6 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.dj));
+        add(new Photo(String.valueOf(R.drawable.dj)));
 
     }};
 
     //photography
     private static final List<Photo> photos7 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.fotograf));
-        add(new Photo(R.drawable.fotograf2));
+        add(new Photo(String.valueOf(R.drawable.fotograf)));
+        add(new Photo(String.valueOf(R.drawable.fotograf2)));
 
     }};
     private static final List<Photo> photos8 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.fotograf2));
-        add(new Photo(R.drawable.fotograf));
+        add(new Photo(String.valueOf(R.drawable.fotograf2)));
+        add(new Photo(String.valueOf(R.drawable.fotograf)));
 
     }};
 
     //decorations
     private static final List<Photo> photos9 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.kwiaty));
-        add(new Photo(R.drawable.dekoracje));
+        add(new Photo(String.valueOf(R.drawable.kwiaty)));
+        add(new Photo(String.valueOf(R.drawable.dekoracje)));
 
     }};
 
     private static final List<Photo> photos10 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.img2));
-        add(new Photo(R.drawable.kwiaty));
+        add(new Photo(String.valueOf(R.drawable.img2)));
+        add(new Photo(String.valueOf(R.drawable.kwiaty)));
 
     }};
 
     //transport
     private static final List<Photo> photos11 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.auto));
-        add(new Photo(R.drawable.auto2));
+        add(new Photo(String.valueOf(R.drawable.auto)));
+        add(new Photo(String.valueOf(R.drawable.auto2)));
 
     }};
     private static final List<Photo> photos12 = new ArrayList<Photo>()
     {{
-        add(new Photo(R.drawable.auto2));
-        add(new Photo(R.drawable.auto));
+        add(new Photo(String.valueOf(R.drawable.auto2)));
+        add(new Photo(String.valueOf(R.drawable.auto)));
 
     }};
 
     //others
     private static final List<Photo> photos15 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.cukiernia)));
+        add(new Photo(String.valueOf(R.drawable.cukiernia)));
 
 
     }};
     private static final List<Photo> photos16 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.cukiernia2)));
-        add(new Photo((R.drawable.cukiernia)));
+        add(new Photo(String.valueOf(R.drawable.cukiernia2)));
+        add(new Photo(String.valueOf(R.drawable.cukiernia)));
 
     }};
 
     //fashion
     private static final List<Photo> photos13 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.kosmetyka)));
+        add(new Photo(String.valueOf(R.drawable.kosmetyka)));
 
 
     }};
     private static final List<Photo> photos14 = new ArrayList<Photo>()
     {{
-        add(new Photo((R.drawable.fryzjer)));
+        add(new Photo(String.valueOf(R.drawable.fryzjer)));
 
 
     }};
@@ -344,7 +344,7 @@ public class Data
                 transports.add(service);
             }
         }
-
+        Log.d("TRANSPORT", String.valueOf(transports.size()));
         return transports;
     }
 

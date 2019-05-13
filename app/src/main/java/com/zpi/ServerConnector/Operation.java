@@ -1,5 +1,5 @@
 package com.zpi.ServerConnector;
 
 public enum Operation {
-    all, delete, update, add, get
+    all, delete, update, add
 }

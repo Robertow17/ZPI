@@ -94,13 +94,13 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
                 ShowEventDialog egd = ShowEventDialog.newInstance(item.getTimeInMillis(), item.getTitle(), item.getDescription());
                 egd.show(fm, "editDialog");
             }
-//                if (!item.isDone()) {
+//                if (!item.isConfirmed()) {
 //                    AlertDialog.Builder builder;
 //                    builder = new AlertDialog.Builder(mContext);
 //                    builder.setMessage("Czy chcesz potwierdzić przybycie gościa?")
 //                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    item.setDone(true);
+//                                    item.setConfirmed(true);
 //                                    ((GuestsListActivity) mContext).setConfirmedAmount();
 //                                    confirmed.setChecked(true);
 //                                }
@@ -116,7 +116,7 @@ public class EventAdapterWithSwipe extends RecyclerSwipeAdapter<com.zpi.calendar
 //                    builder.setMessage("Czy chcesz anulować potwierdzenie przybycia gościa?")
 //                            .setPositiveButton("TAK", new DialogInterface.OnClickListener() {
 //                                public void onClick(DialogInterface dialog, int which) {
-//                                    item.setDone(false);
+//                                    item.setConfirmed(false);
 //                                    ((GuestsListActivity) mContext).setConfirmedAmount();
 //                                    confirmed.setChecked(false);
 //                                }

@@ -166,4 +166,8 @@ public class Service implements Parcelable
         return id;
     }
 
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 }
