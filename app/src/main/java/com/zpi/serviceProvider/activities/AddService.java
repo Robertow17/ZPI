@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.zpi.Data;
 import com.zpi.R;
+import com.zpi.ServerConnector.ServerConnector;
+import com.zpi.ServerConnector.ServiceName;
 import com.zpi.model.Category;
 import com.zpi.model.Photo;
 import com.zpi.model.Service;
@@ -197,8 +199,10 @@ public class AddService extends AppCompatActivity {
             }
             if(!wrongData){
                 createdService = addNewService(values, serviceDescription, serviceAccomodation);
-                com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
-                data1.getServiceProvider().addService(createdService);
+                //com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
+                //data1.getServiceProvider().addService(createdService);
+                ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
+                serverConnector.add(createdService);
                 return "Usługa została pomyślnie dodana";
             }
             else{
@@ -221,13 +225,16 @@ public class AddService extends AppCompatActivity {
     private Service addNewService(String[] values, String description, boolean accomodation){
         Service newService;
         if(values[5].equals("SALE")){
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, new ArrayList<>());
         }
         else if(values[5].equals("TRANSPORT")){
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
         }
         else{
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
+            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
+            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
         }
         return newService;
     }
@@ -259,7 +266,7 @@ public class AddService extends AppCompatActivity {
 
     public void addEmptyPhoto() {
 
-        nophotos = new Photo(String.valueOf(R.drawable.no_photos));
+        nophotos = new Photo(R.drawable.no_photos);
         servicePhotos.add(nophotos);
 
     }
@@ -279,23 +286,23 @@ public class AddService extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            String uriString = mImageUri.toString();
-
-            if(servicePhotos.size()==1){
-                if(servicePhotos.get(0)==nophotos){
-
-                        servicePhotos.remove(0);
-
-                }
-            }
-            servicePhotos.add(new Photo(uriString));
-            notifyPhoto();
-
-
-        }
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+//                && data != null && data.getData() != null) {
+//            mImageUri = data.getData();
+//            String uriString = mImageUri.toString();
+//
+//            if(servicePhotos.size()==1){
+//                if(servicePhotos.get(0)==nophotos){
+//
+//                        servicePhotos.remove(0);
+//
+//                }
+//            }
+//            servicePhotos.add(new Photo(Integer.parseInt(uriString)));
+//            notifyPhoto();
+//
+//
+//        }
     }
 
     private void buildCategorySpinner() {
