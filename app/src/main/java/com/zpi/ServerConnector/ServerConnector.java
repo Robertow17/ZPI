@@ -1,11 +1,16 @@
 package com.zpi.ServerConnector;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.zpi.model.Category;
+import com.zpi.model.Favourite;
+import com.zpi.model.Photo;
+import com.zpi.model.Service;
+import com.zpi.model.Subcategory;
+import com.zpi.model.User;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,10 +27,9 @@ import static com.zpi.Constants.SERVER_URI;
 
 public class ServerConnector<T> {
 
-    protected final int REQUEST_TIME = 5000;
-    protected final String REQUEST_VALUE = "application/json";
+    private final int REQUEST_TIME = 5000;
     private List<T> result;
-    protected ServiceName serviceName;
+    private ServiceName serviceName;
 
     public ServerConnector(ServiceName serviceName) {
         this.serviceName = serviceName;
@@ -88,6 +92,7 @@ public class ServerConnector<T> {
     private class BackgroundTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String DATE_FORMAT = "yyyy-MM-dd";
+        private final String REQUEST_VALUE = "application/json";
         private Operation operation;
         private T object;
         int id;
@@ -153,11 +158,24 @@ public class ServerConnector<T> {
             }
             br.close();
             urlConnection.disconnect();
-            Type listType = new TypeToken<ArrayList<T>>() {
-            }.getType();
-            List<T> list = new Gson().fromJson(data, listType);
-
+            List<T> list = new Gson().fromJson(data, getTypeFromServiceName());
             return list;
+        }
+
+        private Type getTypeFromServiceName(){
+            if (serviceName == ServiceName.services)
+                return   new TypeToken<ArrayList<Service>>(){}.getType();
+            if (serviceName == ServiceName.subcategories)
+                return   new TypeToken<ArrayList<Subcategory>>(){}.getType();
+            if (serviceName == ServiceName.users)
+                return   new TypeToken<ArrayList<User>>(){}.getType();
+            if (serviceName == ServiceName.photos)
+                return   new TypeToken<ArrayList<Photo>>(){}.getType();
+            if (serviceName == ServiceName.favourites)
+                return   new TypeToken<ArrayList<Favourite>>(){}.getType();
+            if (serviceName == ServiceName.categories)
+                return   new TypeToken<ArrayList<Category>>(){}.getType();
+            return null;
         }
 
         private boolean addToServer(T object) throws IOException {
@@ -178,7 +196,6 @@ public class ServerConnector<T> {
                 dos.write(jsonNotification.getBytes(StandardCharsets.UTF_8), 0,
                         jsonNotification.getBytes(StandardCharsets.UTF_8).length);
 
-                Log.d("JSON", jsonNotification);
 
                 urlConnection.connect();
 

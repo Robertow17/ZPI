@@ -1,5 +1,5 @@
 package com.zpi.ServerConnector;
 
 public enum ServiceName {
-    services, photos, accounts
+    services, photos, subcategories, users, favourites, categories, accounts
 }
