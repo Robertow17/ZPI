@@ -18,6 +18,7 @@ import com.zpi.serviceProvider.activities.AddService;
 import com.zpi.serviceProvider.activities.EditService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter
@@ -31,6 +32,14 @@ public class ViewPagerAdapter extends PagerAdapter
         this.mContext = context;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.data = data;
+//        if(data.size()==0){
+//            List<Photo> empty = new ArrayList<>();
+//            empty.add(new Photo(R.drawable.no_photos));
+//            this.data = empty;
+//        }
+//        else {
+//            this.data = data;
+//        }
 
     }
 
@@ -44,11 +53,13 @@ public class ViewPagerAdapter extends PagerAdapter
         return view == ((LinearLayout) object);
     }
 
+
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        //imageView.setImageResource(R.drawable.no_photos);
         try
         {
             //imageView.setImageResource(data.get(position).getId());

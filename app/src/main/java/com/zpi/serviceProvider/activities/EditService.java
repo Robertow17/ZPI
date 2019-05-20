@@ -279,8 +279,9 @@ public class EditService extends AppCompatActivity {
                 //com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
                 //data1.getServiceProvider().addService(createdService);
                 ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                serverConnector.update(index,createdService);
-                return "Usługa została pomyślnie zmodyfikowana";
+                boolean done = serverConnector.update(index,createdService);
+                if( done) {return "Usługa została pomyślnie zmodyfikowana";}
+                else { return "Błąd";}
             }
             else{
                 return result;

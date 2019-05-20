@@ -1,26 +1,30 @@
 package com.zpi.serviceProvider.model;
 
 import com.zpi.R;
+import com.zpi.ServerConnector.ServerConnector;
+import com.zpi.ServerConnector.ServerConnectorUtils;
+import com.zpi.ServerConnector.ServiceName;
 import com.zpi.model.Service;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data {
-    private static ServiceProvider serviceProvider;
+    private ServiceProvider serviceProvider;
 
     public Data() {
-        if(serviceProvider==null){
+        //if(serviceProvider==null){
             createServiceProvider();
-        }
+        //}
     }
 
-    public static ServiceProvider getServiceProvider() {
+    public ServiceProvider getServiceProvider() {
         return serviceProvider;
     }
 
-    public static void setServiceProvider(ServiceProvider serviceProvider) {
-        Data.serviceProvider = serviceProvider;
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 
     private void createServiceProvider(){
@@ -35,7 +39,9 @@ public class Data {
 
         };
         serviceProvider = new ServiceProvider("zielu@o2.pl", "P@ssw0rd");
-        serviceProvider.setServices(com.zpi.Data.getServices());
+        ServerConnector utils = new ServerConnector(ServiceName.services);
+        List<Service> services = utils.getAll();
+        serviceProvider.setServices(services);
 
   /*      serviceProvider.addService(new WeddingHall("Zacisze", "Wrocław", 120, true, false, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ex lorem, porttitor non faucibus ac, venenatis nec odio. Vivamus justo erat, accumsan ut pharetra eu, feugiat mollis ex. Aenean lectus libero", photos,
                 "609781153", "psliwinska@onet.eu"));

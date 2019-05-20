@@ -65,7 +65,7 @@ public class ServerConnectorUtils extends ServerConnector
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod(RequestType.GET.toString());
         urlConnection.setConnectTimeout(REQUEST_TIME);
-        urlConnection.setRequestProperty("Accept", super.REQUEST_VALUE);
+        urlConnection.setRequestProperty("Accept", "application/json"); //super.REQUEST_VALUE);
         if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
             throw new RuntimeException(String.valueOf(urlConnection.getResponseCode()));
         }

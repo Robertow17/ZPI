@@ -1,6 +1,8 @@
 package com.zpi.ServerConnector;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -27,9 +29,9 @@ import static com.zpi.Constants.SERVER_URI;
 
 public class ServerConnector<T> {
 
-    private final int REQUEST_TIME = 5000;
+    final int REQUEST_TIME = 5000;
     private List<T> result;
-    private ServiceName serviceName;
+    ServiceName serviceName;
 
     public ServerConnector(ServiceName serviceName) {
         this.serviceName = serviceName;
@@ -248,6 +250,7 @@ public class ServerConnector<T> {
                     jsonNotification.getBytes(StandardCharsets.UTF_8).length);
             urlConnection.connect();
 
+            Log.d("kod", String.valueOf(urlConnection.getResponseCode()));
             if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_ACCEPTED) {
                 return false;
             }

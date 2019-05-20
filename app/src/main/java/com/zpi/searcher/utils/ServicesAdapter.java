@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zpi.R;
 import com.zpi.ServerConnector.ServerConnector;
@@ -79,6 +80,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 
         pagerAdapter = new ItemViewPagerAdapter(context, service, position);
         holder.viewPager.setAdapter(pagerAdapter);
+
 
 
         if(null == (services.get(position)).getSubcategory())
@@ -159,7 +161,14 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
 //                                    data.getServiceProvider().removeService(position);
 //                                    notifyDataSetChanged();
                                     ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                                    serverConnector.delete(serviceID);
+                                    boolean done = serverConnector.delete(serviceID);
+                                    if(done) {
+                                        Toast.makeText(context, "OK", Toast.LENGTH_LONG).show();
+                                        ServerConnector utils = new ServerConnector(ServiceName.services);
+                                        services = utils.getAll();
+                                        notifyDataSetChanged();
+                                    }
+                                    else {Toast.makeText(context, "Błąd!", Toast.LENGTH_LONG).show();}
                                     return true;
                                 default:
                                     return false;
