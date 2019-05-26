@@ -31,15 +31,19 @@ public class PhotoConnector {
         }
     }
 
+    public void renderPhoto(int serviceId, int photoId, ImageView view) {
+        new DownloadImageTask(view).execute(String.valueOf(serviceId), String.valueOf(photoId));
+    }
+
     public void renderAllPhotos(int serviceId, ImageView[] views) {
         int[] photosIds = (new PhotoConnector().getAllPhotosIds(serviceId));
 
         for(int i = 0; i < Math.min(photosIds.length, views.length); i++) {
-            new DownloadImageTask(views[i]).execute(String.valueOf(serviceId), String.valueOf(photosIds[i]));
+            renderPhoto(serviceId, photosIds[i], views[i]);
         }
     }
 
-    private int[] getAllPhotosIds(int serviceId) {
+    public int[] getAllPhotosIds(int serviceId) {
         Object[] integersAsObject = serverConnector
                 .getAll()
                 .stream()

@@ -2,11 +2,10 @@ package com.zpi.searcher.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +13,8 @@ import android.widget.TextView;
 import com.zpi.R;
 import com.zpi.model.Service;
 import com.zpi.searcher.utils.PageTransformer;
-import com.zpi.searcher.utils.ViewPagerAdapter;
 import com.zpi.searcher.utils.ServicesAdapter;
+import com.zpi.searcher.utils.ViewPagerAdapter;
 
 import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
 
@@ -76,7 +75,7 @@ public class ServiceDetails extends AppCompatActivity
             favouriteStar.setImageResource(android.R.drawable.star_off);
         }*/
 
-        viewPager.setAdapter(new ViewPagerAdapter(getApplicationContext(), service.getPhotos()));
+        viewPager.setAdapter(new ViewPagerAdapter(getApplicationContext(), service.getId() == 0 ? 1 : service.getId()));
         viewPager.setPageTransformer(true, new PageTransformer());
 
     }

@@ -107,10 +107,9 @@ public class EditService extends AppCompatActivity {
             }
         });
 
-        int id = service.getId() == 0 ? 1 : service.getId(); // FIXME: as now id is always equal to 0, we mock it to be 1
-        servicePhotos = service.getPhotos();
+        int serviceId = service.getId() == 0 ? 6 : service.getId(); // FIXME: as now id is always equal to 0, we mock it to be 6
 
-        viewPagerAdapter = new ViewPagerAdapter(EditService.this, servicePhotos);
+        viewPagerAdapter = new ViewPagerAdapter(EditService.this, serviceId);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setPageTransformer(true, new PageTransformer());
 

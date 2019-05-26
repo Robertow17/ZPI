@@ -93,7 +93,7 @@ public class AddService extends AppCompatActivity {
         servicePhotos = new ArrayList<>();
         addEmptyPhoto();
 
-        viewPagerAdapter = new ViewPagerAdapter(AddService.this, servicePhotos);
+        viewPagerAdapter = new ViewPagerAdapter(AddService.this, 0);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setPageTransformer(true, new PageTransformer());
 

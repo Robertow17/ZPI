@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.zpi.PhotoConnector.PhotoConnector;
 import com.zpi.R;
 import com.zpi.model.Photo;
 import com.zpi.serviceProvider.activities.AddService;
@@ -20,16 +21,20 @@ public class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<Photo> data;
+    private PhotoConnector photoConnector = new PhotoConnector();
+    private int serviceId;
+    private int[] photoIds;
 
-    public ViewPagerAdapter(Context context, List<Photo> data) {
+    public ViewPagerAdapter(Context context, int serviceId) {
         this.mContext = context;
         this.mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.data = data;
+        this.serviceId = serviceId;
+        this.photoIds = this.photoConnector.getAllPhotosIds(serviceId);
     }
 
     @Override
     public int getCount() {
-        return data.size();
+        return photoIds.length;
     }
 
     @Override
@@ -44,9 +49,11 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         ImageView imageView = itemView.findViewById(R.id.imageView);
         try {
-//            imageView.setImageBitmap();
-            imageView.setImageResource(data.get(position).getServiceId());
-        } catch (NumberFormatException ignored) {
+            new PhotoConnector().renderPhoto(serviceId, photoIds[position], imageView);
+//            new PhotoConnector().renderAllPhotos(1, new ImageView[] {imageView});
+//            imageView.setImageResource(data.get(position).getServiceId());
+        } catch (Exception e) {
+            int b = 0;
         }
 
         itemView.setOnClickListener(v -> {
