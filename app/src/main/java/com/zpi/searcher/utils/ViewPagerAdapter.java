@@ -11,19 +11,14 @@ import android.widget.LinearLayout;
 
 import com.zpi.PhotoConnector.PhotoConnector;
 import com.zpi.R;
-import com.zpi.model.Photo;
-import com.zpi.serviceProvider.activities.AddService;
-import com.zpi.serviceProvider.activities.EditService;
-
-import java.util.List;
 
 public class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<Photo> data;
-    private PhotoConnector photoConnector = new PhotoConnector();
+
     private int serviceId;
     private int[] photoIds;
+    private PhotoConnector photoConnector = new PhotoConnector();
 
     public ViewPagerAdapter(Context context, int serviceId) {
         this.mContext = context;
@@ -46,71 +41,26 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
-
         ImageView imageView = itemView.findViewById(R.id.imageView);
-        try {
-            new PhotoConnector().renderPhoto(serviceId, photoIds[position], imageView);
-//            new PhotoConnector().renderAllPhotos(1, new ImageView[] {imageView});
-//            imageView.setImageResource(data.get(position).getServiceId());
-        } catch (Exception e) {
-            int b = 0;
-        }
+
+        this.photoConnector.renderPhoto(serviceId, photoIds[position], imageView);
+        container.addView(itemView);
 
         itemView.setOnClickListener(v -> {
-            int rnumber = 0;
-            try {
-                rnumber = data.get(position).getServiceId();
-            } catch (NumberFormatException ignored) {
-            }
+            new AlertDialog.Builder(mContext).setMessage("Czy chcesz usunąć to zdjęcie?")
+                    .setPositiveButton("TAK", (dialog, which) -> {
+                        container.removeView(itemView);
 
-            if (rnumber != R.drawable.no_photos) {
-                AlertDialog.Builder builder;
-                builder = new AlertDialog.Builder(mContext);
-
-                if (mContext instanceof EditService) {
-                    builder.setMessage("Czy chcesz usunąć to zdjęcie?")
-                            .setPositiveButton("TAK", (dialog, which) -> {
-                                deletePhoto(position);
-                                if (data.size() == 0) {
-                                    ((EditService) mContext).addEmptyPhoto();
-                                    ((EditService) mContext).notifyPhoto();
-                                }
-                            });
-
-                } else if (mContext instanceof AddService) {
-                    builder.setMessage("Czy chcesz usunąć to zdjęcie?")
-                            .setPositiveButton("TAK", (dialog, which) -> {
-                                deletePhoto(position);
-                                if (data.size() == 0) {
-                                    ((AddService) mContext).addEmptyPhoto();
-                                    ((AddService) mContext).notifyPhoto();
-                                }
-                            });
-                }
-
-                builder
-                        .setNegativeButton("NIE", (dialog, which) -> {
-                        }).show();
-            }
-
+                        // FIXME: if there are not elements render "empty photo" image
+                        // FIXME: if there is another element focus on it
+                        // FIXME: send delete request via server connector (need to update it to handle two ids)
+                    })
+                    .setNegativeButton("NIE", (dialog, which) -> {
+                    }).show();
         });
-
-        container.addView(itemView);
 
         return itemView;
     }
-
-    public void deletePhoto(int position) {
-        // Remove the corresponding item in the data set
-        data.remove(position);
-        // Notify the adapter that the data set is changed
-        notifyDataSetChanged();
-    }
-
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
-
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

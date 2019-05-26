@@ -108,7 +108,6 @@ public class EditService extends AppCompatActivity {
         });
 
         int serviceId = service.getId() == 0 ? 6 : service.getId(); // FIXME: as now id is always equal to 0, we mock it to be 6
-
         viewPagerAdapter = new ViewPagerAdapter(EditService.this, serviceId);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setPageTransformer(true, new PageTransformer());
@@ -354,13 +353,6 @@ public class EditService extends AppCompatActivity {
                 maxsizeText.setVisibility(View.INVISIBLE);
                 break;
         }
-    }
-
-    public void addEmptyPhoto() {
-
-        // nophotos = new Photo(String.valueOf(R.drawable.no_photos));
-        //servicePhotos.add(nophotos);
-
     }
 
     public void notifyPhoto() {
