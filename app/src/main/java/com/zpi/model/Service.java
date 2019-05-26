@@ -3,11 +3,9 @@ package com.zpi.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Service implements Parcelable
-{
+public class Service implements Parcelable {
     private int id;
     private String name;
     private String localization;
@@ -21,12 +19,10 @@ public class Service implements Parcelable
     private List<Photo> photos;
 
 
-
     public Service(String name, String localization, String description,
                    String phoneNumber, String email, Category category, Subcategory subcategory,
                    WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
-                   List<Photo> photos)
-    {
+                   List<Photo> photos) {
         this.name = name;
         this.localization = localization;
         this.description = description;
@@ -42,7 +38,7 @@ public class Service implements Parcelable
     public void editService(String name, String localization, String description,
                             String phoneNumber, String email, Subcategory subcategory, Category category,
                             WeddingHallDetails weddingHallDetails, TransportDetails transportDetails,
-                            List<Photo> photos){
+                            List<Photo> photos) {
         this.name = name;
         this.localization = localization;
         this.description = description;
@@ -56,16 +52,15 @@ public class Service implements Parcelable
     }
 
 
-    protected Service(Parcel in)
-    {
+    protected Service(Parcel in) {
         id = in.readInt();
         name = in.readString();
         localization = in.readString();
         description = in.readString();
         phoneNumber = in.readString();
         email = in.readString();
-        subcategory =  in.readParcelable(Subcategory.class.getClassLoader());
-        category =  in.readParcelable(Category.class.getClassLoader());
+        subcategory = in.readParcelable(Subcategory.class.getClassLoader());
+        category = in.readParcelable(Category.class.getClassLoader());
         weddingHallDetails = in.readParcelable(WeddingHallDetails.class.getClassLoader());
         transportDetails = in.readParcelable(TransportDetails.class.getClassLoader());
         photos = in.createTypedArrayList(Photo.CREATOR);
@@ -74,8 +69,7 @@ public class Service implements Parcelable
 
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(localization);
@@ -89,80 +83,65 @@ public class Service implements Parcelable
         dest.writeTypedList(this.photos);
     }
 
-    public static final Creator<Service> CREATOR = new Creator<Service>()
-    {
+    public static final Creator<Service> CREATOR = new Creator<Service>() {
         @Override
-        public Service createFromParcel(Parcel in)
-        {
+        public Service createFromParcel(Parcel in) {
             return new Service(in);
         }
 
         @Override
-        public Service[] newArray(int size)
-        {
+        public Service[] newArray(int size) {
             return new Service[size];
         }
     };
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getLocalization()
-    {
+    public String getLocalization() {
         return localization;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
-    public String getPhoneNumber()
-    {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public WeddingHallDetails getWeddingHallDetails()
-    {
+    public WeddingHallDetails getWeddingHallDetails() {
         return weddingHallDetails;
     }
 
-    public TransportDetails getTransportDetails()
-    {
+    public TransportDetails getTransportDetails() {
         return transportDetails;
     }
 
-    public List<Photo> getPhotos()
-    {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
 
-    public Category getCategory()
-    {
+    public Category getCategory() {
         return category;
     }
 
-    public Subcategory getSubcategory()
-    {
+    public Subcategory getSubcategory() {
         return subcategory;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 

@@ -1,9 +1,8 @@
 package com.zpi;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -15,19 +14,11 @@ import com.zpi.calendar.activities.CalendarActivity;
 import com.zpi.checklist.activities.CheckListActivity;
 import com.zpi.favourites.FavouritesActivity;
 import com.zpi.guests.activities.GuestsListActivity;
-import com.zpi.model.Category;
 import com.zpi.model.Photo;
-import com.zpi.model.Service;
-import com.zpi.model.Subcategory;
-import com.zpi.model.TransportDetails;
-import com.zpi.model.WeddingHallDetails;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -44,26 +35,13 @@ public class MainActivity extends AppCompatActivity
         switch(view.getId())
         {
             case R.id.budgetImageView:
-<<<<<<< HEAD
-//                Log.d("aktywnosc", "RozmiarWMain:");
-//                intent = new Intent(MainActivity.this, BudgetActivity.class);
-                ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                 List<Service> list =serverConnector.getAll();
-
-                 Service s = list.get(1);
-                Toast.makeText(MainActivity.this, s.getName(), Toast.LENGTH_SHORT).show();
-                 Service newServ = new Service("Zmieniony", s.getLocalization(), s.getDescription(), s.getPhoneNumber(), s.getEmail(), s.getCategory(), s.getSubcategory(), s.getWeddingHallDetails(), null, new ArrayList<>());
-
-                 serverConnector.update(s.getId(), newServ);
-=======
                 Log.d("aktywnosc", "RozmiarWMain:");
                 intent = new Intent(MainActivity.this, BudgetActivity.class);
                 ServerConnector<Photo> serverConnector = new ServerConnector<>(ServiceName.photos);
 
                 Photo photo =new Photo(5);
-                 List<Photo> list =serverConnector.add();
+//                 List<Photo> list =serverConnector.add();
 //
->>>>>>> chore: add async photo loading v0.1
 //                Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
 //
 //

@@ -1,5 +1,7 @@
 package com.zpi.PhotoConnector;
 
+import android.widget.ImageView;
+
 import com.zpi.ServerConnector.RequestType;
 import com.zpi.ServerConnector.ServerConnector;
 import com.zpi.ServerConnector.ServiceName;
@@ -7,6 +9,7 @@ import com.zpi.model.Photo;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.zpi.Constants.SERVER_URI;
@@ -14,7 +17,7 @@ import static com.zpi.Constants.SERVER_URI;
 
 public class PhotoConnector {
     ServerConnector<Photo> serverConnector = new ServerConnector<>(ServiceName.photos);
-
+    List<Integer> a = new ArrayList<>();
 //    private void addPhoto(byte[] photo) {}
 
     public void uploadPhoto() throws Exception {
@@ -28,23 +31,28 @@ public class PhotoConnector {
         }
     }
 
-    public Object[] getAllPhotos(int serviceId) {
-        List<Photo> photos = serverConnector.getAll();
+    public void renderAllPhotos(int serviceId, ImageView[] views) {
+        int[] photosIds = (new PhotoConnector().getAllPhotosIds(serviceId));
 
-        int i = 1;
+        for(int i = 0; i < Math.min(photosIds.length, views.length); i++) {
+            new DownloadImageTask(views[i]).execute(String.valueOf(serviceId), String.valueOf(photosIds[i]));
+        }
+    }
 
-//        List<Photo> list = new Gson().fromJson(photos, new TypeToken<List<Photo>>() .getType());
-//        Type listType = new TypeToken<ArrayList<Photo>>() {}.getType();
-//        List<Photo> list2 = new Gson().fromJson(photos, listType);
+    private int[] getAllPhotosIds(int serviceId) {
+        Object[] integersAsObject = serverConnector
+                .getAll()
+                .stream()
+                .filter(photoInfo -> photoInfo.getServiceId() == serviceId)
+                .map(Photo::getPhotoId)
+                .toArray();
 
+        int[] iHateJavaTypeSystem = new int[integersAsObject.length];
 
-//        for (LinkedTreeMap photo: photos) {
-//            Object a = photo.get("id");
-////            Object id = photo.getIdService();
-////            Object a = id;
-//            int b = 2;
-//        }
-        return new Object[] {};
-//        return photos.stream().filter(photo -> photo.getIdService() == serviceId).toArray();
+        for(int i = 0; i < integersAsObject.length; i++) {
+            iHateJavaTypeSystem[i] = (int) integersAsObject[i];
+        }
+
+        return iHateJavaTypeSystem;
     }
 }

@@ -2,8 +2,9 @@ package com.zpi;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
-import com.zpi.PhotoConnector.DownloadImageTask;
+import com.zpi.PhotoConnector.PhotoConnector;
 
 public class FetchingImages extends AppCompatActivity {
     @Override
@@ -11,6 +12,9 @@ public class FetchingImages extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fetching_images);
 
-        new DownloadImageTask(findViewById(R.id.fetchImage2)).execute("10", "20");
+        int serviceId = 6;
+        ImageView[] views = new ImageView[] { findViewById(R.id.fetchImage1), findViewById(R.id.fetchImage2) };
+
+        new PhotoConnector().renderAllPhotos(serviceId, views);
     }
 }

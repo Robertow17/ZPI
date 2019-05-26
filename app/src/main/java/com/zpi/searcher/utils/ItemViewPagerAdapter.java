@@ -2,10 +2,7 @@ package com.zpi.searcher.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.LinearLayout;
 import com.zpi.R;
 import com.zpi.model.Service;
 import com.zpi.searcher.activities.ServiceDetails;
-import com.zpi.serviceProvider.activities.EditService;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
 
 import static com.zpi.searcher.utils.ServicesAdapter.EXTRA_SERVICE;
@@ -63,7 +59,7 @@ public class ItemViewPagerAdapter extends PagerAdapter
         try
         {
             //imageView.setImageResource(Integer.valueOf(service.getPhotos().get(position).getId()));
-            imageView.setImageResource(service.getPhotos().get(position).getIdService());
+            imageView.setImageResource(service.getPhotos().get(position).getServiceId());
         }
         catch(NumberFormatException e){
 //            Uri image = Uri.parse(String.valueOf(service.getPhotos().get(position).getId()));

@@ -29,9 +29,9 @@ import static com.zpi.Constants.SERVER_URI;
 
 public class ServerConnector<T> {
 
-    final int REQUEST_TIME = 5000;
+    protected final int REQUEST_TIME = 5000;
     private List<T> result;
-    ServiceName serviceName;
+    protected ServiceName serviceName;
 
     public ServerConnector(ServiceName serviceName) {
         this.serviceName = serviceName;
