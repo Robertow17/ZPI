@@ -55,8 +55,8 @@ public class ViewPagerAdapter extends PagerAdapter {
                         // FIXME: if there is another element focus on it
                         // FIXME: send delete request via server connector (need to update it to handle two ids)
                     })
-                    .setNegativeButton("NIE", (dialog, which) -> {
-                    }).show();
+                    .setNegativeButton("NIE", ((dialog, which) -> {}))
+                    .show();
         });
 
         return itemView;
