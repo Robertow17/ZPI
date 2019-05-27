@@ -1,7 +1,6 @@
 package com.zpi.serviceProvider.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -40,7 +39,6 @@ import java.util.regex.Pattern;
 import static com.zpi.searcher.utils.ItemViewPagerAdapter.EXTRA_POSITION;
 
 public class EditService extends AppCompatActivity {
-
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private EditText name, localization, description, email, phone, maxsize;
@@ -49,7 +47,7 @@ public class EditService extends AppCompatActivity {
     private CheckBox accommodation;
     private Spinner category, subcategory;
 
-    private List<Photo> servicePhotos;
+
     private Photo nophotos;
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -130,7 +128,7 @@ public class EditService extends AppCompatActivity {
 
         if (service.getSubcategory() != null) {
 //            List<Subcategory> possibleSubcategories = categories.get(categoryIndex-1).getSubcategories();
-//            subcategory.setSelection(findPositionInSubategorySpinner(possibleSubcategories, service.getSubcategory().getName()));
+//            subcategory.setSelection(findPositionInSubcategorySpinner(possibleSubcategories, service.getSubcategory().getName()));
             //getIndex(subcategory, service.getSubcategory().getName());
         }
         if (service.getWeddingHallDetails() != null) {
@@ -164,7 +162,8 @@ public class EditService extends AppCompatActivity {
         return 0;
     }
 
-    private int findPositionInSubategorySpinner(List<Subcategory> subcategories, String name) {
+    private int findPositionInSubcategorySpinner(List<Subcategory> subcategories, String name) {
+        subcategories.indexOf(name);
         int i = 0;
         for (Subcategory c : subcategories) {
             i++;
@@ -176,21 +175,11 @@ public class EditService extends AppCompatActivity {
     }
 
     private Category findValidCategory(String name) {
-        for (Category c : categories) {
-            if (c.getName().equals(name)) {
-                return c;
-            }
-        }
-        return null;
+        return categories.stream().filter(category -> category.getName().equals(name)).findFirst().orElse(null);
     }
 
     private Subcategory findValidSubcategory(String name) {
-        for (Subcategory s : subcategories) {
-            if (s.getName().equals(name)) {
-                return s;
-            }
-        }
-        return null;
+        return subcategories.stream().filter(category -> category.getName().equals(name)).findFirst().orElse(null);
     }
 
     private String validateDataAndModifyService() {
@@ -266,23 +255,15 @@ public class EditService extends AppCompatActivity {
         }
     }
 
-    private Service addNewService(String[] values, String description, boolean accomodation) {
-        Service newService;
+    private Service addNewService(String[] values, String description, boolean accommodation) {
         switch (values[5]) {
             case "SALE":
-                //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accommodation, getNumber(values[4])), null, servicePhotos);
-                newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, new ArrayList<>());
-                break;
+                return new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accommodation, getNumber(values[4])), null, new ArrayList<>());
             case "TRANSPORT":
-                //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
-                newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
-                break;
+                return new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
             default:
-                //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
-                newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
-                break;
+                return new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
         }
-        return newService;
     }
 
 //    private void modifyService(String[] values, String description, boolean accommodation){
@@ -335,8 +316,6 @@ public class EditService extends AppCompatActivity {
                 accommodationText.setVisibility(View.VISIBLE);
                 maxsizeText.setVisibility(View.VISIBLE);
                 maxsizeText.setText("Maksymalna liczba gości:");
-//            maxsize.setText("");
-//            accommodation.setChecked(false);
                 break;
             case "TRANSPORT":
                 maxsize.setVisibility(View.VISIBLE);
@@ -344,7 +323,6 @@ public class EditService extends AppCompatActivity {
                 accommodationText.setVisibility(View.INVISIBLE);
                 maxsizeText.setVisibility(View.VISIBLE);
                 maxsizeText.setText("Maksymalna liczba pasażerów:");
-//            maxsize.setText("");
                 break;
             default:
                 maxsize.setVisibility(View.INVISIBLE);
@@ -355,46 +333,11 @@ public class EditService extends AppCompatActivity {
         }
     }
 
-    public void notifyPhoto() {
-        viewPagerAdapter.notifyDataSetChanged();
-    }
-
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            Uri mImageUri = data.getData();
-            String uriString = mImageUri.toString();
-            if (servicePhotos.size() == 1) {
-                if (servicePhotos.get(0) == nophotos) {
-
-                    servicePhotos.remove(0);
-
-                }
-            }
-
-            //servicePhotos.add(new Photo(uriString));
-            if (servicePhotos.size() == 2) {
-                if (servicePhotos.get(0) == nophotos) {
-
-                    servicePhotos.remove(0);
-
-                }
-            }
-
-            notifyPhoto();
-
-
-        }
     }
 
     private void buildCategorySpinner() {
@@ -415,13 +358,14 @@ public class EditService extends AppCompatActivity {
                     buildSubcategorySpinner();
                     subcategory.setEnabled(false);
                 } else {
+
                     ((TextView) view).setTextColor(ContextCompat.getColor(EditService.this, android.R.color.black));
                     if (categories.get(position - 1).getSubcategories() != null) {
                         subcategory.setEnabled(true);
                         buildSubcategorySpinner(categories.get(position - 1).getSubcategories());
                         if (service.getSubcategory() != null) {
                             List<Subcategory> possibleSubcategories = categories.get(position - 1).getSubcategories();
-                            subcategory.setSelection(findPositionInSubategorySpinner(possibleSubcategories, service.getSubcategory().getName()));
+                            subcategory.setSelection(findPositionInSubcategorySpinner(possibleSubcategories, service.getSubcategory().getName()));
                         }
                     } else {
                         buildEmptySubcategorySpinner();

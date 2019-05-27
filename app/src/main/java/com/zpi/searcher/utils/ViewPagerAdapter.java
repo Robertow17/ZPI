@@ -42,7 +42,6 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.searcher_pager_item, container, false);
         ImageView imageView = itemView.findViewById(R.id.imageView);
-
         this.photoConnector.renderPhoto(serviceId, photoIds[position], imageView);
         container.addView(itemView);
 
@@ -50,10 +49,9 @@ public class ViewPagerAdapter extends PagerAdapter {
             new AlertDialog.Builder(mContext).setMessage("Czy chcesz usunąć to zdjęcie?")
                     .setPositiveButton("TAK", (dialog, which) -> {
                         container.removeView(itemView);
-
                         // FIXME: if there are not elements render "empty photo" image
                         // FIXME: if there is another element focus on it
-                        // FIXME: send delete request via server connector (need to update it to handle two ids)
+                        this.photoConnector.deletePhoto(this.serviceId, photoIds[position]);
                     })
                     .setNegativeButton("NIE", ((dialog, which) -> {}))
                     .show();
