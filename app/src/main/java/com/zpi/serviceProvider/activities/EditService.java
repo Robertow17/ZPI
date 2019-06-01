@@ -274,12 +274,15 @@ public class EditService extends AppCompatActivity {
                 wrongData = true;
             }
             if(!wrongData){
-                //modifyService(values, serviceDescription, serviceAccomodation);
-                Service createdService = addNewService(values, serviceDescription, serviceAccomodation);
+                modifyService(values, serviceDescription, serviceAccomodation);
+
+
+                //Service createdService = addNewService(values, serviceDescription, serviceAccomodation);
                 //com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
                 //data1.getServiceProvider().addService(createdService);
+                //service.getWeddingHallDetails().setMaxNumberOfGuests(200);
                 ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                boolean done = serverConnector.update(index,createdService);
+                boolean done = serverConnector.update(index,service);
                 if( done) {return "Usługa została pomyślnie zmodyfikowana";}
                 else { return "Błąd";}
             }
@@ -300,34 +303,50 @@ public class EditService extends AppCompatActivity {
         }
     }
 
-    private Service addNewService(String[] values, String description, boolean accomodation){
-        Service newService;
-        if(values[5].equals("SALE")){
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, new ArrayList<>());
-        }
-        else if(values[5].equals("TRANSPORT")){
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
-        }
-        else{
-            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
-            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
-        }
-        return newService;
-    }
-
-//    private void modifyService(String[] values, String description, boolean accomodation){
+//    private Service addNewService(String[] values, String description, boolean accomodation){
+//        Service newService;
+//
 //        if(values[5].equals("SALE")){
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]),  findValidCategory(values[5]),  new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+//            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+//            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, new ArrayList<>());
 //        }
 //        else if(values[5].equals("TRANSPORT")){
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+//            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+//            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, new TransportDetails(getNumber(values[4])), new ArrayList<>());
 //        }
 //        else{
-//            currentServiceProvider.getServices().get(pos).editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
+//            //newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, servicePhotos);
+//            newService = new Service(values[0], values[1], description, values[3], values[2], findValidCategory(values[5]), findValidSubcategory(values[6]), null, null, new ArrayList<>());
 //        }
+//        return newService;
 //    }
+
+    private void modifyService(String[] values, String description, boolean accomodation){
+        if(values[5].equals("SALE")){
+            if(service.getWeddingHallDetails()!=null) {
+                service.getWeddingHallDetails().setMaxNumberOfGuests(getNumber(values[4]));
+                service.getWeddingHallDetails().setCanSleep(accomodation);
+                service.editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), service.getWeddingHallDetails(), null, servicePhotos);
+            }
+            else
+            {
+                service.editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), new WeddingHallDetails(accomodation, getNumber(values[4])), null, servicePhotos);
+            }
+        }
+        else if(values[5].equals("TRANSPORT")){
+            if(service.getTransportDetails()!=null){
+                service.getTransportDetails().setMaxSittingPlaces(getNumber(values[4]));
+                service.editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, service.getTransportDetails(), servicePhotos);
+
+            }
+            else{
+                service.editService(values[0], values[1], description, values[3], values[2],findValidSubcategory(values[6]), findValidCategory(values[5]), null, new TransportDetails(getNumber(values[4])), servicePhotos);
+            }
+          }
+        else{
+            service.editService(values[0], values[1], description, values[3], values[2], findValidSubcategory(values[6]), findValidCategory(values[5]), null, null, servicePhotos);
+        }
+    }
 
     private void setVisibilityInCaseOfCategory(String categoryName) {
         if(categoryName.equals("SALE")){

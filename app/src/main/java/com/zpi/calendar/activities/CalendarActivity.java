@@ -1,6 +1,10 @@
 package com.zpi.calendar.activities;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -18,6 +22,7 @@ import com.zpi.FileManager.FileManager;
 import com.zpi.R;
 import com.zpi.calendar.model.WeddingEvent;
 import com.zpi.calendar.utils.AddEventDialog;
+import com.zpi.calendar.utils.AlarmReceiver;
 import com.zpi.calendar.utils.EventAdapterWithSwipe;
 
 import java.util.ArrayList;
@@ -203,6 +208,17 @@ public class CalendarActivity extends AppCompatActivity
 
         public void addEvent(WeddingEvent e){
             events.add(e);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+            notificationIntent.putExtra("Title", e.getTitle());
+            PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(e.getTimeInMillis());
+            cal.add(Calendar.HOUR, -8);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
         }
 
         public void removerEvent(WeddingEvent e){

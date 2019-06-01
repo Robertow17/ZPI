@@ -53,4 +53,8 @@ public class TransportDetails implements Parcelable
     public int getMaxSittingPlaces(){
         return maxSittingPlaces;
     }
+
+    public void setMaxSittingPlaces(int maxSittingPlaces) {
+        this.maxSittingPlaces = maxSittingPlaces;
+    }
 }

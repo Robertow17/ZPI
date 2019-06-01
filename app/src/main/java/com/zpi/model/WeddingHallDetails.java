@@ -19,6 +19,14 @@ public class WeddingHallDetails implements Parcelable
         this.maxNumberOfGuests = maxNumberOfGuests;
     }
 
+    public void setMaxNumberOfGuests(int maxNumberOfGuests) {
+        this.maxNumberOfGuests = maxNumberOfGuests;
+    }
+
+    public void setCanSleep(boolean canSleep) {
+        this.canSleep = canSleep;
+    }
+
     protected WeddingHallDetails(Parcel in)
     {
         id = in.readInt();
