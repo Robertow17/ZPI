@@ -20,6 +20,7 @@ import com.zpi.model.Photo;
 import com.zpi.model.Service;
 import com.zpi.model.Subcategory;
 import com.zpi.model.TransportDetails;
+import com.zpi.model.User;
 import com.zpi.model.WeddingHallDetails;
 import com.zpi.searcher.activities.SearcherActivity;
 import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
@@ -46,14 +47,14 @@ public class MainActivity extends AppCompatActivity
             case R.id.budgetImageView:
 //                Log.d("aktywnosc", "RozmiarWMain:");
 //                intent = new Intent(MainActivity.this, BudgetActivity.class);
-                ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                 List<Service> list =serverConnector.getAll();
+                ServerConnector<User> serverConnector = new ServerConnector<>(ServiceName.users);
+                 List<User> list =serverConnector.getAll();
 
-                 Service s = list.get(1);
-                Toast.makeText(MainActivity.this, s.getName(), Toast.LENGTH_SHORT).show();
-                 Service newServ = new Service("Zmieniony", s.getLocalization(), s.getDescription(), s.getPhoneNumber(), s.getEmail(), s.getCategory(), s.getSubcategory(), s.getWeddingHallDetails(), null, new ArrayList<>());
-
-                 serverConnector.update(s.getId(), newServ);
+                 User s = list.get(1);
+//                Toast.makeText(MainActivity.this, s.getName(), Toast.LENGTH_SHORT).show();
+//                 Service newServ = new Service("Zmieniony", s.getLocalization(), s.getDescription(), s.getPhoneNumber(), s.getEmail(), s.getCategory(), s.getSubcategory(), s.getWeddingHallDetails(), null, new ArrayList<>());
+//
+//                 serverConnector.update(s.getId(), newServ);
 //                Log.d("aktywnosc", "RozmiarWMain:" +String.valueOf(list.size()));
 //
 //

@@ -101,6 +101,7 @@ public class AddService extends AppCompatActivity {
                     startActivity(intent);
                 }
 
+
             }
         });
 
@@ -202,8 +203,10 @@ public class AddService extends AppCompatActivity {
                 //com.zpi.serviceProvider.model.Data data1 = new com.zpi.serviceProvider.model.Data();
                 //data1.getServiceProvider().addService(createdService);
                 ServerConnector<Service> serverConnector = new ServerConnector<>(ServiceName.services);
-                serverConnector.add(createdService);
-                return "Usługa została pomyślnie dodana";
+                boolean done = serverConnector.add(createdService);
+                if( done) { return "Usługa została pomyślnie dodana";}
+                else { return "Błąd";}
+
             }
             else{
                 return result;
