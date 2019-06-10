@@ -59,4 +59,9 @@ public class ServiceProviderMainActivity extends AppCompatActivity {
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

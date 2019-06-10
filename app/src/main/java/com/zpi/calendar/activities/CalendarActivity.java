@@ -217,7 +217,7 @@ public class CalendarActivity extends AppCompatActivity
 
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(e.getTimeInMillis());
-            cal.add(Calendar.HOUR, -8);
+            cal.add(Calendar.HOUR, -7);
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
         }
 
