@@ -12,6 +12,7 @@
 
     //searcher
     <string name="searcherTextView">Szukaj usługi</string>
+    <string name="CheckListTextView">Lista zadań</string>
     <string name="localizationText">Lokalizacja:</string>
     <string name="hint_loacalization">Podaj lokalizację</string>
     <string name="hint_localization">Podaj lokalizację</string>

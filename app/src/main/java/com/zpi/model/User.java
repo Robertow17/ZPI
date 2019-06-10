@@ -65,4 +65,16 @@ public class User implements Parcelable
         dest.writeInt(type.ordinal());
 
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserType getType() {
+        return type;
+    }
 }

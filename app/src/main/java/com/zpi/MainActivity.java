@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity
         switch(view.getId())
         {
             case R.id.budgetImageView:
-//                Log.d("aktywnosc", "RozmiarWMain:");
-//                intent = new Intent(MainActivity.this, BudgetActivity.class);
-                ServerConnector<User> serverConnector = new ServerConnector<>(ServiceName.users);
-                 List<User> list =serverConnector.getAll();
+                Log.d("aktywnosc", "RozmiarWMain:");
+                intent = new Intent(MainActivity.this, BudgetActivity.class);
+//                ServerConnector<User> serverConnector = new ServerConnector<>(ServiceName.users);
+//                 List<User> list =serverConnector.getAll();
 
-                 User s = list.get(1);
+//                 User s = list.get(1);
 //                Toast.makeText(MainActivity.this, s.getName(), Toast.LENGTH_SHORT).show();
 //                 Service newServ = new Service("Zmieniony", s.getLocalization(), s.getDescription(), s.getPhoneNumber(), s.getEmail(), s.getCategory(), s.getSubcategory(), s.getWeddingHallDetails(), null, new ArrayList<>());
 //
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 //                Log.d("aktywnosc", "MODYFIKOWANIE:" +c);
 
 
-                //startActivity(intent);
+                startActivity(intent);
                 break;
             case R.id.searcherImageView:
                 intent = new Intent(MainActivity.this, SearcherActivity.class);
@@ -86,10 +86,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.guestsListImage:
                 intent = new Intent(MainActivity.this, GuestsListActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.photoImageView:
-                intent = new Intent(MainActivity.this, ServiceProviderMainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.favouritesImageView:

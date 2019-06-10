@@ -15,20 +15,31 @@ import android.widget.Toast;
 
 import com.zpi.MainActivity;
 import com.zpi.R;
+import com.zpi.ServerConnector.ServerConnector;
+import com.zpi.ServerConnector.ServiceName;
 import com.zpi.loginForm.infrastructure.FormValidator;
-import com.zpi.loginForm.models.Sex;
-import com.zpi.loginForm.models.UserModel;
-import com.zpi.loginForm.models.UserType;
-import com.zpi.loginForm.infrastructure.UserManager;
+import com.zpi.model.User;
+import com.zpi.model.enums.Gender;
+import com.zpi.model.enums.UserType;
+import com.zpi.serviceProvider.activities.ServiceProviderMainActivity;
+
+import java.util.List;
 
 public class LoginForm extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
     private static final int MEMORY_ACCESS = 5;
+    List<User> users;
+    ServerConnector<User> utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_form);
         getLocalStorageIOPermission();
+
+        utils = new ServerConnector(ServiceName.users);
+        users = utils.getAll();
+
+        System.out.print("");
     }
 
     @Override
@@ -56,13 +67,22 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
     private void setSignInButtonListener() {
         Button signUpButton = findViewById(R.id.signInButton);
         signUpButton.setOnClickListener(view -> {
-            boolean canUserBeSignedIn = UserManager.areCredentialsValid(getEmail(), getPassword());
+            boolean canUserBeSignedIn = users.parallelStream().anyMatch(user -> user.getLogin().equals(getEmail()) && user.getPassword().equals(getPassword()));
 
-            if (canUserBeSignedIn) goToMainPage();
+            User current = getUser(getEmail());
+            if (canUserBeSignedIn) goToMainPage(current);
             else displayUnsuccessfulSignInToast();
         });
     }
 
+    private User getUser(String login){
+        for( User u : users){
+            if(u.getLogin().equals(login)){
+                return u;
+            }
+        }
+        return null;
+    }
     private String getPassword() {
         return getValueFromInput(R.id.passwordText);
     }
@@ -76,9 +96,15 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
         return input.getText().toString();
     }
 
-    private void goToMainPage() {
-        Intent intent = new Intent(LoginForm.this, MainActivity.class);
-        startActivity(intent);
+    private void goToMainPage(User current) {
+        if(current.getType()== com.zpi.model.enums.UserType.SERVICE_PROVIDER){
+            Intent intent = new Intent(LoginForm.this, ServiceProviderMainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(LoginForm.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void displayUnsuccessfulSignInToast() {
@@ -100,12 +126,14 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
         signUpButton.setOnClickListener(view -> {
             if(!areCredentialsValid(getEmail(), getPassword())) return;
 
-            boolean canUserBeSignedUp = !UserManager.doesUserExist(getEmail());
+            boolean canUserBeSignedUp = !users.parallelStream().anyMatch(user -> user.getLogin().equals(getEmail()));
 
             if (canUserBeSignedUp) {
-                UserModel newUser = new UserModel(getEmail(), getPassword(), getUserSex(), getUserType());
-                UserManager.registerUser(newUser);
+                User newUser = new User(getEmail(), getPassword(), getUserSex(), getUserType());
+                utils.add(newUser);
                 displaySuccessfulSignUpToast();
+                Intent intent = new Intent(LoginForm.this, LoginForm.class);
+                startActivity(intent);
             } else displayUnsuccessfulSignUpToast();
         });
     }
@@ -136,16 +164,16 @@ public class LoginForm extends AppCompatActivity implements ActivityCompat.OnReq
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userTypeRadioGroup);
         String engagedTypeButtonText = getValueFromInput(R.id.engagedUserButton);
 
-        if (radioButtonText.equals(engagedTypeButtonText)) return UserType.Engaged;
-        else return UserType.ServiceProvider;
+        if (radioButtonText.equals(engagedTypeButtonText)) return UserType.USER;
+        else return UserType.SERVICE_PROVIDER;
     }
 
-    private Sex getUserSex() {
+    private Gender getUserSex() {
         String radioButtonText = getValueFromRadioButtonGroup(R.id.userSexRadioGroup);
         String femaleButtonText = getValueFromInput(R.id.femaleButton);
 
-        if (radioButtonText.equals(femaleButtonText)) return Sex.Female;
-        else return Sex.Male;
+        if (radioButtonText.equals(femaleButtonText)) return Gender.FEMALE;
+        else return Gender.MALE;
     }
 
     private String getValueFromRadioButtonGroup(int id) {
